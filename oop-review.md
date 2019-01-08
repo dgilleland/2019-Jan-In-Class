@@ -103,7 +103,7 @@ namespace CSharp.Language.Review
         public WeightedMark(string name, int weight)
         {
             if (weight <= 0 || weight > 100)
-                throw new Exception("Invalid weight: must be betwee zero and 100");
+                throw new Exception("Invalid weight: must be between zero and 100");
             if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(name.Trim()))
                 throw new Exception("Name cannot be empty for weighted item");
             Weight = weight;
@@ -131,10 +131,10 @@ namespace CSharp.Language.Review
             set
             {
                 if (value < 0 || value > Possible)
-	                    throw new Exception("Invalid earned mark assigned");
-	                _Earned = value;
-	          }
-	      }
+	            throw new Exception("Invalid earned mark assigned");
+	        _Earned = value;
+	    }
+	}
         public double Percent
         { get { return (Earned / Possible) * 100; } }
 

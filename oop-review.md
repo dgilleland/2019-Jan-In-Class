@@ -2,6 +2,110 @@
 
 In Visual Studio, create a new console application named **CSharp.Language.Review**.
 
+## WeightedMark.cs
+
+```csharp
+using System;
+using System.Collections.Generic;
+
+namespace CSharp.Language.Review
+{
+    public class WeightedMark
+    {
+        public int Weight { get; private set; }
+        public string Name { get; private set; }
+
+        public WeightedMark(string name, int weight)
+        {
+            if (weight <= 0 || weight > 100)
+                throw new Exception("Invalid weight: must be between zero and 100");
+            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(name.Trim()))
+                throw new Exception("Name cannot be empty for weighted item");
+            Weight = weight;
+            Name = name;
+        }
+    }
+}
+```
+
+## EarnedMark.cs
+
+```csharp
+using System;
+using System.Collections.Generic;
+
+namespace CSharp.Language.Review
+{
+    public class EarnedMark : WeightedMark
+    {
+        public int Possible { get; private set; }
+        private double _Earned;
+        public double Earned
+        {
+            get { return _Earned; }
+            set
+            {
+                if (value < 0 || value > Possible)
+                throw new Exception("Invalid earned mark assigned");
+                _Earned = value;
+            }
+        }
+        public double Percent
+        { get { return (Earned / Possible) * 100; } }
+
+        public double WeightedPercent
+        { get { return Percent * Weight / 100; } }
+
+        public EarnedMark(WeightedMark markableItem, int possible, double earned)
+            : this(markableItem.Name, markableItem.Weight, possible, earned)
+        {
+        }
+
+        public EarnedMark(string name, int weight, int possible, double earned)
+            : base(name, weight)
+        {
+            if (possible <= 0)
+                throw new Exception("Invalid possible marks");
+            Possible = possible;
+            Earned = earned;
+        }
+
+        public override string ToString()
+        {
+            return String.Format("{0} ({1})\t - {2}% ({3}/{4}) \t- Weighted Mark {5}%", 
+                       Name, 
+                       Weight, 
+                       Percent, 
+                       Earned, 
+                       Possible, 
+                       WeightedPercent);
+        }
+    }
+}
+```
+
+## Student.cs
+
+```csharp
+using System;
+using System.Collections.Generic;
+
+namespace CSharp.Language.Review
+{
+    public class Student
+    {
+        public string Name { get; private set; }
+        public EarnedMark[] Marks { get; private set; }
+
+        public Student(string name, EarnedMark[] marks)
+        {
+            Name = name;
+            Marks = marks;
+        }
+    }
+}
+```
+
 ## Program.cs
 
 ```csharp
@@ -63,109 +167,5 @@ namespace CSharp.Language.Review
     }
 }
 
-```
-
-## Student.cs
-
-```csharp
-using System;
-using System.Collections.Generic;
-
-namespace CSharp.Language.Review
-{
-    public class Student
-    {
-        public string Name { get; private set; }
-        public EarnedMark[] Marks { get; private set; }
-
-        public Student(string name, EarnedMark[] marks)
-        {
-            Name = name;
-            Marks = marks;
-        }
-    }
-}
-```
-
-## WeightedMark.cs
-
-```csharp
-using System;
-using System.Collections.Generic;
-
-namespace CSharp.Language.Review
-{
-    public class WeightedMark
-    {
-        public int Weight { get; private set; }
-        public string Name { get; private set; }
-
-        public WeightedMark(string name, int weight)
-        {
-            if (weight <= 0 || weight > 100)
-                throw new Exception("Invalid weight: must be between zero and 100");
-            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(name.Trim()))
-                throw new Exception("Name cannot be empty for weighted item");
-            Weight = weight;
-            Name = name;
-        }
-    }
-}
-```
-
-## EarnedMark.cs
-
-```csharp
-using System;
-using System.Collections.Generic;
-
-namespace CSharp.Language.Review
-{
-    public class EarnedMark : WeightedMark
-    {
-        public int Possible { get; private set; }
-        private double _Earned;
-        public double Earned
-        {
-            get { return _Earned; }
-            set
-            {
-                if (value < 0 || value > Possible)
-	            throw new Exception("Invalid earned mark assigned");
-	        _Earned = value;
-	    }
-	}
-        public double Percent
-        { get { return (Earned / Possible) * 100; } }
-
-        public double WeightedPercent
-        { get { return Percent * Weight / 100; } }
-
-        public EarnedMark(WeightedMark markableItem, int possible, double earned)
-            : this(markableItem.Name, markableItem.Weight, possible, earned)
-        {
-        }
-
-        public EarnedMark(string name, int weight, int possible, double earned)
-            : base(name, weight)
-        {
-            if (possible <= 0)
-                throw new Exception("Invalid possible marks");
-            Possible = possible;
-            Earned = earned;
-        }
-
-        public override string ToString()
-        {
-            return String.Format("{0} ({1})\t - {2}% ({3}/{4}) \t- Weighted Mark {5}%", 
-                       Name, 
-                       Weight, 
-                       Percent, 
-                       Earned, 
-                       Possible, 
-                       WeightedPercent);
-        }
-    }
-}
 ```
 

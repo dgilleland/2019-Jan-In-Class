@@ -9,3 +9,6 @@ Recommended tools for this course include:
 - [GitHub Desktop](https://desktop.github.com)
 - Draw.io ([desktop](https://about.draw.io/integrations/#integrations_offline) and [online](https://draw.io) versions)
 
+Other recommended resources include:
+
+- [Learn Markdown](https://commonmark.org/help/)

@@ -13,3 +13,4 @@ Recommended tools for this course include:
 Other recommended resources include:
 
 - [Learn Markdown](https://commonmark.org/help/)
+- [Programming Fundamentals - An Object-Oriented Introduction to Programming in C#](https://programming-0101.github.io/TheBook/)

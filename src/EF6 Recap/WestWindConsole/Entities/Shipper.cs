@@ -11,5 +11,8 @@ namespace WestWindConsole.Entities
         public int ShipperID { get; set; }
         public string CompanyName { get; set; }
         public string Phone { get; set; }
+
+        public virtual ICollection<Shipment> Shipments { get; set; } =
+            new HashSet<Shipment>();
     }
 }

@@ -8,6 +8,11 @@ namespace FairviewMall.Framework.Entities
         NorthWest = 1,
         NorthEast = 2,
         SouthEast = 4,
-        SouthWest = 8
+        SouthWest = 8,
+        North = 3,
+        South = 12,
+        East = 6,
+        West = 9,
+        All = 15
     }
 }

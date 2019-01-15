@@ -1,4 +1,5 @@
 ﻿using Bogus;
+using FairviewMall.Framework.DAL;
 using FairviewMall.Framework.Entities;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,17 @@ namespace FairviewMall.RandomData
             foreach(var item in data)
             {
                 Console.WriteLine($"{item.CompanyName}\t{item.Website}");
+            }
+
+            LoadDatabase(data);
+        }
+
+        private static void LoadDatabase(List<Rental> data)
+        {
+            using (var context = new MallContext())
+            {
+                int count = context.Rentals.Count();
+                Console.WriteLine($"Starting with {count} Rentals.");
             }
         }
 

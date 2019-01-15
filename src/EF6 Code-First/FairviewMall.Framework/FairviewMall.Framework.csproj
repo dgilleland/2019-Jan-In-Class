@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAL\MallContext.cs" />
     <Compile Include="Entities\Bay.cs" />
     <Compile Include="Entities\BayRental.cs" />
     <Compile Include="Entities\Quadrant.cs" />
@@ -55,7 +56,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="BLL\" />
-    <Folder Include="DAL\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="LanguageReview.CSharp.Inheritance.AbstractLock">
+    <Position X="8.5" Y="0.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>gAAQCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Inheritance\AbstractLock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LanguageReview.CSharp.Inheritance.CombinationDial">
+    <Position X="10.25" Y="6.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Inheritance\CombinationDial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LanguageReview.CSharp.Inheritance.CombinationLock">
+    <Position X="10" Y="3.25" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>gAAQACAAAgAAAAAAAAAAAAAAAAAAABAAAAAAAAABAAA=</HashCode>
+      <FileName>Inheritance\CombinationLock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LanguageReview.CSharp.Inheritance.KeyLock">
+    <Position X="6.25" Y="3.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>gIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Inheritance\KeyLock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LanguageReview.CSharp.Inheritance.KeyPin">
+    <Position X="6.75" Y="5.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Inheritance\KeyPin.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

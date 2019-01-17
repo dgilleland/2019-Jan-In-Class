@@ -40,6 +40,7 @@ namespace Sandbox
         public Die(int numberOfSides)
         {
             Sides = numberOfSides; // store the value using the property
+            Roll();
         }
 
         // Methods

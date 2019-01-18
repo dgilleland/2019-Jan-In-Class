@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FairviewMall.Framework.DAL
 {
-    public class MallContext :DbContext
+    public class MallContext : DbContext
     {
         public MallContext() : base("name=MallDb")
         {
@@ -18,6 +18,8 @@ namespace FairviewMall.Framework.DAL
         public DbSet<Bay> Bays { get; set; }
         public DbSet<Rental> Rentals { get; set; }
         public DbSet<BayRental> BayRentals { get; set; }
+
+        public DbSet<DbHistory> DatabaseVersions { get; set; }
         #endregion
     }
 }

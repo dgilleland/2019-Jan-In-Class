@@ -29,6 +29,10 @@ namespace FairviewMall.Framework.Migrations
                     BayID = id,
                     FloorSpace = 800
                 };
+                if(count == 3 || count == 12)
+                {
+                    bay.ReservedUse = "Bathrooms";
+                }
                 // Add this to our database
                 context.Bays.AddOrUpdate(bay);
             }

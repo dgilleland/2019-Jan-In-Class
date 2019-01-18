@@ -57,6 +57,10 @@
     <Compile Include="Migrations\201901182045509_InitialSchema.Designer.cs">
       <DependentUpon>201901182045509_InitialSchema.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901182102311_HistoryInfo.cs" />
+    <Compile Include="Migrations\201901182102311_HistoryInfo.Designer.cs">
+      <DependentUpon>201901182102311_HistoryInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -70,6 +74,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201901182045509_InitialSchema.resx">
       <DependentUpon>201901182045509_InitialSchema.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901182102311_HistoryInfo.resx">
+      <DependentUpon>201901182102311_HistoryInfo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

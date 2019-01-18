@@ -50,8 +50,14 @@
     <Compile Include="DAL\MallContext.cs" />
     <Compile Include="Entities\Bay.cs" />
     <Compile Include="Entities\BayRental.cs" />
+    <Compile Include="Entities\DbHistory.cs" />
     <Compile Include="Entities\Quadrant.cs" />
     <Compile Include="Entities\Rental.cs" />
+    <Compile Include="Migrations\201901182045509_InitialSchema.cs" />
+    <Compile Include="Migrations\201901182045509_InitialSchema.Designer.cs">
+      <DependentUpon>201901182045509_InitialSchema.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -60,6 +66,11 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201901182045509_InitialSchema.resx">
+      <DependentUpon>201901182045509_InitialSchema.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

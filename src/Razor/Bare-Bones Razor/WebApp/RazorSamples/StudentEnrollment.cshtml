@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Student Enrollment</title>
+    <style type="text/css">
+        label:before
+        {
+            content: ".";
+            clear: both;
+            display: block;
+            height: 0;
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Sample HTML 5 Form</h1>
+        <nav>
+            <ul>
+                <li><a href="/Default.htm">Home</a></li>
+                <li><a href="/FormSamples">HTML 5 Forms</a>
+                    <ul>
+                        <li><a href="/FormSamples/ContestEntry.html">Contest Entry</a></li>
+                        <li><a href="/FormSamples/CreateBankAccount.html">Create Bank Account</a></li>
+                        <li><a href="/FormSamples/JobApplication.html">Job Application</a></li>
+                        <li><a href="/FormSamples/StudentEnrollment.html">Student Enrolement</a></li>
+                    </ul>
+                </li>
+                <li><a href="/RazorSamples">Razor Forms</a>
+                    <ul>
+                        <li><a href="/RazorSamples/ContestEntry.cshtml">Contest Entry</a></li>
+                        <li><a href="/RazorSamples/CreateBankAccount.cshtml">Create Bank Account</a></li>
+                        <li><a href="/RazorSamples/JobApplication.cshtml">Job Application</a></li>
+                        <li><a href="/RazorSamples/StudentEnrollment.cshtml">Student Enrolement</a></li>
+                    </ul>
+                </li>
+                <li><a href="/Practice/Default.htm">Practice Forms</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section>
+        <h1>Student Enrollment</h1>
+        <p>Fill out the following form and click Submit.</p>
+
+        <form action="StudentEnrollment.html">
+            <fieldset>
+                <legend>Enrollment</legend>
+                <label for="firstName">First Name</label>
+                <input name="firstName" type="text">
+                <label for="lastName">Last Name</label>
+                <input name="lastName" type="text">
+                <label for="middleName">Middle Name</label>
+                <input name="middleName" type="text">
+                <label for="socialInsuranceNumber">Social Insurance Number</label>
+                <input name="socialInsuranceNumber" type="number" min="100000000" max="999999999">
+                <label for="dateOfBirth">Date of Birth</label>
+                <input name="dateOfBirth" type="date">
+                <label for="programOfStudy">Program of Study</label>
+                <select name="programOfStudy">
+                    <option value="DMIT">Digital Media and Information Technology</option>
+                    <option value="Business">Business</option>
+                    <option value="Dental">Dental Hygene</option>
+                    <option value="EMT">Emergency Medial Technician</option>
+                </select>
+                <label for="schoolYear">Starting School Year</label>
+                <select name="schoolYear">
+                    <option>2013</option>
+                    <option>2014</option>
+                    <option>2015</option>
+                </select>
+            </fieldset>
+            <input name="submit" type="submit" value="Submit">
+        </form>
+    </section>
+</body>
+</html>

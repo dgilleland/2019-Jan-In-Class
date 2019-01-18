@@ -1,0 +1,13 @@
+﻿@{
+    Page.Title = "Title goes here";
+    Layout = "~/_Layout.cshtml";
+}
+
+@section pagefooter {
+    <p>Today's date is @DateTime.Today.ToLongDateString().</p>
+    <p>&copy; @DateTime.Today.Year</p>
+}
+<header>
+    <h1>About this Site</h1>
+    <h2>(and the back-end)</h2>
+</header>

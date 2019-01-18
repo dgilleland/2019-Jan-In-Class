@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Contest Entry</title>
+    <style type="text/css">
+        label:before
+        {
+            content: ".";
+            clear: both;
+            display: block;
+            height: 0;
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Sample HTML 5 Form</h1>
+        <nav>
+            <ul>
+                <li><a href="/Default.htm">Home</a></li>
+                <li><a href="/FormSamples">HTML 5 Forms</a>
+                    <ul>
+                        <li><a href="/FormSamples/ContestEntry.html">Contest Entry</a></li>
+                        <li><a href="/FormSamples/CreateBankAccount.html">Create Bank Account</a></li>
+                        <li><a href="/FormSamples/JobApplication.html">Job Application</a></li>
+                        <li><a href="/FormSamples/StudentEnrollment.html">Student Enrolement</a></li>
+                    </ul>
+                </li>
+                <li><a href="/RazorSamples">Razor Forms</a>
+                    <ul>
+                        <li><a href="/RazorSamples/ContestEntry.cshtml">Contest Entry</a></li>
+                        <li><a href="/RazorSamples/CreateBankAccount.cshtml">Create Bank Account</a></li>
+                        <li><a href="/RazorSamples/JobApplication.cshtml">Job Application</a></li>
+                        <li><a href="/RazorSamples/StudentEnrollment.cshtml">Student Enrolement</a></li>
+                    </ul>
+                </li>
+                <li><a href="/Practice/Default.htm">Practice Forms</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section>
+        <h1>Contest Entry</h1>
+        <p>Please fill out the following form to enter the contest. This contest is only available to residents in Western Canada.</p>
+
+        <form action="ContestEntry.html">
+            <fieldset>
+                <legend>Application Form</legend>
+                <label for="firstName">First Name</label>
+                <input name="firstName" type="text">
+                <label for="lastName">Last Name</label>
+                <input name="lastName" type="text">
+                <label for="streetAddress1">Street Address 1</label>
+                <input name="streetAddress1" type="text">
+                <label for="streetAddress2">Street Address 2</label>
+                <input name="streetAddress2" type="text">
+                <label for="city">City</label>
+                <input name="city" type="text">
+                <label for="province">Province/Territory</label>
+                <select name="province">
+                    <option value="">(select a province)</option>
+                    <option value="AB">AB</option>
+                    <option value="BC">BC</option>
+                    <option value="MB">MB</option>
+                    <option value="NB">NB</option>
+                    <option value="NS">NS</option>
+                    <option value="NT">NT</option>
+                    <option value="NU">NU</option>
+                    <option value="ON">ON</option>
+                    <option value="PE">PE</option>
+                    <option value="QC">QC</option>
+                    <option value="SK">SK</option>
+                    <option value="YT">YT</option>
+                </select>
+                <label for="postalCode">Postal Code</label>
+                <input name="postalCode" type="text">
+                <label for="emailAddress">Email</label>
+                <input name="emailAddress" type="email">
+                <p>
+                    Note: You must agree to the contest terms in order to be entered.<br>
+                    <input name="agreeToTerms" type="checkbox">
+                    <label for="agreeToTerms">I agree to the terms of the contest.</label>
+                </p>
+            </fieldset>
+            <input name="submit" type="submit" value="Submit">
+        </form>
+    </section>
+</body>
+</html>

@@ -1,0 +1,35 @@
+﻿@{
+    // Code-block for your C# code
+}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Razor Intro - Text Input</title>
+    </head>
+    <body>
+        <h1>Demo Text Input</h1>
+        @{
+            string theName = Request["yourName"]; // will return null if empty
+            // Request is "kind of" like an array, but much, much more....
+            if(IsPost)
+            {
+                if(string.IsNullOrEmpty(theName))
+                {
+                    <p>Please enter your name before clicking the button.</p>
+                }
+                else
+                {
+                    <p>Greetings <b>@theName</b> and welcome to CPSC-1517.</p>
+                }
+            }
+        }
+        <form method="post">
+            <div>
+                <label for="yourName">Your Name:</label>
+                <input type="text" name="yourName" id="yourName" value="@theName" />
+                <input type="submit" value="Tell me your name" />
+            </div>
+        </form>
+    </body>
+</html>

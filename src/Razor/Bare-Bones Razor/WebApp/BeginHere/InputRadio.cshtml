@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <title>Radio Input Demo</title>
+    </head>
+    <body>
+        <h1>Radio Button Demo</h1>
+        @{
+            if(IsPost)
+            {
+                <p><b>TODO:</b> Finish the Razor code yourself.</p>
+            }
+        }
+        <form method="post">
+            <div>
+                <p>Select your favorite programming language.</p>
+                <input type="radio" name="favLang" value="cs" />C# <br />
+                <input type="radio" name="favLang" value="Java" />Java <br />
+                <input type="radio" name="favLang" value="JavaScript" />JavaScript <br />
+
+                <p>Have you coded this language before?</p>
+                <input type="radio" name="prevExperience" value="Yes" />Yup <br />
+                <input type="radio" name="prevExperience" value="No" />Nope <br />
+
+                <input type="submit" value="Pick Favorite" />
+            </div>
+        </form>
+    </body>
+</html>

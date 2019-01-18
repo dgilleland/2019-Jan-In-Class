@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>AppDev 1 - HTML 5 Forms Demo</title>
+</head>
+<body>
+    <header>
+        <h1>About HTML 5 Forms</h1>
+        <nav>
+            <ul>
+                <li><a href="/Default.htm">Home</a></li>
+                <li><a href="/FormSamples">HTML 5 Forms</a>
+                    <ul>
+                        <li><a href="/FormSamples/ContestEntry.html">Contest Entry</a></li>
+                        <li><a href="/FormSamples/CreateBankAccount.html">Create Bank Account</a></li>
+                        <li><a href="/FormSamples/JobApplication.html">Job Application</a></li>
+                        <li><a href="/FormSamples/StudentEnrollment.html">Student Enrolement</a></li>
+                    </ul>
+                </li>
+                <li><a href="/RazorSamples">Razor Forms</a>
+                    <ul>
+                        <li><a href="/RazorSamples/ContestEntry.cshtml">Contest Entry</a></li>
+                        <li><a href="/RazorSamples/CreateBankAccount.cshtml">Create Bank Account</a></li>
+                        <li><a href="/RazorSamples/JobApplication.cshtml">Job Application</a></li>
+                        <li><a href="/RazorSamples/StudentEnrollment.cshtml">Student Enrolement</a></li>
+                    </ul>
+                </li>
+                <li><a href="/Practice/Default.htm">Practice Forms</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section>
+        <h1>HTML 5 Forms</h1>
+        <p>The standard (and definitive) way to gather user input from a web-page is to use HTML Form elements. Form elements, such as textboxes, checkboxes, etc, must be enclosed in a &lt;form&gt; element. All browsers support version HTML 4.01, and most modern browsers support HTML 5. Because HTML 5 is the emerging standard and it offers better features, it will be the standard used in this course.</p>
+        <p>The &lt;form&gt; element supports a number of different attributes, but the </p>
+        <p>As a good primer on forms, one place to go is W3C's <a href="http://www.w3.org/wiki/HTML_forms_-_the_basics" target="_blank">"HTML forms - the basics"</a> article. For those interested in exploring how to style HTML forms, check out the <a href="http://alistapart.com/article/prettyaccessibleforms" target="_blank">"Prettier Accessible Forms"</a>article on A List Apart.</p>
+        <p>The following are the primary controls for user input:</p>
+        <ul class="bold-link">
+            <li><a href="http://www.w3.org/TR/html-markup/form.html" target="_blank">&lt;form&gt;</a> - This element is required for all HTML forms, as it specifies the kind of action to take when the form is submitted. All the other form elements for user data and actions are to be included inside the form element. You can have multiple form elements on a single page (as long as they are distinguished by the name attribute), but they cannot be nested. The following are key attributes that are commonly used on the form element:
+                    <ul>
+                        <li><a href="http://www.w3.org/TR/html-markup/form.html#form.attrs.action" target="_blank">action</a> - This is the url to which the form is submitted. It is common to have the form submit back to itself, in which case you would put the very name of the page as the action attribute's value.</li>
+                        <li><a href="http://www.w3.org/TR/2012/WD-html5-20121025/form-submission.html#attr-fs-method" target="_blank">method</a> - This is the way in which the form information is submitted. It can be "GET" (for retrieving data, and also the default if this attribute is omitted) or "POST" (for submitting data). For all our purposes in creating forms, it will always be a "POST".</li>
+                        <li><a href="http://www.w3.org/TR/2012/WD-html5-20121025/form-submission.html#attr-fs-enctype" target="_blank">enctype</a> - When uploading files to the server, this attribute should be included and its value should be "multipart/form-data"</li>
+                        <li><a href="http://www.w3.org/TR/2012/WD-html5-20121025/the-form-element.html#attr-form-name" target="_blank">name</a> - This optional attribute can be used to place different forms on the same page and keep their form data distint.</li>
+                        <li><a href="http://www.w3.org/TR/2012/WD-html5-20121025/the-form-element.html#attr-form-autocomplete" target="_blank">autocomplete</a> - The value for this attribute can be either "on" or "off". It's new in HTML5, and it effectively instructs the browser whether to enable or disable autocomplete for input controls. The default value, if this is not included, is "on".</li>
+                    </ul>
+            </li>
+            <li><a href="http://www.w3.org/TR/html-markup/input.html" target="_blank">&lt;input&gt;</a> - This element can get user input in various forms, including:
+                    <ul>
+                        <li>type="<a href="http://www.w3.org/TR/html-markup/input.text.html" target="_blank">text</a>" - Plain text input, single line. (For multi-line text, use &lt;textarea&gt;)</li>
+                        <li>type="<a href="http://www.w3.org/TR/html-markup/input.password.html" target="_blank">password</a>" - Plain text input, but with characters hidden as &quot;password protection&quot; from people looking &quot;over the shoulder&quot;. Note: This should not be regarded as any true security; it&#39;s only meant to hide it from casual observation.</li>
+                        <li>type="<a href="http://www.w3.org/TR/html-markup/input.checkbox.html" target="_blank">checkbox</a>" - </li>
+                        <li>type="<a href="http://www.w3.org/TR/html-markup/input.radio.html" target="_blank">radio</a>" - </li>
+                        <li>type="<a href="http://www.w3.org/TR/html-markup/input.hidden.html" target="_blank">hidden</a>" - </li>
+                        <li>type="<a href="http://www.w3.org/TR/html-markup/input.button.html" target="_blank">button</a>" - </li>
+                        <li>type="<a href="http://www.w3.org/TR/html-markup/input.submit.html" target="_blank">submit</a>" - </li>
+                        <li>type="<a href="http://www.w3.org/TR/html-markup/input.file.html" target="_blank">file</a>" - </li>
+                    </ul>
+            </li>
+            <li><a href="http://www.w3.org/TR/html-markup/textarea.html" target="_blank">&lt;textarea&gt;</a></li>
+            <li><a href="http://www.w3.org/TR/html-markup/select.html" target="_blank">&lt;select&gt;</a> and <a href="http://www.w3.org/TR/html-markup/option.html" target="_blank">&lt;option&gt;</a></li>
+            <li><a href="http://www.w3.org/TR/html-markup/button.html" target="_blank">&lt;button&gt;</a></li>
+            <li><a href="http://www.w3.org/TR/html-markup/fieldset.html" target="_blank">&lt;fieldset&gt;</a> and <a href="http://www.w3.org/TR/html-markup/legend.html" target="_blank">&lt;legend&gt;</a></li>
+            <li><a href="http://www.w3.org/TR/html-markup/label.html" target="_blank">&lt;label&gt;</a></li>
+        </ul>
+
+        <h2>New in HTML 5</h2>
+        <p>Some of the more interesting new features in HTML 5 forms include:</p>
+        <form action="/Index.html" method="POST">
+            <ul>
+                <li>New <a href="http://www.w3.org/TR/html-markup/input.html" target="_blank">&lt;input&gt;</a> types. If the browser does not support any particular input type, then it simply falls back to the text type.
+                        <dl>
+                            <dt class="clear-prefix"><a href="http://www.w3.org/TR/html-markup/input.email.html" target="_blank">email</a></dt>
+                            <dd>Must be of a valid format for an e-mail.
+                                <input type="email" /></dd>
+
+                            <dt class="clear-prefix">
+                                <a href="http://www.w3.org/TR/html-markup/input.datetime.html" target="_blank">datetime</a>, 
+                                <a href="http://www.w3.org/TR/html-markup/input.date.html" target="_blank">date</a>, 
+                                <a href="http://www.w3.org/TR/html-markup/input.month.html" target="_blank">month</a>, 
+                                <a href="http://www.w3.org/TR/html-markup/input.week.html" target="_blank">week</a>, 
+                                <a href="http://www.w3.org/TR/html-markup/input.time.html" target="_blank">time</a>, 
+                                <a href="http://www.w3.org/TR/html-markup/input.datetime-local.html" target="_blank">datetime-local</a>
+                            </dt>
+                            <dd>Each of these can direct input to match a time-based format. Some of them are more general (like datetime or date) while others are much more specific (such as month or week).
+                                <input type="date" /></dd>
+
+                            <dt class="clear-prefix"><a href="http://www.w3.org/TR/html-markup/input.url.html" target="_blank">url</a></dt>
+                            <dd>These must be a single absolute url.
+                                <input type="url" /></dd>
+
+                            <dt class="clear-prefix"><a href="http://www.w3.org/TR/html-markup/input.number.html" target="_blank">number</a></dt>
+                            <dd>These can be whole or real numbers.
+                                <input type="number" /></dd>
+
+                            <dt class="clear-prefix"><a href="http://www.w3.org/TR/html-markup/input.range.html" target="_blank">range</a></dt>
+                            <dd>This also represents numerical input, but not an actual number. Instead, it is a value between a minimum (default of zero) and a maximum (default of 100). These can be customized with the min and max attributes, respectively.
+                                <input type="range" /></dd>
+
+                            <dt class="clear-prefix"><a href="http://www.w3.org/TR/html-markup/input.color.html" target="_blank">color</a></dt>
+                            <dd>This is used for choosing a valid six-digit hexadecimal color.
+                                <input type="color" /></dd>
+
+                            <dt class="clear-prefix"><a href="http://www.w3.org/TR/html-markup/input.tel.html" target="_blank">tel</a></dt>
+                            <dd>Used for entering telephone numbers, its actual format is specified by the <a href="http://html5pattern.com" target="_blank">pattern</a> attribute.
+                                <input type="tel" pattern="\d{3}[\-]\d{3}[\-]\d{4}" title="Canadian/US Phone Number" /></dd>
+
+                            <dt class="clear-prefix"><a href="http://www.w3.org/TR/html-markup/input.search.html" target="_blank">search</a></dt>
+                            <dd>The search type is the same as the text input type, but is rendered differently in browsers to give the stylistic appearance of a search box.
+                                <input type="search" /></dd>
+                        </dl>
+                </li>
+                <li>The <a href="http://www.w3.org/TR/html-markup/progress.html" target="_blank">&lt;progress&gt;</a> element, which is used to represent how far some task is to completion. For example, this progress bar represents a value of 70/100. <progress max="100" value="70"></progress></li>
+                <li>The <a href="http://www.w3.org/TR/html-markup/meter.html" target="_blank">&lt;meter&gt;</a> element is used to represent a measurement as a scalar guage. Part of what makes this element interesting is that the text inside the element can reflect the actual values of the element. (You can read more on this at <a href="http://html5doctor.com/measure-up-with-the-meter-tag/" target="_blank">html5doctor.com</a>. This example also represents a value of 70/100. <meter min="0" max="100" value="70">70 out of 100</meter>.
+                </li>
+                <li>The <a href="http://www.w3.org/TR/html-markup/datalist.html" target="_blank">&lt;datalist&gt;</a> element</li>
+                <li>The <a href="http://www.w3.org/TR/html-markup/keygen.html" target="_blank">&lt;keygen&gt;</a> element </li>
+                <li>The <a href="http://www.w3.org/TR/html-markup/output.html" target="_blank">&lt;output&gt;</a> element </li>
+            </ul>
+        </form>
+
+        <h2>The Samples</h2>
+        <ul class="bold-link">
+            <li><a href="/FormSamples/ContestEntry.html">Contest Entry</a> &mdash; </li>
+            <li><a href="/FormSamples/CreateBankAccount.html">Create Bank Account</a> &mdash; </li>
+            <li><a href="/FormSamples/JobApplication.html">Job Application</a> &mdash; </li>
+            <li><a href="/FormSamples/StudentEnrollment.html">Student Enrolement</a> &mdash; </li>
+        </ul>
+
+        <h2>Further Reading...</h2>
+        <p>For details on the HTML5 forms, research the following links:</p>
+        <ul>
+            <li><a href="http://www.w3.org/wiki/HTML_forms_-_the_basics" target="_blank">HTML forms - the basics</a></li>
+            <li><a href="http://docs.webplatform.org/wiki/Main_Page" target="_blank">Web Platform Docs</a> (up-to-date, from W3C)</li>
+            <li><a href="http://www.w3.org/TR/html5/forms.html" target="_blank">W3C Official Specs</a></li>
+            <li><a href="http://html5doctor.com/" target="_blank">HTML 5 Doctor</a></li>
+            <li><a href="http://devfiles.myopera.com/articles/4582/html5-forms-example.html" target="_blank">HTML5 Forms Example</a></li>
+            <li><a href="http://www.html5rocks.com/en/tutorials/forms/html5forms/" target="_blank">Making Forms Fabulous with HTML5</a></li>
+            <li><a href="http://alistapart.com/article/prettyaccessibleforms" target="_blank">Prettier Accessible Forms</a></li>
+            <li><a href="http://css-tricks.com/label-placement-on-forms/" target="_blank">Label Placement on Forms</a></li>
+            <li><a href="http://diveintohtml5.info/forms.html" target="_blank">A Form of Madness</a></li>
+            <li><a href="http://html5doctor.com/measure-up-with-the-meter-tag/" target="_blank">Measure Up With the Meter Tag</a>, and
+                    <br />
+                <a href="http://chemicaloliver.net/internet/styling-the-html5-meter-tag-using-the-shadow-dom/" target="_blank">Styling the HTOM5 Meter Tag Using the Shadow DOM</a>
+            </li>
+        </ul>
+    </section>
+    <footer>
+        <div class="content-wrapper">
+            <div class="float-left">
+                <p>Credits:</p>
+                <ul>
+                    <li>External Links Icon - taken from <a href="http://commons.wikimedia.org/wiki/File:Icon_External_Link.png" target="_blank">Wikimedia</a></li>
+                    <li>External Links CSS - taken from <a href="http://www.electrictoolbox.com/add-offsite-link-icon-after-external-links-css/" target="_blank">this blog post</a></li>
+                </ul>
+            </div>
+            <div class="float-right">
+                <p>&copy; 2013 - DMIT</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

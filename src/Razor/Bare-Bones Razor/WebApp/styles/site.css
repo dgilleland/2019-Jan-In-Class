@@ -1,0 +1,89 @@
+﻿/* CSS Reset */
+*, *:before, *:after {
+    box-sizing: inherit;
+    padding: 0;
+    margin: 0;
+}
+
+/* Body Layout */
+body {
+    display: grid;
+    width: 80%;
+    margin-left: 10%;
+    min-height: 100vh;
+}
+html::after {
+    content: "";
+    background-image: url("/Images/833.jpg");
+    position: absolute;
+    opacity: 0.250;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+}
+
+body > * {
+    background-color: white;
+    opacity: .6
+}
+
+body > nav {
+    grid-row: 1;
+    opacity: 1;
+}
+
+body > header {
+    grid-row: 2;
+    opacity: 1;
+    background-image: url("/Images/240.jpg");
+    background-repeat:no-repeat;
+    background-size: cover;
+    min-height: 150px;
+}
+
+body > main {
+    grid-row: 3;
+    padding: 0px 0px 5px 0px;
+    opacity: 1;
+}
+
+body > footer {
+    grid-row: 4;
+    padding: 5px;
+}
+
+/* Navigation Menu */
+body > nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+body > nav .brand {
+    color: darkorange;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 1.2em;
+}
+body > nav > ul {
+    display: flex;
+    list-style: none;
+    background-color: darkgrey;
+    font-size: 1.2em;
+}
+body > nav > ul > li {
+    padding: 3px 8px;
+    background-color: slategray;
+    margin-right: 7px;
+}
+
+/* Other page styles */
+body > header > h1 {
+    margin-top: 0;
+    margin-bottom: .64em;
+}
+
+footer .credits {
+    font-size: 8px;
+}

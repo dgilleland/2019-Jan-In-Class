@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <title>Demo of Select-Option</title>
+    </head>
+    <body>
+        <h1>Demo of Select-Option (DropDowns)</h1>
+        @{
+            var selectedGameConsoles = Request["gameConsoles"];
+            var theirFavConsole = Request["favoriteConsoles"];
+            if(IsPost)
+            {
+                if(selectedGameConsoles.IsEmpty())
+                {
+                    <p>So, you don't play computer games...</p>
+                }
+                else
+                {
+                    char[] delimiter = { ',' };
+                    <p>I see you have the following consoles:</p>
+                    <ul>
+                        @foreach(var console in selectedGameConsoles.Split(delimiter))
+                        {
+                            <li>@console</li>
+                        }
+                    </ul>
+                }
+                
+                if(theirFavConsole.IsEmpty())
+                {
+                    <p>Tell us your favorite game console!</p>
+                }
+                else
+                {
+                    <p>
+                        It appears that your favorite is <b>@theirFavConsole</b>.
+                        @if(! selectedGameConsoles.IsEmpty())
+                        {
+                            if(selectedGameConsoles.Contains(theirFavConsole))
+                            {
+                                <text>Glad to see you own your favorite console!</text>
+                            }
+                            else
+                            {
+                                @:Too bad you don't own that one. :( Ask you parents for some money ;)
+                            }
+                        }                        
+                    </p>
+                }
+            }
+        }
+
+        <form method="post">
+            <div>
+                <label for="gameConsoles">Select the Game Consoles you have: </label>
+                <select name="gameConsoles" id="gameConsoles" multiple="multiple">
+                    <option value="PS4">Playstation 4</option>
+                    <option value="PS3">Playstation 3</option>
+                    <option value="PSita">PS Vita</option>
+                    <option value="XBox One">XBox ONE</option>
+                    <option value="XBox 360">XBox 360</option>
+                    <option value="Nintendo Wii">Nintendo Wii</option>
+                    <option value="Nintendo Wii U">Nintendo Wii U</option>
+                    <option value="Nintendo 3DS">Nintendo 3DS</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="favoriteConsoles">Which Game Console is your favorite: </label>
+                <select name="favoriteConsoles" id="favoriteConsoles">
+                    <option value="">[Select your fav]</option>
+                    <option value="PS4">Playstation 4</option>
+                    <option value="PS3">Playstation 3</option>
+                    <option value="PSita">PS Vita</option>
+                    <option value="XBox One">XBox ONE</option>
+                    <option value="XBox 360">XBox 360</option>
+                    <option value="Nintendo Wii">Nintendo Wii</option>
+                    <option value="Nintendo Wii U">Nintendo Wii U</option>
+                    <option value="Nintendo 3DS">Nintendo 3DS</option>
+                </select>
+            </div>
+            <input type="submit" value="Send us your info" />
+        </form>
+    </body>
+</html>

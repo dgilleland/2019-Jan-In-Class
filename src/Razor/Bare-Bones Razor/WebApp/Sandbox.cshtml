@@ -1,0 +1,100 @@
+﻿@{
+    Page.Title = "Sandbox - A Place to Play";
+    Layout = "~/_Layout.cshtml";
+    if (IsPost)
+    {
+        <div>This page was requested as a POST request.</div>
+    }
+    else
+    {
+        <div>
+            This page was requested as a GET request.
+            Any form information sent via a GET request will appear in
+            a Query String in the browser's address bar.
+        </div>
+    }
+}
+@section pagefooter {
+    <p>This is a place to put all sorts of test Razor code.</p>
+    <p>A web page that sends information to a web server needs to have all of its user input controls inside of a &lt;form&gt; tag. A form tag can send the information back as either a GET or POST request to the web server.</p>
+}
+<h1>Sandbox Page - Always Changing</h1>
+<p>A couple of sample forms:</p>
+<div>
+    <form method="get">
+        <fieldset>
+            <legend>A form that sends via GET</legend>
+            Your Name:
+            <input type="text" name="visitorName"
+                   value="@Request.QueryString["visitorName"]" />
+            <input type="submit" value="Send Name via GET" />
+        </fieldset>
+    </form>
+</div>
+<div>
+    <form method="post">
+        <fieldset>
+            <legend>A form that sends via POST</legend>
+            Your Name:
+            <input type="text" name="visitorName"
+                   value="@Request.Form["visitorName"]" />
+            <input type="submit" value="Send Name via POST" />
+        </fieldset>
+    </form>
+</div>
+
+@{
+    if (IsPost)
+    {
+        // In a POST request, all the form values are stored in the
+        // Form collection in the Request object
+        string theName = Request.Form["visitorName"];
+        <div>Hello @theName</div>
+    }
+    else
+    {
+        // In a GET request, all the form values are sent via a Query String
+        // and are accessible through the QueryString collection in the
+        // Request object
+        string queryStringValue = Request.QueryString["visitorName"];
+        if (!string.IsNullOrWhiteSpace(queryStringValue))
+        {
+            <div>
+                Hello @queryStringValue! I see your information is also
+                in the address bar as a query string.
+            </div>
+        }
+    }
+}
+
+<hr />
+@{
+    string foreground = null;
+    string background = null;
+}
+<div class="colorMix">
+    <style type="text/css">
+        .colorMix {
+            @if (IsPost)
+            {
+                foreground = Request.Form["fore"];
+                background = Request.Form["back"];
+                <text>
+                    /* This is CSS */
+                    color: @foreground;
+                    background-color: @background;
+                </text>
+            }
+        }
+    </style>
+    <form method="post">
+        <fieldset>
+            <legend>A color-mix example</legend>
+            <label>Foreground: </label>
+            <input type="color" name="fore" value="@foreground" />
+            <label>Background: </label>
+            <input type="color" name="back" value="@background" />
+            <button type="submit">Set the color mix for this form</button>
+        </fieldset>
+    </form>
+</div>

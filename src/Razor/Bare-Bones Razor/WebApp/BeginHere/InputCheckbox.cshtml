@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <title>Checkbox Input Demo</title>
+    </head>
+    <body>
+        <h1>Checkbox Demo</h1>
+        @{
+            string gameConsoles = Request["gameConsole"];
+            if(IsPost)
+            {
+                if(string.IsNullOrEmpty(gameConsoles))
+                {
+                    <p>Good student! You have more time to study!</p>
+                }
+                else
+                {
+                    char[] delimiter = { ',' };
+                    <p>I see you enjoy the following:</p>
+                    <ul>
+                        @foreach(string console in gameConsoles.Split(delimiter) )
+                        {
+                            <li>@console</li>
+                        }
+                    </ul>
+                }
+            }
+        }
+        <form method="post">
+            <p>Select the game consoles you own.</p>
+            <input type="checkbox" name="gameConsole" value="PS4" />Playstation 4 <br />
+            <input type="checkbox" name="gameConsole" value="PS3" />Playstation 3 <br />
+            <input type="checkbox" name="gameConsole" value="PSVita" />PS Vita <br />
+            <input type="checkbox" name="gameConsole" value="XBox One" />XBox One <br />
+            <input type="checkbox" name="gameConsole" value="XBox 3360" />XBox 360 <br />
+
+            <input type="submit" value="Pick Favorite" />
+        </form>
+    </body>
+</html>

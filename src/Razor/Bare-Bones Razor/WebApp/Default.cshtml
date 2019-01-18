@@ -1,0 +1,28 @@
+﻿@{ 
+    // This is a C# block of code ("code-block")
+    Page.Title = "My Razor Page";
+    Layout = "~/_Layout.cshtml"; // the ~ means the root of the website
+}
+
+@section pagefooter {
+    <p>Today's date is @DateTime.Today.ToLongDateString().</p>
+}
+
+
+@section head {
+    <style>
+        /* This is how you do CSS comments (multi-line) */
+        .page-header {
+            background-color: #663399;
+            color: white;
+            padding: 5px 5px 10px 5px;
+        }
+    </style>
+}
+
+<h1 class="page-header">Welcome to @Page.Title</h1>
+
+<script>
+    /* Javascript comments are a lot like C# comments */
+    //alert('Your computer is infected.');
+</script>

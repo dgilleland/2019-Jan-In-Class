@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <title>Email Sample</title>
+    </head>
+    <body>
+        <h1>Send Email Demonstration</h1>
+        @{
+            // I am using cpsc.1517.dg@gmail.com
+            var senderName = Request["yourName"];
+            var message = Request["yourMessage"];
+            var password = Request["gmailPassword"];
+            if(IsPost)
+            {
+                WebMail.SmtpServer = "smtp.gmail.com";
+                WebMail.SmtpPort = 587;
+                WebMail.EnableSsl = true;
+                WebMail.UserName = "cpsc.1517.dg@gmail.com";
+                WebMail.Password = password; // do NOT hardcode this value!!!!
+                WebMail.From = "cpsc.1517.dg@gmail.com"; // send it from yourself to yourself....
+                string mailSubject = "Simple Mail Demonstration";
+                string mailMessage = senderName + "<br />" + message;
+                try
+                {
+                    WebMail.Send(to: WebMail.From, subject: mailSubject, body: mailMessage);
+                    <p>Your message has been sent. (I think)</p>
+                }
+                catch (Exception ex)
+                {
+                    <p>Error sending mail:<br />@ex.Message</p>
+                }
+            }
+        }
+        <form method="post">
+            <div>
+                <label for="yourName">Your Name: </label>
+                <input type="text" name="yourName" id="yourName" required="required" />
+            </div>
+            <div>
+                <label for="yourMessage">Your Message: </label>
+                <textarea name="yourMessage" id="yourMessage" cols="100" rows="10" required="required"></textarea>
+            </div>
+            <div>
+                <input type="submit" value="Send Message" />
+                <input type="password" name="gmailPassword" placeholder="Your gMail Password" required="required" />
+            </div>
+        </form>
+    </body>
+</html>

@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Job Application</title>
+    <style type="text/css">
+        label:before, .inline-block label:after
+        {
+            content: ".";
+            clear: both;
+            display: block;
+            height: 0;
+            visibility: hidden;
+        }
+        .inline-block
+        {
+            display: inline-block;
+            vertical-align: top;
+        }
+        .inline-block label:before
+        {
+            content: ".";
+            clear: both;
+            display: inline;
+            height: 0;
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Sample HTML 5 Form</h1>
+        <nav>
+            <ul>
+                <li><a href="/Default.htm">Home</a></li>
+                <li><a href="/FormSamples">HTML 5 Forms</a>
+                    <ul>
+                        <li><a href="/FormSamples/ContestEntry.html">Contest Entry</a></li>
+                        <li><a href="/FormSamples/CreateBankAccount.html">Create Bank Account</a></li>
+                        <li><a href="/FormSamples/JobApplication.html">Job Application</a></li>
+                        <li><a href="/FormSamples/StudentEnrollment.html">Student Enrolement</a></li>
+                    </ul>
+                </li>
+                <li><a href="/RazorSamples">Razor Forms</a>
+                    <ul>
+                        <li><a href="/RazorSamples/ContestEntry.cshtml">Contest Entry</a></li>
+                        <li><a href="/RazorSamples/CreateBankAccount.cshtml">Create Bank Account</a></li>
+                        <li><a href="/RazorSamples/JobApplication.cshtml">Job Application</a></li>
+                        <li><a href="/RazorSamples/StudentEnrollment.cshtml">Student Enrolement</a></li>
+                    </ul>
+                </li>
+                <li><a href="/Practice/Default.htm">Practice Forms</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section>
+        <h1>Job Application</h1>
+        <p>Please fill out the following form and click Submit to apply for the listed job(s).</p>
+
+        <form action="JobApplication.html">
+            <fieldset>
+                <legend>Application Form</legend>
+                <label for="fullName">Name</label>
+                <input name="fullName" type="text">
+                <label for="emailAddress">Email</label>
+                <input name="emailAddress" type="email">
+                <label for="phoneNumber">Phone</label>
+                <input name="phoneNumber" type="tel" pattern="\d{3}[\-]\d{3}[\-]\d{4}" title="Canadian/US Phone Number">
+                <label for="fullOrPartTime">Full/Part Time</label>
+                <div class="inline-block">
+                    <input name="fullOrPartTime" type="radio" value="Full time">
+                    <label for="fullOrPartTime">Full time</label>
+                    <input name="fullOrPartTime" type="radio" value="Part time">
+                    <label for="fullOrPartTime_1">Part time</label>
+                </div>
+                <label for="jobIn">Jobs</label>
+                <div class="inline-block">
+                    <input type="checkbox" name="jobIn" value="Sales"><label for="jobInSales">Sales</label>
+                    <input type="checkbox" name="jobIn" value="Manufacturing"><label for="jobInManufacturing">Manufacturing</label>
+                    <input type="checkbox" name="jobIn" value="Accounting"><label for="jobInAccounting">Accounting</label>
+                    <input type="checkbox" name="jobIn" value="ShippingReceiving"><label for="jobInShippingReceiving">Shipping/Receiving</label>
+                </div>
+            </fieldset>
+            <input name="submit" type="submit" value="Submit">
+            <input type="reset" value="Reset" />
+        </form>
+    </section>
+</body>
+</html>

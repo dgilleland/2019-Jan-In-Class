@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <h1>Index</h1>
+    <a href="~/About.html">About this site</a>
+    @{ 
+        string personName = Request["visitorName"];
+        if(!string.IsNullOrEmpty(personName))
+        {
+            <div>Hello @personName.</div>
+        }
+    }
+    <form method="post">
+        <input type="text" name="visitorName" placeholder="Enter your name" />
+        <input type="text" name="userName" placeholder="Pick a user name" />
+        <input type="password" name="password" placeholder="Pick a password" />
+        <input type="submit" value="Submit Form" />
+    </form>
+
+</body>
+</html>

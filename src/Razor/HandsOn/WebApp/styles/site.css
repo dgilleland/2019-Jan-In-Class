@@ -1,0 +1,20 @@
+﻿body {
+    display: grid;
+    background-color: azure;
+}
+
+header {
+    grid-row: 2;
+}
+
+nav {
+    grid-row: 1;
+}
+
+main {
+    grid-row: 3;
+}
+
+footer {
+    grid-row: 4;
+}

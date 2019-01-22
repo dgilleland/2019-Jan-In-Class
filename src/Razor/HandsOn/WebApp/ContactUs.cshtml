@@ -1,0 +1,43 @@
+﻿@{
+    Layout = "~/_Layout.cshtml";
+
+    // Grab values from the submitted form.
+    string name = "", email = "";
+    if(IsPost)
+    {
+        <div>Thanks for contacting us. Someone will be in touch with you soon.</div>
+        // The following gets the value from either the query string or the form
+        name = Request["visitorName"]; // the same as in the name attribute of the <input />
+        // The following gets the value from the form only
+        email = Request.Form["visitorEmail"];
+
+        string reason = Request["contactReason"];
+        <div><b>@reason</b></div>
+    }
+}
+
+<h1>Contact Us</h1>
+
+<form method="post">
+    <label for="visitorName">Name</label>
+    <input type="text" name="visitorName" id="visitorName" required value="@name" />
+
+    <fieldset id="contactReason">
+        <legend>
+            <label for="contactReason">Reason for Contact</label>
+        </legend>
+        <input type="checkbox" name="contactReason" value="Feeback" id="contact-feedback" />
+        <label for="contact-feedback">Feedback on your site</label>
+
+        <input type="checkbox" name="contactReason" value="SubmitResume" id="contact-resume" />
+        <label for="contact-resume">Submit Resume</label>
+
+        <input type="checkbox" name="contactReason" value="RequestDemo" id="contact-demo" />
+        <label for="contact-demo">Request a Demo</label>
+    </fieldset>
+
+    <label for="visitorEmail">Email</label>
+    <input type="email" name="visitorEmail" id="visitorEmail" required value="@email" />
+
+    <input type="submit" value="Contact Us" name="submitForm" />
+</form>

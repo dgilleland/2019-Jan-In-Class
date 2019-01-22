@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@Page.Title</title>
+    <link href="~/styles/site.css" rel="stylesheet" />
+    @RenderSection("head", required: false)
+</head>
+<body>
+    <main>
+        @RenderBody()
+    </main>
+    <header>
+        <h1>My Hands-On Razor Site</h1>
+    </header>
+    <footer>
+        <p>&copy; @DateTime.Today.Year by Dan Gilleland</p>
+    </footer>
+    <nav>
+        <ul>
+            <li><a href="~/Default.cshtml">Home</a></li>
+            <li><a href="~/About.cshtml">About</a></li>
+            <li><a href="~/ContactUs.cshtml">Contact Us</a></li>
+            <li><a href="~/Login.cshtml">Login</a></li>
+        </ul>
+    </nav>
+</body>
+</html>

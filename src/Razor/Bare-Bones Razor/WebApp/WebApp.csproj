@@ -105,7 +105,7 @@
     <Content Include="About.cshtml" />
     <None Include="RazorSamples\ContestEntry.cshtml" />
     <None Include="RazorSamples\CreateBankAccount.cshtml" />
-    <None Include="RazorSamples\Default.cshtm" />
+    <None Include="RazorSamples\Default.cshtml" />
     <None Include="RazorSamples\JobApplication.cshtml" />
     <None Include="RazorSamples\StudentEnrollment.cshtml" />
     <Content Include="Sandbox.cshtml" />

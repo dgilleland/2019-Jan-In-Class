@@ -50,6 +50,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLL\BlackMarketController.cs" />
+    <Compile Include="DataModels\Ad.cs" />
+    <Compile Include="DataModels\Item.cs" />
     <Compile Include="DataModels\Member.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

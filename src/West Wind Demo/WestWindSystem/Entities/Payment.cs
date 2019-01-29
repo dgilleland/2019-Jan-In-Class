@@ -6,7 +6,7 @@ namespace WestWindSystem.Entities
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Payment
+    internal partial class Payment
     {
         public int PaymentID { get; set; }
 

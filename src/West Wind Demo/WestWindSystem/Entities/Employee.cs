@@ -6,7 +6,7 @@ namespace WestWindSystem.Entities
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Employee
+    internal partial class Employee
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Employee()
@@ -75,6 +75,15 @@ namespace WestWindSystem.Entities
         public string Notes { get; set; }
 
         public bool? Active { get; set; }
+
+        public DateTime? TerminationDate { get; set; }
+
+        public bool OnLeave { get; set; }
+
+        [StringLength(80)]
+        public string LeaveReason { get; set; }
+
+        public DateTime? ReturnDate { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Employee> Employees1 { get; set; }

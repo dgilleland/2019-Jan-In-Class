@@ -6,7 +6,7 @@ namespace WestWindSystem.Entities
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class OrderDetail
+    internal partial class OrderDetail
     {
         public int OrderDetailID { get; set; }
 

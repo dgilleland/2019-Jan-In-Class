@@ -6,7 +6,7 @@ namespace WestWindSystem.Entities
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Order
+    internal partial class Order
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Order()
@@ -20,6 +20,7 @@ namespace WestWindSystem.Entities
 
         public int? SalesRepID { get; set; }
 
+        [Required]
         [StringLength(5)]
         public string CustomerID { get; set; }
 
@@ -47,6 +48,9 @@ namespace WestWindSystem.Entities
 
         [StringLength(15)]
         public string ShipCountry { get; set; }
+
+        [StringLength(250)]
+        public string Comments { get; set; }
 
         public virtual Customer Customer { get; set; }
 

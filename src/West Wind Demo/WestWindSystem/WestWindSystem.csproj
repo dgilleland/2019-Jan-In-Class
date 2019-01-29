@@ -53,12 +53,9 @@
     <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\Customer.cs" />
     <Compile Include="Entities\Employee.cs" />
-    <Compile Include="Entities\ExtendedOrderDetail.cs" />
-    <Compile Include="Entities\InvoiceItem.cs" />
     <Compile Include="Entities\ManifestItem.cs" />
     <Compile Include="Entities\Order.cs" />
     <Compile Include="Entities\OrderDetail.cs" />
-    <Compile Include="Entities\OrderSubtotal.cs" />
     <Compile Include="Entities\Payment.cs" />
     <Compile Include="Entities\PaymentType.cs" />
     <Compile Include="Entities\Product.cs" />
@@ -74,5 +71,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

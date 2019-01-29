@@ -6,13 +6,11 @@ namespace WestWindSystem.DAL
     using System.Linq;
     using WestWindSystem.Entities;
 
-    public partial class WestWindContext : DbContext
+    internal partial class WestWindContext : DbContext
     {
         public WestWindContext()
             : base("name=WWDb")
         {
-            // This programmatically prevents EF from generating the database
-            Database.SetInitializer<WestWindContext>(null);
         }
 
         public virtual DbSet<Category> Categories { get; set; }
@@ -29,9 +27,6 @@ namespace WestWindSystem.DAL
         public virtual DbSet<Shipper> Shippers { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<Territory> Territories { get; set; }
-        public virtual DbSet<ExtendedOrderDetail> ExtendedOrderDetails { get; set; }
-        public virtual DbSet<InvoiceItem> InvoiceItems { get; set; }
-        public virtual DbSet<OrderSubtotal> OrderSubtotals { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -43,6 +38,11 @@ namespace WestWindSystem.DAL
             modelBuilder.Entity<Customer>()
                 .Property(e => e.CustomerID)
                 .IsFixedLength();
+
+            modelBuilder.Entity<Customer>()
+                .HasMany(e => e.Orders)
+                .WithRequired(e => e.Customer)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Employee>()
                 .HasMany(e => e.Employees1)
@@ -149,34 +149,6 @@ namespace WestWindSystem.DAL
             modelBuilder.Entity<Territory>()
                 .Property(e => e.TerritoryDescription)
                 .IsFixedLength();
-
-            modelBuilder.Entity<ExtendedOrderDetail>()
-                .Property(e => e.UnitPrice)
-                .HasPrecision(19, 4);
-
-            modelBuilder.Entity<ExtendedOrderDetail>()
-                .Property(e => e.ExtendedPrice)
-                .HasPrecision(19, 4);
-
-            modelBuilder.Entity<InvoiceItem>()
-                .Property(e => e.CustomerID)
-                .IsFixedLength();
-
-            modelBuilder.Entity<InvoiceItem>()
-                .Property(e => e.UnitPrice)
-                .HasPrecision(19, 4);
-
-            modelBuilder.Entity<InvoiceItem>()
-                .Property(e => e.ExtendedPrice)
-                .HasPrecision(19, 4);
-
-            modelBuilder.Entity<InvoiceItem>()
-                .Property(e => e.Freight)
-                .HasPrecision(19, 4);
-
-            modelBuilder.Entity<OrderSubtotal>()
-                .Property(e => e.Subtotal)
-                .HasPrecision(19, 4);
         }
     }
 }

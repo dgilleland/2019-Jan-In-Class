@@ -49,7 +49,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLL\ProductManagementController.cs" />
     <Compile Include="Class1.cs" />
+    <Compile Include="DataModels\ProductCategory.cs" />
+    <Compile Include="DataModels\ProductSummary.cs" />
     <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\Customer.cs" />
     <Compile Include="Entities\Employee.cs" />

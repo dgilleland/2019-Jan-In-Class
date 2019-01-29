@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@Page.Title</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    @RenderSection("head", required: false)
+</head>
+<body>
+
+    @RenderPage("~/_Menu.cshtml")
+
+    <div class="jumbotron">
+        <div class="container">
+            @RenderSection("Jumbo", false)
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    <footer class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <hr />
+                &copy; 2019 - Built with <a href="https://getbootstrap.com/docs/3.3/">Bootstrap</a> and <a href="https://www.freefavicon.com/freefavicons/objects/">FreeFavIcon</a> and <a href="">FontAwesome</a>.
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

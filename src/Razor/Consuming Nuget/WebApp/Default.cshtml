@@ -1,0 +1,20 @@
+﻿@{
+    // This razor code block is processed on the Server-side,
+    // meaning that the whole contents of this page will be
+    // placed within the following layout page.
+    Layout = "~/_Layout.cshtml"; // ~ is the "root" of the website
+}
+
+@section Jumbo{
+    <h1>Consuming Nuget Packages</h1>
+
+}
+
+<p>Steps to reproduce:</p>
+
+<ul>
+    <li>Create a VS Web App using the Empty Website template</li>
+    <li>Update existing NuGet packages, and add the Bootstrap 3.3.7 package</li>
+    <li>Create a layout page (<code>_Layout.cshtml</code>)</li>
+    <li>Create a <code>Default.cshtml</code> page and replace the content with a reference to the layout page.</li>
+</ul>

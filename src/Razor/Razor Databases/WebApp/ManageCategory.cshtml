@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <style rel="stylesheet" media="all">
+        form {
+            display: grid;
+            grid-template-columns: 125px 300px;
+            grid-row-gap: 5px;
+        }
+
+        fieldset {
+            grid-column: 2;
+        }
+
+        fieldset.buttons {
+            border: 0;
+            padding-left: 0;
+            margin-left: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Manage Category</h1>
+
+    <form method="post">
+        <label>Name</label>
+        <input name="catName" type="text" placeholder="Category Name" />
+        
+        <label>Description</label>
+        <input name="catDescription" type="text" placeholder="Description" />
+
+        <label>Picture</label>
+        <input name="catPic" type="file" />
+
+        <fieldset class="buttons">
+            <input name="submitType" type="submit" value="Add" />
+            <input name="submitType" type="submit" value="Update" />
+            <input name="submitType" type="submit" value="Delete" />
+            <input name="submitType" type="submit" value="Cancel" />
+            <input name="catId" type="hidden" />
+        </fieldset>
+    </form>
+</body>
+</html>

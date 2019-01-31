@@ -17,6 +17,18 @@
             <div>
                 <a href="#">@row.CategoryName</a> - 
                 @row.Description
+                @if(row.Picture != null)
+                {
+                    // Getting a string version of the binary image
+                    string base64String = Convert.ToBase64String(row.Picture);
+                    // Create a string to be the src for my image
+                    // string src = string.Format("data:{0};base64,{1}", row.PictureMimeType, base64String);
+                    // Here's the string interpolation approach to string.Format
+                    string src = $"data:{row.PictureMimeType};base64,{base64String}";
+                    <text>
+                       <img src="@src" width="75" />
+                    </text>
+                }
             </div>
         }
 

@@ -15,7 +15,7 @@
         foreach(var row in results)
         {
             <div>
-                <a href="#">@row.CategoryName</a> - 
+                <a href="~/ManageCategory.cshtml?catId=@row.CategoryID">@row.CategoryName</a> - 
                 @row.Description
                 @if(row.Picture != null)
                 {

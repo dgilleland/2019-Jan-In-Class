@@ -12,6 +12,7 @@ namespace WestWindSystem.BLL
     [DataObject] // this class provides access to objects that can be DataBound to UI controls
     public class ProductManagementController
     {
+        #region Query Product Catalog
         [DataObjectMethod(DataObjectMethodType.Select)]
         public List<ProductCategory> ListCurrentProducts()
         {
@@ -36,5 +37,49 @@ namespace WestWindSystem.BLL
                 return result.ToList();
             }
         }
+        #endregion
+
+        #region Product Info CRUD Processing
+        [DataObjectMethod(DataObjectMethodType.Select)]
+        public List<ProductInfo> FilterProducts(string partialName, bool includeDiscontinued)
+        {
+            using (var context = new WestWindContext())
+            {
+                var results = from item in context.Products
+                              where item.ProductName.Contains(partialName)
+                                 && (item.Discontinued == includeDiscontinued || !item.Discontinued)
+                              select new ProductInfo
+                              {
+                                  ProductId = item.ProductID,
+                                  Name = item.ProductName,
+                                  Price = item.UnitPrice,
+                                  QtyPerUnit = item.QuantityPerUnit,
+                                  Supplier = item.Supplier.CompanyName,
+                                  Category = item.Category.CategoryName,
+                                  SupplierId = item.SupplierID,
+                                  CategoryId = item.CategoryID
+                              };
+                return results.ToList();
+            }
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Insert)]
+        public void AddProductItem(ProductInfo info)
+        {
+
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Update)]
+        public void UpdateProductItem(ProductInfo info)
+        {
+
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Delete)]
+        public void DeleteProductItem(ProductInfo info)
+        {
+
+        }
+        #endregion
     }
 }

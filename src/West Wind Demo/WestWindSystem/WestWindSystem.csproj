@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="BLL\ProductManagementController.cs" />
     <Compile Include="DataModels\ProductCategory.cs" />
+    <Compile Include="DataModels\ProductInfo.cs" />
     <Compile Include="DataModels\ProductSummary.cs" />
     <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\Customer.cs" />

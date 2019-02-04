@@ -8,3 +8,9 @@
   - Each instance of SQL Server can manage multiple databases.
 - SQL Server Management Studio (SSMS)
   - A software tool to connect to and manage SQL Server instances and their databases.
+
+----
+
+## ESP - Spec 1
+
+![Spec 1 ERD](ESP-PhysicalERD-Spec-1.png)

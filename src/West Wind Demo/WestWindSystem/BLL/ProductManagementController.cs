@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WestWindSystem.DAL;
 using WestWindSystem.DataModels;
+using WestWindSystem.Entities;
 
 namespace WestWindSystem.BLL
 {
@@ -66,19 +67,79 @@ namespace WestWindSystem.BLL
         [DataObjectMethod(DataObjectMethodType.Insert)]
         public void AddProductItem(ProductInfo info)
         {
+            // Step 0: Validation
+            if (info == null)
+                throw new ArgumentNullException(nameof(info), $"No {nameof(ProductInfo)} was supplied for adding a new product to the catalog.");
+            if (info.Price <= 0)
+                throw new ArgumentOutOfRangeException(nameof(info.Price), $"The supplied price of {info.Price} must be greater than zero.");
 
+            // Step 1: Process the request by adding a new Product to the database
+            using (var context = new WestWindContext())
+            {
+                var newItem = new Product
+                {
+                    ProductName = info.Name?.Trim(), // Null Conditional Operator  ?.
+                    QuantityPerUnit = info.QtyPerUnit?.Trim(),
+                    UnitPrice = info.Price,
+                    CategoryID = info.CategoryId,
+                    SupplierID = info.SupplierId
+                };
+                context.Products.Add(newItem);
+                context.SaveChanges(); // This will cause all the validation attributes to be checked
+            }
         }
 
         [DataObjectMethod(DataObjectMethodType.Update)]
-        public void UpdateProductItem(ProductInfo info)
+        public void UpdateProductItem(ProductInfo info) // ProductInfo is our POCO class
         {
+            // Step 0: Validation
+            if (info == null)
+                throw new ArgumentNullException(nameof(info), $"No {nameof(ProductInfo)} was supplied for updating an existing product in the catalog.");
+            if (info.Price <= 0)
+                throw new ArgumentOutOfRangeException(nameof(info.Price), $"The supplied price of {info.Price} must be greater than zero.");
 
+            // Step 1: Process the request by modifying an existing Product in the database
+            using (var context = new WestWindContext())
+            {
+                var given = new Product // Product is our Entity class
+                {
+                    ProductID = info.ProductId,
+                    ProductName = info.Name,
+                    UnitPrice = info.Price,
+                    QuantityPerUnit = info.QtyPerUnit,
+                    CategoryID = info.CategoryId,
+                    SupplierID = info.SupplierId
+                };
+                var existing = context.Entry(given); // .Entry() will look for the Product obj with a matching ID
+                // Assuming I will get a null if the product does not exist
+                if (existing == null)
+                    throw new ArgumentException($"The given product id of {info.ProductId} does not exist in the database.", nameof(info.ProductId));
+                // Specify which Product properties I've modified, 'cause I don't want to lose
+                // the .Discontinued or the .UnitsOnOrder values.
+                existing.Property(nameof(given.ProductName)).IsModified = true;
+                existing.Property(nameof(given.UnitPrice)).IsModified = true;
+                existing.Property(nameof(given.QuantityPerUnit)).IsModified = true;
+                existing.Property(nameof(given.CategoryID)).IsModified = true;
+                existing.Property(nameof(given.SupplierID)).IsModified = true;
+
+                // Update the database
+                context.SaveChanges();
+            }
         }
 
         [DataObjectMethod(DataObjectMethodType.Delete)]
         public void DeleteProductItem(ProductInfo info)
         {
-
+            if (info == null)
+                throw new ArgumentNullException(nameof(info), "No Product Info was supplied for deletion.");
+            using (var context = new WestWindContext())
+            {
+                var existing = context.Products.Find(info.ProductId);
+                if (existing == null)
+                    throw new ArgumentException("The product was not found", nameof(info.ProductId));
+                context.Products.Remove(existing);
+                context.SaveChanges();
+            }
         }
         #endregion
     }

@@ -24,14 +24,18 @@
                                  placeholder="Product Name" required="required" />
 
                             <asp:DropDownList ID="SupplierDropDown" runat="server"
-                                 SelectedValue="<%# BindItem.SupplierId %>"
-                                 AppendDataBoundItems="true">
+                                CssClass="form-control"
+                                SelectedValue="<%# BindItem.SupplierId %>"
+                                AppendDataBoundItems="true" DataSourceID="SupplierDataSource"
+                                DataTextField="Value" DataValueField="Key">
                                 <asp:ListItem Value="0">[Select a Supplier]</asp:ListItem>
                             </asp:DropDownList>
 
                             <asp:DropDownList ID="CategoryDropDown" runat="server"
-                                 SelectedValue="<%# BindItem.CategoryId %>"
-                                 AppendDataBoundItems="true">
+                                CssClass="form-control"
+                                SelectedValue="<%# BindItem.CategoryId %>"
+                                AppendDataBoundItems="true" DataSourceID="CategoryDataSource" 
+                                DataTextField="Value" DataValueField="Key">
                                 <asp:ListItem Value="0">[Select a Category]</asp:ListItem>
                             </asp:DropDownList>
                         </div>
@@ -39,16 +43,12 @@
                             <%# $"{Item.Price:C}" %>
                             (for <%# Item.QtyPerUnit %>)
                             <br />
-                            <asp:CheckBox ID="IsDiscontinued" runat="server"
-                                 Text="Discontinued" Visible="<%# Item.IsDiscontinued %>"
-                                 Checked="<%# Item.IsDiscontinued %>"
-                                 Enabled="false"/>
-                            <asp:LinkButton ID="Discontinue" runat="server"
-                                 CssClass="btn btn-default"
-                                 Text="Discontinue" Visible="<%# !Item.IsDiscontinued %>" />
-                            <asp:LinkButton ID="Edit" runat="server"
-                                 CssClass="btn btn-default" CommandName="Edit"
-                                 Text="Edit" />
+                            <asp:LinkButton ID="Update" runat="server"
+                                 CssClass="btn btn-default" CommandName="Update"
+                                 Text="Update" />
+                            <asp:LinkButton ID="Cancel" runat="server"
+                                 CssClass="btn btn-default" CommandName="Cancel"
+                                 Text="Cancel" />
                         </div>
                     </div>
                 </EditItemTemplate>
@@ -96,6 +96,10 @@
                     <asp:ControlParameter ControlID="IncludeDiscontinued" PropertyName="Checked" Name="includeDiscontinued" Type="Boolean"></asp:ControlParameter>
                 </SelectParameters>
             </asp:ObjectDataSource>
+
+            <asp:ObjectDataSource ID="SupplierDataSource" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="ListSuppliersNameAndId" TypeName="WestWindSystem.BLL.ProductManagementController"></asp:ObjectDataSource>
+
+            <asp:ObjectDataSource ID="CategoryDataSource" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="ListCategoriesNameAndId" TypeName="WestWindSystem.BLL.ProductManagementController"></asp:ObjectDataSource>
         </div>
     </div>
 </asp:Content>

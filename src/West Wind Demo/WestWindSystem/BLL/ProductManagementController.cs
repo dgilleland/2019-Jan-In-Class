@@ -53,6 +53,18 @@ namespace WestWindSystem.BLL
                 return suppliers.ToList();
             }
         }
+
+        [DataObjectMethod(DataObjectMethodType.Select)]
+        public List<KeyValuePair<int, string>> ListCategoriesNameAndId()
+        {
+            using (var context = new WestWindContext())
+            {
+                // use .ToList() because KeyValuePair<,> does not translate to SQL
+                var suppliers = from company in context.Categories.ToList()
+                                select new KeyValuePair<int, string>(company.CategoryID, company.CategoryName);
+                return suppliers.ToList();
+            }
+        }
         #endregion
 
         [DataObjectMethod(DataObjectMethodType.Select)]

@@ -128,6 +128,23 @@ namespace WestWindSystem.BLL
         }
 
         [DataObjectMethod(DataObjectMethodType.Delete)]
+        public void DiscontinueProductItem(ProductInfo info)
+        {
+            if (info == null)
+                throw new ArgumentNullException(nameof(info), "No Product Info was supplied for discontinuing.");
+            using (var context = new WestWindContext())
+            {
+                var existing = context.Products.Find(info.ProductId);
+                if (existing == null)
+                    throw new ArgumentException("The product was not found", nameof(info.ProductId));
+                existing.Discontinued = true;
+                var entry = context.Entry(existing);
+                entry.Property(x => x.Discontinued).IsModified = true;
+                context.SaveChanges();
+            }
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Delete)]
         public void DeleteProductItem(ProductInfo info)
         {
             if (info == null)

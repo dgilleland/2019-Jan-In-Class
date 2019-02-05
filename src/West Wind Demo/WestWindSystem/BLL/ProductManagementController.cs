@@ -41,6 +41,20 @@ namespace WestWindSystem.BLL
         #endregion
 
         #region Product Info CRUD Processing
+        #region Supplier/Category Supporting Lists
+        [DataObjectMethod(DataObjectMethodType.Select)]
+        public List<KeyValuePair<int, string>> ListSuppliersNameAndId()
+        {
+            using (var context = new WestWindContext())
+            {
+                var suppliers = from company in context.Suppliers.ToList()
+                                // use .ToList() because KeyValuePair<,> does not translate to SQL
+                                select new KeyValuePair<int, string>(company.SupplierID, company.CompanyName);
+                return suppliers.ToList();
+            }
+        }
+        #endregion
+
         [DataObjectMethod(DataObjectMethodType.Select)]
         public List<ProductInfo> FilterProducts(string partialName, bool includeDiscontinued)
         {

@@ -17,6 +17,40 @@
                  DataSourceID="ProductDataSource" InsertItemPosition="LastItem"
                  ItemType="WestWindSystem.DataModels.ProductInfo">
                 <EditItemTemplate>
+                    <div class="row" style="border-bottom: solid 1px lightgray">
+                        <div class="col-sm-8">
+                            <asp:TextBox ID="ProductName" runat="server"
+                                 Text="<%# BindItem.Name %>" CssClass="form-control"
+                                 placeholder="Product Name" required="required" />
+
+                            <asp:DropDownList ID="SupplierDropDown" runat="server"
+                                 SelectedValue="<%# BindItem.SupplierId %>"
+                                 AppendDataBoundItems="true">
+                                <asp:ListItem Value="0">[Select a Supplier]</asp:ListItem>
+                            </asp:DropDownList>
+
+                            <asp:DropDownList ID="CategoryDropDown" runat="server"
+                                 SelectedValue="<%# BindItem.CategoryId %>"
+                                 AppendDataBoundItems="true">
+                                <asp:ListItem Value="0">[Select a Category]</asp:ListItem>
+                            </asp:DropDownList>
+                        </div>
+                        <div class="col-sm-4">
+                            <%# $"{Item.Price:C}" %>
+                            (for <%# Item.QtyPerUnit %>)
+                            <br />
+                            <asp:CheckBox ID="IsDiscontinued" runat="server"
+                                 Text="Discontinued" Visible="<%# Item.IsDiscontinued %>"
+                                 Checked="<%# Item.IsDiscontinued %>"
+                                 Enabled="false"/>
+                            <asp:LinkButton ID="Discontinue" runat="server"
+                                 CssClass="btn btn-default"
+                                 Text="Discontinue" Visible="<%# !Item.IsDiscontinued %>" />
+                            <asp:LinkButton ID="Edit" runat="server"
+                                 CssClass="btn btn-default" CommandName="Edit"
+                                 Text="Edit" />
+                        </div>
+                    </div>
                 </EditItemTemplate>
 
                 <InsertItemTemplate>
@@ -43,7 +77,7 @@
                                  CssClass="btn btn-default"
                                  Text="Discontinue" Visible="<%# !Item.IsDiscontinued %>" />
                             <asp:LinkButton ID="Edit" runat="server"
-                                 CssClass="btn btn-default"
+                                 CssClass="btn btn-default" CommandName="Edit"
                                  Text="Edit" />
                         </div>
                     </div>

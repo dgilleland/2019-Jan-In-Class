@@ -58,7 +58,8 @@ namespace WestWindSystem.BLL
                                   Supplier = item.Supplier.CompanyName,
                                   Category = item.Category.CategoryName,
                                   SupplierId = item.SupplierID,
-                                  CategoryId = item.CategoryID
+                                  CategoryId = item.CategoryID,
+                                  IsDiscontinued = item.Discontinued
                               };
                 return results.ToList();
             }

@@ -18,5 +18,6 @@ namespace WestWindSystem.DataModels
         public int SupplierId { get; set; }
         public string Category { get; set; }
         public int CategoryId { get; set; }
+        public bool IsDiscontinued { get; set; }
     }
 }

@@ -1,5 +1,7 @@
 # Accessing Databases with Razor Web Pages
 
+This sample uses the [West Wind Wholesalers](AboutWestWind.md) database.
+
 ## Setting Up NuGet Packages
 
 To work with databases in bare-bones Razor, you will need a couple of NuGet packages:

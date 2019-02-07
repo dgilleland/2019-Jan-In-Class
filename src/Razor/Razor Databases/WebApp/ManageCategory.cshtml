@@ -42,7 +42,7 @@
         if (IsPost)
         {
             // See if an image was included in the Posted form data
-            if (Request.Files.Count > 0)
+            if (Request.Files.Count > 0 && Request.Files[0].ContentLength > 0)
             {
                 catPic = Request.Files[0];
                 mimeType = catPic.ContentType;
@@ -52,9 +52,19 @@
             switch (submitType)
             {
                 case "Add":
-                    string insertStatement = "INSERT INTO Categories(CategoryName, Description, Picture, PictureMimeType) VALUES(@0, @1, @2, @3)";
-                    // The .Execute() method is used to insert/update/delete
-                    westWindDatabase.Execute(insertStatement, catName, catDescription, catPicBytes, mimeType);
+                    string insertStatement;
+                    if (catPicBytes != null)
+                    {
+                        insertStatement = "INSERT INTO Categories(CategoryName, Description, Picture, PictureMimeType) VALUES(@0, @1, @2, @3)";
+                        // The .Execute() method is used to insert/update/delete
+                        westWindDatabase.Execute(insertStatement, catName, catDescription, catPicBytes, mimeType);
+                    }
+                    else
+                    {
+                        insertStatement = "INSERT INTO Categories(CategoryName, Description) VALUES(@0, @1)";
+                        // The .Execute() method is used to insert/update/delete
+                        westWindDatabase.Execute(insertStatement, catName, catDescription);
+                    }
                     // Inserting gets the Db to make a CategoryID for the new row
                     // so we want to grab that new identity value.
                     var newId = westWindDatabase.QueryValue("SELECT SCOPE_IDENTITY()");
@@ -141,7 +151,7 @@
        you are using forms that have a file upload control.-->
     <form method="post" enctype="multipart/form-data">
         <label>Name</label>
-        <input name="@nameof(catName)" type="text" placeholder="Category Name" value="@catName" />
+        <input name="@nameof(catName)" type="text" placeholder="Category Name" value="@catName" required />
 
         <label>Description</label>
         <input name="@nameof(catDescription)" type="text" placeholder="Description" value="@catDescription" />

@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <style type="text/css">
+        form {
+            display: grid;
+            grid-gap: 7px;
+            grid-template-columns: 120px 12px 300px 70px;
+        }
+
+            form > label {
+                grid-column: 1;
+            }
+
+            form > select, form > input {
+                grid-column: 2 / span 2;
+            }
+
+                form > select + button {
+                    grid-column: 4;
+                }
+                form > input[type=checkbox] {
+                    grid-column: 2;
+                }
+                form > input[type=checkbox] + label {
+                    grid-column: 3;
+                }
+
+            form > hr {
+                grid-column: 1 / span 4;
+                width: 100%;
+            }
+    </style>
+</head>
+<body>
+    @{ 
+        var westWindDatabase = WebMatrix.Data.Database.Open("WestWindDb");
+        string selectedProductId = Request[nameof(selectedProductId)];
+        string productName = Request[nameof(productName)];
+        string supplierId = Request[nameof(supplierId)];
+        string categoryId = Request[nameof(categoryId)];
+        string qtyPerUnit = Request[nameof(qtyPerUnit)];
+        string unitPrice = Request[nameof(unitPrice)];
+        string onOrder = Request[nameof(onOrder)];
+        string isDiscontinued = Request[nameof(isDiscontinued)];
+    }
+    <div>
+        <h4>Diagnostics</h4>
+        @selectedProductId
+        @supplierId
+        @categoryId
+    </div>
+    <h1>Manage Products</h1>
+
+    <form method="post">
+        <label for="ProductsList">Products</label>
+        <select name="@nameof(selectedProductId)" id="ProductsList">
+            <option value="">[Select a Product to Edit]</option>
+            @{ 
+                var products = westWindDatabase.Query("SELECT ProductID, ProductName FROM Products");
+                foreach(var row in products)
+                {
+                    <option value="@row.ProductID" selected="@(row.ProductID.ToString() == selectedProductId)">@row.ProductName</option>
+                }
+            }
+        </select>
+        <button type="submit" name="submitAction" value="Edit">Edit</button>
+        <hr />
+
+        <label for="ProductName">Name</label>
+        <input type="text" name="@productName" id="ProductName" />
+
+        <label for="SuppliersList">Supplier</label>
+        <select name="@nameof(supplierId)" id="SuppliersList">
+            <option value="">[Select a Supplier]</option>
+            @{ 
+                var suppliers = westWindDatabase.Query("SELECT SupplierID, CompanyName FROM Suppliers");
+                foreach(var row in suppliers)
+                {
+                    <option value="@row.SupplierID" selected="@(row.SupplierID.ToString() == supplierId)">@row.CompanyName</option>
+                }
+            }
+        </select>
+
+        <label for="CategoriesList">Category</label>
+        <select name="@nameof(categoryId)" id="CategoriesList">
+            <option value="">[Select a Category]</option>
+            @{
+                var categories = westWindDatabase.Query("SELECT CategoryID, CategoryName FROM Categories");
+                foreach (var row in categories)
+                {
+                    <option value="@row.CategoryID" selected="@(row.CategoryID.ToString() == categoryId)">@row.CategoryName</option>
+                }
+            }
+        </select>
+
+
+        <label for="UnitPrice">Unit Price</label>
+        <input type="text" name="unitPrice" id="UnitPrice" />
+
+        <label for="QtyPerUnit">Quantity Per Unit</label>
+        <input type="text" name="qtyPerUnit" id="QtyPerUnit" />
+
+        <label for="OnOrder">On Order</label>
+        <input type="text" name="onOrder" id="OnOrder" />
+
+        <label for="IsDiscontinued">Discontinued</label>
+        <input type="checkbox" name="isDiscontinued" id="IsDiscontinued" />
+        <label for="IsDiscontinued">Check if Discontinued</label>
+    </form>
+</body>
+</html>

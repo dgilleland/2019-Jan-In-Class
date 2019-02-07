@@ -61,10 +61,45 @@
                     catId = newId.ToString();
                     break;
                 case "Update":
-                    <div>Coming next class</div>
+                    string updateStatement;
+                    int rowsAffected;
+                    if (catPicBytes != null)
+                    {
+                        updateStatement = "UPDATE Categories SET CategoryName = @0, Description = @1, Picture = @2, PictureMimeType = @3 WHERE CategoryID = @4";
+                        rowsAffected = westWindDatabase.Execute(updateStatement, catName, catDescription, catPicBytes, mimeType, catId);
+                    }
+                    else
+                    {
+                        updateStatement = "UPDATE Categories SET CategoryName = @0, Description = @1 WHERE CategoryID = @2";
+                        rowsAffected = westWindDatabase.Execute(updateStatement, catName, catDescription, catId);
+                    }
+                    if (rowsAffected == 0)
+                    {
+                        <div>Update failed. Try again or cancel.</div>
+                    }
+                    else
+                    {
+                        <div>Update successful.</div>
+                    }
                     break;
                 case "Delete":
-                    <div>Slated for version 1.0.2 - Order Now!</div>
+                    string deleteStatement;
+                    int rowCount;
+                    deleteStatement = "DELETE Categories WHERE CategoryID = @0";
+                    rowCount = westWindDatabase.Execute(deleteStatement, catId);
+                    if (rowCount == 0)
+                    {
+                        <div>Delete failed. Try again or cancel.</div>
+                    }
+                    else
+                    {
+                        <div>Delete successful.</div>
+                        catId = string.Empty;
+                        catName = string.Empty;
+                        catDescription = string.Empty;
+                        catPicBytes = null;
+                        mimeType = string.Empty;
+                    }
                     break;
                 case "Cancel":
                     Response.Redirect("~", true);
@@ -87,7 +122,7 @@
 
             if (result == null)
             {
-                <div>No such category found for ID @catId.</div>
+                <div>You are in <b>ADD</b> mode.</div>
             }
             else
             {
@@ -130,9 +165,9 @@
             else
             {
                 <input name="submitType" type="submit" value="Update" />
-                <input name="submitType" type="submit" value="Delete" />
+                <input name="submitType" type="submit" value="Delete" onclick="return confirm('Are you sure you want to permanently remove this category?')" />
             }
-            <input name="@nameof(submitType)" type="submit" value="Cancel" />
+                <button name="@nameof(submitType)" type="submit" value="Cancel">Return to viewing the Category List</button>
             <input name="@nameof(catId)" type="hidden" value="@catId" />
         </fieldset>
     </form>

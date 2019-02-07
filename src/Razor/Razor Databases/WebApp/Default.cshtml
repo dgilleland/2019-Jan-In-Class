@@ -4,35 +4,46 @@
     <title></title>
 </head>
 <body>
-    @{ 
+    <h1>Simple Razor Database Demo - West Wind Wholesalers</h1>
+    @{
         // We can use the (older) WebMatrix database to get "quick"
         // access to a database referenced in the Web.config.
         var westWindDatabase = WebMatrix.Data.Database.Open("WestWindDb");
-        // We can use our database object to query for data
-        var results = westWindDatabase.Query("SELECT CategoryID, CategoryName, Description, Picture, PictureMimeType FROM Categories");
+    }
+    <h2>All Categories</h2>
+    <details>
+        <summary>View all Categories</summary>
+        <div><a href="~/ManageCategory.cshtml">Add a Category</a></div>
+        @{
+            // We can use our database object to query for data
+            var results = westWindDatabase.Query("SELECT CategoryID, CategoryName, Description, Picture, PictureMimeType FROM Categories");
 
-        // Display the data using a loop
-        foreach(var row in results)
-        {
-            <div>
-                <a href="~/ManageCategory.cshtml?catId=@row.CategoryID">@row.CategoryName</a> - 
-                @row.Description
-                @if(row.Picture != null)
-                {
-                    // Getting a string version of the binary image
-                    string base64String = Convert.ToBase64String(row.Picture);
-                    // Create a string to be the src for my image
-                    // string src = string.Format("data:{0};base64,{1}", row.PictureMimeType, base64String);
-                    // Here's the string interpolation approach to string.Format
-                    string src = $"data:{row.PictureMimeType};base64,{base64String}";
-                    <text>
-                       <img src="@src" width="75" />
-                    </text>
-                }
-            </div>
+            // Display the data using a loop
+            foreach (var row in results)
+            {
+                <div>
+                    <a href="~/ManageCategory.cshtml?catId=@row.CategoryID">@row.CategoryName</a> -
+                    @row.Description
+                    @if (row.Picture != null)
+                    {
+                        // Getting a string version of the binary image
+                        string base64String = Convert.ToBase64String(row.Picture);
+                        // Create a string to be the src for my image
+                        // string src = string.Format("data:{0};base64,{1}", row.PictureMimeType, base64String);
+                        // Here's the string interpolation approach to string.Format
+                        string src = $"data:{row.PictureMimeType};base64,{base64String}";
+                        <text>
+                            <img src="@src" width="75" />
+                        </text>
+                    }
+                </div>
+            }
         }
+    </details>
+
+    <h2>All Products</h2>
+    @{ 
 
     }
-
 </body>
 </html>

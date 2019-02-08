@@ -95,8 +95,8 @@
     <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
-    <Reference Include="WaffleGenerator.Bogus, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\WaffleGenerator.Bogus.4.0.0\lib\netstandard2.0\WaffleGenerator.Bogus.dll</HintPath>
+    <Reference Include="WaffleGenerator.Bogus, Version=4.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WaffleGenerator.Bogus.4.0.1\lib\netstandard2.0\WaffleGenerator.Bogus.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>

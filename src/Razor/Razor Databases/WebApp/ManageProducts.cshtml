@@ -42,7 +42,7 @@
     </style>
 </head>
 <body>
-    @{ 
+    @{
         var westWindDatabase = WebMatrix.Data.Database.Open("WestWindDb");
         string selectedProductId = Request[nameof(selectedProductId)];
         string productName = Request[nameof(productName)];
@@ -52,22 +52,69 @@
         string unitPrice = Request[nameof(unitPrice)];
         string onOrder = Request[nameof(onOrder)];
         string isDiscontinued = Request[nameof(isDiscontinued)];
+        string submitAction = Request[nameof(submitAction)];
     }
-    <div>
+    <div class="diagnostics">
+        <!-- TODO: Put this in a Razor Helper -->
         <h4>Diagnostics</h4>
+        <p>Before processing the post-back:</p>
+        <div>Processing the <b>@submitAction</b> Request</div>
         @selectedProductId
         @supplierId
         @categoryId
     </div>
+
     <h1>Manage Products</h1>
+    <div>
+        @if (IsPost)
+        {
+            // Process the form's post requests
+            string sql;
+            switch(submitAction)
+            {
+                case "Edit":
+                    sql = "SELECT ProductName, SupplierID, CategoryID, UnitPrice, QuantityPerUnit, UnitsOnOrder, Discontinued FROM Products WHERE ProductID = @0";
+                    break;
+                case "Add":
+                    sql = "INSERT INTO Products(ProductName, SupplierID, CategoryID, UnitPrice, QuantityPerUnit, UnitsOnOrder, Discontinued) VALUES(@0, @1, @2, @3, @4, @5, @6)";
+                    // After successful insert
+                    sql = "SELECT SCOPE_IDENTITY()";
+                    break;
+                case "Update":
+                    sql = "UPDATE Products SET ProductName = @0, SupplierID = @1, CategoryID = @2, UnitPrice = @3, QuantityPerUnit = @4, UnitsOnOrder = @5, Discontinued = @6 WHERE ProductID = @7";
+                    break;
+                case "Delete":
+                    sql = "DELETE FROM Products WHERE ProductID = @0";
+                    break;
+                case "Clear":
+                    const string dropDownDefault = "0";
+                    selectedProductId =  dropDownDefault; // default
+                    productName = string.Empty;
+                    supplierId = dropDownDefault;
+                    categoryId = dropDownDefault;
+                    unitPrice = string.Empty;
+                    qtyPerUnit = string.Empty;
+                    onOrder = string.Empty;
+                    isDiscontinued = string.Empty;
+                    break;
+                default:
+                    <text>Unknown post-back option: Cannot @submitAction your request.</text>
+                    break;
+            }
+        }
+        else
+        {
+            <text>Use this form to manage items in the Product catalog.</text>
+        }
+    </div>
 
     <form method="post">
         <label for="ProductsList">Products</label>
         <select name="@nameof(selectedProductId)" id="ProductsList">
             <option value="">[Select a Product to Edit]</option>
-            @{ 
+            @{
                 var products = westWindDatabase.Query("SELECT ProductID, ProductName FROM Products");
-                foreach(var row in products)
+                foreach (var row in products)
                 {
                     <option value="@row.ProductID" selected="@(row.ProductID.ToString() == selectedProductId)">@row.ProductName</option>
                 }
@@ -82,9 +129,9 @@
         <label for="SuppliersList">Supplier</label>
         <select name="@nameof(supplierId)" id="SuppliersList">
             <option value="">[Select a Supplier]</option>
-            @{ 
+            @{
                 var suppliers = westWindDatabase.Query("SELECT SupplierID, CompanyName FROM Suppliers");
-                foreach(var row in suppliers)
+                foreach (var row in suppliers)
                 {
                     <option value="@row.SupplierID" selected="@(row.SupplierID.ToString() == supplierId)">@row.CompanyName</option>
                 }

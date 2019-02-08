@@ -56,6 +56,41 @@
                 </EditItemTemplate>
 
                 <InsertItemTemplate>
+                    <div class="row bg-info" style="border: solid 1px lightgray; padding:4px 0;">
+                        <div class="col-sm-8">
+                            <asp:TextBox ID="ProductName" runat="server"
+                                 Text="<%# BindItem.Name %>" CssClass="form-control"
+                                 placeholder="Product Name" required="required" />
+
+                            <asp:DropDownList ID="SupplierDropDown" runat="server"
+                                CssClass="form-control"
+                                SelectedValue="<%# BindItem.SupplierId %>"
+                                AppendDataBoundItems="true" DataSourceID="SupplierDataSource"
+                                DataTextField="Value" DataValueField="Key">
+                                <asp:ListItem Value="0">[Select a Supplier]</asp:ListItem>
+                            </asp:DropDownList>
+
+                            <asp:DropDownList ID="CategoryDropDown" runat="server"
+                                CssClass="form-control"
+                                SelectedValue="<%# BindItem.CategoryId %>"
+                                AppendDataBoundItems="true" DataSourceID="CategoryDataSource" 
+                                DataTextField="Value" DataValueField="Key">
+                                <asp:ListItem Value="0">[Select a Category]</asp:ListItem>
+                            </asp:DropDownList>
+                        </div>
+                        <div class="col-sm-4">
+                            <asp:TextBox ID="UnitPrice" runat="server" CssClass="form-control"
+                                Text="<%# BindItem.Price %>"></asp:TextBox>
+                            <asp:TextBox ID="Qty" runat="server" CssClass="form-control"
+                                Text="<%# BindItem.QtyPerUnit %>"></asp:TextBox>
+                            <asp:LinkButton ID="Insert" runat="server"
+                                 CssClass="btn btn-default" CommandName="Insert"
+                                 Text="Add New Product" />
+                            <asp:LinkButton ID="Cancel" runat="server"
+                                 CssClass="btn btn-default" CommandName="Cancel"
+                                 Text="Clear" />
+                        </div>
+                    </div>
                 </InsertItemTemplate>
 
                 <ItemTemplate>

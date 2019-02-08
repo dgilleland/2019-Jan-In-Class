@@ -15,7 +15,8 @@
             <h2>Products</h2>
             <asp:ListView ID="ProductListView" runat="server"
                  DataSourceID="ProductDataSource" InsertItemPosition="LastItem"
-                 ItemType="WestWindSystem.DataModels.ProductInfo">
+                 ItemType="WestWindSystem.DataModels.ProductInfo"
+                 DataKeyNames="ProductId">
                 <EditItemTemplate>
                     <div class="row" style="border-bottom: solid 1px lightgray">
                         <div class="col-sm-8">
@@ -40,9 +41,10 @@
                             </asp:DropDownList>
                         </div>
                         <div class="col-sm-4">
-                            <%# $"{Item.Price:C}" %>
-                            (for <%# Item.QtyPerUnit %>)
-                            <br />
+                            <asp:TextBox ID="UnitPrice" runat="server" CssClass="form-control"
+                                Text="<%# BindItem.Price %>"></asp:TextBox>
+                            <asp:TextBox ID="Qty" runat="server" CssClass="form-control"
+                                Text="<%# BindItem.QtyPerUnit %>"></asp:TextBox>
                             <asp:LinkButton ID="Update" runat="server"
                                  CssClass="btn btn-default" CommandName="Update"
                                  Text="Update" />

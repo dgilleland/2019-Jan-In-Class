@@ -128,19 +128,23 @@ namespace WestWindSystem.BLL
             // Step 1: Process the request by modifying an existing Product in the database
             using (var context = new WestWindContext())
             {
-                var given = new Product // Product is our Entity class
-                {
-                    ProductID = info.ProductId,
-                    ProductName = info.Name,
-                    UnitPrice = info.Price,
-                    QuantityPerUnit = info.QtyPerUnit,
-                    CategoryID = info.CategoryId,
-                    SupplierID = info.SupplierId
-                };
-                var existing = context.Entry(given); // .Entry() will look for the Product obj with a matching ID
+                // Note to Self: When doing an update for an existing item,
+                //               do a .Find() or a .Attach() to load up the
+                //               item from the database.
+                var given = context.Products.Find(info.ProductId);
                 // Assuming I will get a null if the product does not exist
-                if (existing == null)
+                if (given == null)
                     throw new ArgumentException($"The given product id of {info.ProductId} does not exist in the database.", nameof(info.ProductId));
+
+                // Update the found product with the given information
+                given.ProductName = info.Name;
+                given.UnitPrice = info.Price;
+                given.QuantityPerUnit = info.QtyPerUnit;
+                given.CategoryID = info.CategoryId;
+                given.SupplierID = info.SupplierId;
+
+                // Grab a DbEntityEntry<Product>, with which I can say what's been changed.
+                var existing = context.Entry(given); // .Entry() will look for the Product obj with a matching ID
                 // Specify which Product properties I've modified, 'cause I don't want to lose
                 // the .Discontinued or the .UnitsOnOrder values.
                 existing.Property(nameof(given.ProductName)).IsModified = true;

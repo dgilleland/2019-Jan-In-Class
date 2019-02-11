@@ -252,6 +252,7 @@
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="Site.Master" />
+    <Content Include="UserControls\BetaRelease.ascx" />
     <Content Include="UserControls\MessageUserControl.ascx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
@@ -422,6 +423,13 @@
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="UserControls\BetaRelease.ascx.cs">
+      <DependentUpon>BetaRelease.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\BetaRelease.ascx.designer.cs">
+      <DependentUpon>BetaRelease.ascx</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\MessageUserControl.ascx.cs">
       <DependentUpon>MessageUserControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

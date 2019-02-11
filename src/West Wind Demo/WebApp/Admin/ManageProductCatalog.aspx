@@ -46,7 +46,7 @@
                         </div>
                         <div class="col-sm-4">
                             <asp:TextBox ID="UnitPrice" runat="server" CssClass="form-control"
-                                Text="<%# BindItem.Price %>"></asp:TextBox>
+                                Text="<%# BindItem.Price %>" TextMode="Number"></asp:TextBox>
                             <asp:TextBox ID="Qty" runat="server" CssClass="form-control"
                                 Text="<%# BindItem.QtyPerUnit %>"></asp:TextBox>
                             <asp:LinkButton ID="Update" runat="server"
@@ -85,7 +85,7 @@
                         <div class="col-sm-4">
                             <asp:TextBox ID="UnitPrice" runat="server" CssClass="form-control"
                                 Text="<%# BindItem.Price %>"
-                                placeholder="Unit Price"></asp:TextBox>
+                                placeholder="Unit Price" TextMode="Number"></asp:TextBox>
                             <asp:TextBox ID="Qty" runat="server" CssClass="form-control"
                                 Text="<%# BindItem.QtyPerUnit %>"
                                 placeholder="Qty per Unit"></asp:TextBox>
@@ -150,9 +150,15 @@
                 </SelectParameters>
             </asp:ObjectDataSource>
 
-            <asp:ObjectDataSource ID="SupplierDataSource" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="ListSuppliersNameAndId" TypeName="WestWindSystem.BLL.ProductManagementController"></asp:ObjectDataSource>
+            <asp:ObjectDataSource ID="SupplierDataSource" runat="server"
+                OldValuesParameterFormatString="original_{0}"
+                SelectMethod="ListSuppliersNameAndId"
+                TypeName="WestWindSystem.BLL.ProductManagementController"></asp:ObjectDataSource>
 
-            <asp:ObjectDataSource ID="CategoryDataSource" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="ListCategoriesNameAndId" TypeName="WestWindSystem.BLL.ProductManagementController"></asp:ObjectDataSource>
+            <asp:ObjectDataSource ID="CategoryDataSource" runat="server"
+                OldValuesParameterFormatString="original_{0}"
+                SelectMethod="ListCategoriesNameAndId"
+                TypeName="WestWindSystem.BLL.ProductManagementController"></asp:ObjectDataSource>
         </div>
     </div>
 </asp:Content>

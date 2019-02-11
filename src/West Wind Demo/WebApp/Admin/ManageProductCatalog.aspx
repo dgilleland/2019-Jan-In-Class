@@ -1,5 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ManageProductCatalog.aspx.cs" Inherits="WebApp.Admin.ManageProductCatalog" %>
 
+<%@ Register Src="~/UserControls/MessageUserControl.ascx" TagPrefix="uc1" TagName="MessageUserControl" %>
+
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <h1 class="page-header">Manage Product Catalog</h1>
     <div class="row">
@@ -13,6 +16,7 @@
         </div>
         <div class="col-md-8">
             <h2>Products</h2>
+            <uc1:MessageUserControl runat="server" ID="MessageUserControl" />
             <asp:ListView ID="ProductListView" runat="server"
                  DataSourceID="ProductDataSource" InsertItemPosition="LastItem"
                  ItemType="WestWindSystem.DataModels.ProductInfo"
@@ -127,7 +131,17 @@
                 </LayoutTemplate>
             </asp:ListView>
 
-            <asp:ObjectDataSource ID="ProductDataSource" runat="server" DataObjectTypeName="WestWindSystem.DataModels.ProductInfo" DeleteMethod="DiscontinueProductItem" InsertMethod="AddProductItem" OldValuesParameterFormatString="original_{0}" SelectMethod="FilterProducts" TypeName="WestWindSystem.BLL.ProductManagementController" UpdateMethod="UpdateProductItem">
+            <asp:ObjectDataSource ID="ProductDataSource" runat="server"
+                DataObjectTypeName="WestWindSystem.DataModels.ProductInfo"
+                DeleteMethod="DiscontinueProductItem"
+                InsertMethod="AddProductItem"
+                OldValuesParameterFormatString="original_{0}"
+                SelectMethod="FilterProducts"
+                TypeName="WestWindSystem.BLL.ProductManagementController"
+                UpdateMethod="UpdateProductItem"
+                OnUpdated="CheckForExceptions"
+                OnDeleted="CheckForExceptions"
+                OnInserted="CheckForExceptions">
                 <SelectParameters>
                     <asp:ControlParameter ControlID="PartialName" PropertyName="Text" Name="partialName" Type="String"></asp:ControlParameter>
                     <asp:ControlParameter ControlID="IncludeDiscontinued" PropertyName="Checked" Name="includeDiscontinued" Type="Boolean"></asp:ControlParameter>

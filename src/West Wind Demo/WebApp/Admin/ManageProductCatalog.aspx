@@ -84,9 +84,11 @@
                         </div>
                         <div class="col-sm-4">
                             <asp:TextBox ID="UnitPrice" runat="server" CssClass="form-control"
-                                Text="<%# BindItem.Price %>"></asp:TextBox>
+                                Text="<%# BindItem.Price %>"
+                                placeholder="Unit Price"></asp:TextBox>
                             <asp:TextBox ID="Qty" runat="server" CssClass="form-control"
-                                Text="<%# BindItem.QtyPerUnit %>"></asp:TextBox>
+                                Text="<%# BindItem.QtyPerUnit %>"
+                                placeholder="Qty per Unit"></asp:TextBox>
                             <asp:LinkButton ID="Insert" runat="server"
                                  CssClass="btn btn-default" CommandName="Insert"
                                  Text="Add New Product" />

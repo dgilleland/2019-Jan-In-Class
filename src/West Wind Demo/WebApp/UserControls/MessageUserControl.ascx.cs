@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -75,6 +76,11 @@ namespace WebApp.UserControls
             if (e.Exception is DbEntityValidationException)
             {
                 HandleException(e.Exception as DbEntityValidationException);
+                e.ExceptionHandled = true;
+            }
+            else if (e.Exception is TargetInvocationException && e.Exception.InnerException is DbEntityValidationException)
+            {
+                HandleException(e.Exception.InnerException as DbEntityValidationException);
                 e.ExceptionHandled = true;
             }
             else if (e.Exception is Exception)

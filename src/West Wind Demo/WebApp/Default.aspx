@@ -14,7 +14,7 @@
     <div class="row">
         <div class="col-md-4">
             <h2>Getting started</h2>
-            <uc1:BetaRelease runat="server" ID="BetaRelease" />
+            <uc1:BetaRelease runat="server" ID="BetaRelease" CssClass="bg-info" />
             <p>
                 ASP.NET Web Forms lets you build dynamic websites using a familiar drag-and-drop, event-driven model.
             A design surface and hundreds of controls and components let you rapidly build sophisticated, powerful UI-driven sites with data access.

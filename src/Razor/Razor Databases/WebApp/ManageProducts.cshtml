@@ -20,12 +20,14 @@
                 form > select + button {
                     grid-column: 4;
                 }
+
                 form > input[type=checkbox] {
                     grid-column: 2;
                 }
-                form > input[type=checkbox] + label {
-                    grid-column: 3;
-                }
+
+                    form > input[type=checkbox] + label {
+                        grid-column: 3;
+                    }
 
             form > hr {
                 grid-column: 1 / span 4;
@@ -70,7 +72,7 @@
         {
             // Process the form's post requests
             string sql;
-            switch(submitAction)
+            switch (submitAction)
             {
                 case "Edit":
                     sql = "SELECT ProductName, SupplierID, CategoryID, UnitPrice, QuantityPerUnit, UnitsOnOrder, Discontinued FROM Products WHERE ProductID = @0";
@@ -88,7 +90,7 @@
                     break;
                 case "Clear":
                     const string dropDownDefault = "0";
-                    selectedProductId =  dropDownDefault; // default
+                    selectedProductId = dropDownDefault; // default
                     productName = string.Empty;
                     supplierId = dropDownDefault;
                     categoryId = dropDownDefault;
@@ -113,10 +115,18 @@
         <select name="@nameof(selectedProductId)" id="ProductsList">
             <option value="">[Select a Product to Edit]</option>
             @{
-                var products = westWindDatabase.Query("SELECT ProductID, ProductName FROM Products");
-                foreach (var row in products)
+                // var products = westWindDatabase.Query("SELECT ProductID, ProductName FROM Products");
+                var products = QueryDatabase(westWindDatabase, "SELECT ProductID, ProductName FROM Products");
+                if (products is Exception)
                 {
-                    <option value="@row.ProductID" selected="@(row.ProductID.ToString() == selectedProductId)">@row.ProductName</option>
+                    <option value="">[Products unavailable]</option>
+                }
+                else
+                {
+                    foreach (var row in products)
+                    {
+                        <option value="@row.ProductID" selected="@(row.ProductID.ToString() == selectedProductId)">@row.ProductName</option>
+                    }
                 }
             }
         </select>
@@ -174,3 +184,21 @@
     </form>
 </body>
 </html>
+
+@functions {
+    // Razor functions CAN NOT directly output/render to browser response.
+    private dynamic QueryDatabase(WebMatrix.Data.Database db, string query)
+    {
+        dynamic result;
+        try
+        {
+            result = db.Query(query);
+        }
+        catch (Exception ex)
+        {
+            result = ex;
+        }
+        return result;
+    }
+
+}

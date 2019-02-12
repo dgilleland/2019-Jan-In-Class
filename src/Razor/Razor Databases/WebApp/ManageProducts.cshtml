@@ -60,6 +60,19 @@
         <!-- TODO: Put this in a Razor Helper -->
         <h4>Diagnostics</h4>
         <p>Before processing the post-back:</p>
+        <div>
+            Testing error reporting: 
+            @{ 
+                try
+                {
+                    throw new NotImplementedException("Just testing the errors");
+                }
+                catch (Exception ex)
+                {
+                    @ReportError(ex);
+                }
+            }
+        </div>
         <div>Processing the <b>@submitAction</b> Request</div>
         @selectedProductId
         @supplierId
@@ -72,13 +85,18 @@
         {
             // Process the form's post requests
             string sql;
+            int count;
+            Exception error;
             switch (submitAction)
             {
                 case "Edit":
                     sql = "SELECT ProductName, SupplierID, CategoryID, UnitPrice, QuantityPerUnit, UnitsOnOrder, Discontinued FROM Products WHERE ProductID = @0";
+                    var result = QueryDatabase(westWindDatabase, sql, selectedProductId);
                     break;
                 case "Add":
                     sql = "INSERT INTO Products(ProductName, SupplierID, CategoryID, UnitPrice, QuantityPerUnit, UnitsOnOrder, Discontinued) VALUES(@0, @1, @2, @3, @4, @5, @6)";
+                    error = Execute(westWindDatabase, out count, sql, productName, supplierId, categoryId, unitPrice, qtyPerUnit, onOrder, isDiscontinued);
+                    // TODO: Error processing - check the error result and the count
                     // After successful insert
                     sql = "SELECT SCOPE_IDENTITY()";
                     break;
@@ -114,7 +132,9 @@
         var products = QueryDatabase(westWindDatabase, "SELECT ProductID, ProductName FROM Products");
         if (products is Exception)
         {
-            <div>There was a problem accessing the database: @products.Message</div>
+            // I call the Razor helper with the @ symbol - that is to acknowledge that it can
+            // output HTML content inside that method.
+            @ReportError(products)
         }
         else
         {
@@ -201,15 +221,46 @@
     }
 </body>
 </html>
+@helper ReportError(Exception ex)
+{
+    // Helpers can render to the browser output.
+    if (ex != null)
+    {
+        string stackTrace = ex.StackTrace.Replace(" at ", "<br/>at ").Replace(" in ", "<br/>  in ");
+        <div>
+            There was a problem accessing the database: @ex.Message.
+            <details>
+                <summary>Stack Trace</summary>
+                <pre>@Html.Raw(stackTrace)</pre>
+            </details>
+        </div>
+    }
+}
+
 
 @functions {
     // Razor functions CAN NOT directly output/render to browser response.
-    private dynamic QueryDatabase(WebMatrix.Data.Database db, string query)
+    private Exception Execute(WebMatrix.Data.Database db, out int count, string sql, params object[] values)
+    {
+        count = 0;
+        Exception result = null;
+        try
+        {
+            count = db.Execute(sql, values);
+        }
+        catch (Exception ex)
+        {
+            result = ex;
+        }
+        return result;
+    }
+
+    private dynamic QueryDatabase(WebMatrix.Data.Database db, string query, params object[] values)
     {
         dynamic result;
         try
         {
-            result = db.Query(query);
+            result = db.Query(query, values);
         }
         catch (Exception ex)
         {

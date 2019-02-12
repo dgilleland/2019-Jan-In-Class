@@ -110,78 +110,95 @@
         }
     </div>
 
-    <form method="post">
-        <label for="ProductsList">Products</label>
-        <select name="@nameof(selectedProductId)" id="ProductsList">
-            <option value="">[Select a Product to Edit]</option>
-            @{
-                // var products = westWindDatabase.Query("SELECT ProductID, ProductName FROM Products");
-                var products = QueryDatabase(westWindDatabase, "SELECT ProductID, ProductName FROM Products");
-                if (products is Exception)
-                {
-                    <option value="">[Products unavailable]</option>
-                }
-                else
-                {
-                    foreach (var row in products)
-                    {
-                        <option value="@row.ProductID" selected="@(row.ProductID.ToString() == selectedProductId)">@row.ProductName</option>
+    @{
+        var products = QueryDatabase(westWindDatabase, "SELECT ProductID, ProductName FROM Products");
+        if (products is Exception)
+        {
+            <div>There was a problem accessing the database: @products.Message</div>
+        }
+        else
+        {
+            <form method="post">
+                <label for="ProductsList">Products</label>
+                <select name="@nameof(selectedProductId)" id="ProductsList">
+                    <option value="">[Select a Product to Edit]</option>
+                    @{
+                        // var products = westWindDatabase.Query("SELECT ProductID, ProductName FROM Products");
+
+                        foreach (var row in products)
+                        {
+                            <option value="@row.ProductID" selected="@(row.ProductID.ToString() == selectedProductId)">@row.ProductName</option>
+                        }
                     }
-                }
-            }
-        </select>
-        <button type="submit" name="submitAction" value="Edit">Edit</button>
-        <hr />
+                </select>
+                <button type="submit" name="submitAction" value="Edit">Edit</button>
+                <hr />
 
-        <label for="ProductName">Name</label>
-        <input type="text" name="@productName" id="ProductName" />
+                <label for="ProductName">Name</label>
+                <input type="text" name="@productName" id="ProductName" />
 
-        <label for="SuppliersList">Supplier</label>
-        <select name="@nameof(supplierId)" id="SuppliersList">
-            <option value="">[Select a Supplier]</option>
-            @{
-                var suppliers = westWindDatabase.Query("SELECT SupplierID, CompanyName FROM Suppliers");
-                foreach (var row in suppliers)
-                {
-                    <option value="@row.SupplierID" selected="@(row.SupplierID.ToString() == supplierId)">@row.CompanyName</option>
-                }
-            }
-        </select>
+                <label for="SuppliersList">Supplier</label>
+                <select name="@nameof(supplierId)" id="SuppliersList">
+                    <option value="">[Select a Supplier]</option>
+                    @{
+                        var suppliers = QueryDatabase(westWindDatabase, "SELECT SupplierID, CompanyName FROM Suppliers");
+                        if (suppliers is Exception)
+                        {
+                            <option value="">[Suppliers unavailable]</option>
+                        }
+                        else
+                        {
+                            foreach (var row in suppliers)
+                            {
+                                <option value="@row.SupplierID" selected="@(row.SupplierID.ToString() == supplierId)">@row.CompanyName</option>
+                            }
+                        }
+                    }
+                </select>
 
-        <label for="CategoriesList">Category</label>
-        <select name="@nameof(categoryId)" id="CategoriesList">
-            <option value="">[Select a Category]</option>
-            @{
-                var categories = westWindDatabase.Query("SELECT CategoryID, CategoryName FROM Categories");
-                foreach (var row in categories)
-                {
-                    <option value="@row.CategoryID" selected="@(row.CategoryID.ToString() == categoryId)">@row.CategoryName</option>
-                }
-            }
-        </select>
+                <label for="CategoriesList">Category</label>
+                <select name="@nameof(categoryId)" id="CategoriesList">
+                    <option value="">[Select a Category]</option>
+                    @{
+                        var categories = QueryDatabase(westWindDatabase, "SELECT CategoryID, CategoryName FROM Categories");
+                        if (categories is Exception)
+                        {
+                            <option value="">[Categories unavailable]</option>
+                        }
+                        else
+                        {
+                            foreach (var row in categories)
+                            {
+                                <option value="@row.CategoryID" selected="@(row.CategoryID.ToString() == categoryId)">@row.CategoryName</option>
+                            }
+                        }
+                    }
+                </select>
 
 
-        <label for="UnitPrice">Unit Price</label>
-        <input type="text" name="unitPrice" id="UnitPrice" />
+                <label for="UnitPrice">Unit Price</label>
+                <input type="text" name="unitPrice" id="UnitPrice" />
 
-        <label for="QtyPerUnit">Quantity Per Unit</label>
-        <input type="text" name="qtyPerUnit" id="QtyPerUnit" />
+                <label for="QtyPerUnit">Quantity Per Unit</label>
+                <input type="text" name="qtyPerUnit" id="QtyPerUnit" />
 
-        <label for="OnOrder">On Order</label>
-        <input type="text" name="onOrder" id="OnOrder" />
+                <label for="OnOrder">On Order</label>
+                <input type="text" name="onOrder" id="OnOrder" />
 
-        <label for="IsDiscontinued">Discontinued</label>
-        <input type="checkbox" name="isDiscontinued" id="IsDiscontinued" />
-        <label for="IsDiscontinued">Check if Discontinued</label>
+                <label for="IsDiscontinued">Discontinued</label>
+                <input type="checkbox" name="isDiscontinued" id="IsDiscontinued" />
+                <label for="IsDiscontinued">Check if Discontinued</label>
 
-        <fieldset>
-            <button type="submit" name="submitAction" value="Add">Add New Product</button>
-            <button type="submit" name="submitAction" value="Update">Update Product</button>
-            <button type="submit" name="submitAction" value="Delete">Remove From Catalog</button>
-            <button type="submit" name="submitAction" value="Clear">Clear Form</button>
-            <input type="reset" value="Reset Form" />
-        </fieldset>
-    </form>
+                <fieldset>
+                    <button type="submit" name="submitAction" value="Add">Add New Product</button>
+                    <button type="submit" name="submitAction" value="Update">Update Product</button>
+                    <button type="submit" name="submitAction" value="Delete">Remove From Catalog</button>
+                    <button type="submit" name="submitAction" value="Clear">Clear Form</button>
+                    <input type="reset" value="Reset Form" />
+                </fieldset>
+            </form>
+        }
+    }
 </body>
 </html>
 

@@ -1,0 +1,48 @@
+﻿@{ 
+    Layout = "~/_Layout.cshtml";
+    Page.Title = "Demo WebGrid - Search Products by Category";
+
+    var db = WebMatrix.Data.Database.Open("WestWindDb");
+    var allCategories = db.Query("SELECT CategoryID, CategoryName FROM Categories");
+
+    string categorySelection = Request[nameof(categorySelection)];
+    List<SelectListItem> catOptions = new List<SelectListItem>();
+    catOptions.Add(new SelectListItem { Value = "", Text = "[Select a Category]" });
+    foreach(var item in allCategories)
+    {
+        catOptions.Add(new SelectListItem
+        {
+            Text = item.CategoryName,
+            Value = item.CategoryID.ToString()
+        });
+    }
+}
+
+<div>
+    <h2>Search Products by Category</h2>
+    <form method="post">
+        Category:
+        @Html.DropDownList(nameof(categorySelection), catOptions)
+        <button type="submit">Look up Products</button>
+    </form>
+
+    @if(IsPost)
+    {
+        <hr />
+        int catId;
+        if(!int.TryParse(categorySelection, out catId))
+        {
+            <div>Please select an actual category before clicking the lookup button.</div>
+        }
+        else
+        {
+            var products = db.Query("SELECT ProductID, ProductName, QuantityPerUnit, UnitPrice FROM Products WHERE CategoryID = @0", catId);
+            // Create a WebGrid with the resulting data
+            var myGrid = new WebGrid(products);
+            <div>
+                <h3>Products</h3>
+                @myGrid.GetHtml()
+            </div>
+        }
+    }
+</div>

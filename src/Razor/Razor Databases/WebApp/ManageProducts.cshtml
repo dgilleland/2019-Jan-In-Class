@@ -224,6 +224,7 @@
 @helper ReportError(Exception ex)
 {
     // Helpers can render to the browser output.
+    // Call this helper as follows:  @ReportError(err)
     if (ex != null)
     {
         string stackTrace = ex.StackTrace.Replace(" at ", "<br/>at ").Replace(" in ", "<br/>  in ");

@@ -105,6 +105,7 @@
     <Content Include="Default.cshtml" />
     <Content Include="ManageCategory.cshtml" />
     <Content Include="ManageProducts.cshtml" />
+    <Content Include="DemoWebGrid.cshtml" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -112,6 +113,7 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+    <Content Include="_Layout.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

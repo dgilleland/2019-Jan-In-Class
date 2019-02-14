@@ -6,6 +6,7 @@
     var allCategories = db.Query("SELECT CategoryID, CategoryName FROM Categories");
 
     string categorySelection = Request[nameof(categorySelection)];
+
     List<SelectListItem> catOptions = new List<SelectListItem>();
     catOptions.Add(new SelectListItem { Value = "", Text = "[Select a Category]" });
     foreach(var item in allCategories)
@@ -13,24 +14,25 @@
         catOptions.Add(new SelectListItem
         {
             Text = item.CategoryName,
-            Value = item.CategoryID.ToString()
+            Value = item.CategoryID.ToString(),
+            Selected = item.CategoryID.ToString() == categorySelection
         });
     }
 }
 
 <div>
     <h2>Search Products by Category</h2>
-    <form method="post">
+    <form id="myForm" method="post">
         Category:
-        @Html.DropDownList(nameof(categorySelection), catOptions)
+        @Html.DropDownList(nameof(categorySelection), categorySelection, catOptions)
         <button type="submit">Look up Products</button>
     </form>
 
-    @if(IsPost)
+    @if (IsPost)
     {
         <hr />
         int catId;
-        if(!int.TryParse(categorySelection, out catId))
+        if (!int.TryParse(categorySelection, out catId))
         {
             <div>Please select an actual category before clicking the lookup button.</div>
         }
@@ -41,8 +43,30 @@
             var myGrid = new WebGrid(products);
             <div>
                 <h3>Products</h3>
-                @myGrid.GetHtml()
+                @* Pass in data to my .GetHTML via named paramters *@
+                @myGrid.GetHtml(columns: myGrid.Columns(
+                    myGrid.Column(columnName: "ProductName", header: "Product Name"),
+                    myGrid.Column(columnName: "QuantityPerUnit", header: "Qty/Unit"),
+                    myGrid.Column(columnName: "UnitPrice", header: "Unit Price",
+                                  format: @<text>@item.UnitPrice.ToString("C")</text>),
+                   myGrid.Column(columnName: "ProductID", header: "Action",
+                                 format: @<text>
+                                    <form method="post" action="~/ManageProducts.cshtml">
+                                        <button type="submit">Edit</button>
+                                        <input type="hidden" name="selectedProductId" value="@item.ProductID" />
+                                    </form>
+                                </text>)))
             </div>
         }
     }
+    <script type="text/javascript">
+        var links = document.querySelectorAll('th a, tfoot a');
+        for (var i = 0; i < links.length; i++) {
+            links[i].addEventListener('click', function () {
+                document.getElementById('myForm').submit();
+                return false;
+            });
+        }
+
+    </script>
 </div>

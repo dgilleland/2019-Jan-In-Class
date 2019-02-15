@@ -40,7 +40,11 @@
         {
             var products = db.Query("SELECT ProductID, ProductName, QuantityPerUnit, UnitPrice FROM Products WHERE CategoryID = @0", catId);
             // Create a WebGrid with the resulting data
-            var myGrid = new WebGrid(products);
+            // We are turning off paging and sorting with the WebGrid
+            // so that we don't have to worry about mixing data sent
+            // via both POST and GET requests. (There are better ways
+            // now, in the late 2010's)
+            var myGrid = new WebGrid(products, canPage: false, canSort: false);
             <div>
                 <h3>Products</h3>
                 @* Pass in data to my .GetHTML via named paramters *@
@@ -52,21 +56,11 @@
                    myGrid.Column(columnName: "ProductID", header: "Action",
                                  format: @<text>
                                     <form method="post" action="~/ManageProducts.cshtml">
-                                        <button type="submit">Edit</button>
+                                        <button type="submit" name="submitAction" value="Edit">Edit</button>
                                         <input type="hidden" name="selectedProductId" value="@item.ProductID" />
                                     </form>
                                 </text>)))
             </div>
         }
     }
-    <script type="text/javascript">
-        var links = document.querySelectorAll('th a, tfoot a');
-        for (var i = 0; i < links.length; i++) {
-            links[i].addEventListener('click', function () {
-                document.getElementById('myForm').submit();
-                return false;
-            });
-        }
-
-    </script>
 </div>

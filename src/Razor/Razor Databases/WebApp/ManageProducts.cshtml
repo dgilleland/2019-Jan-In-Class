@@ -45,7 +45,10 @@
 </head>
 <body>
     @{
+        // Page-wide variables & setup
+        // A) Object to access the database
         var westWindDatabase = WebMatrix.Data.Database.Open("WestWindDb");
+        // B) Captured any user input from submitting the form
         string selectedProductId = Request[nameof(selectedProductId)];
         string productName = Request[nameof(productName)];
         string supplierId = Request[nameof(supplierId)];
@@ -55,14 +58,27 @@
         string onOrder = Request[nameof(onOrder)];
         string isDiscontinued = Request[nameof(isDiscontinued)];
         string submitAction = Request[nameof(submitAction)];
+        // C) Specify validation requirements for this form
+        //    NOTE: This is for server-side validation.
+        // The Validation object is used to set up various kinds
+        // of validation requirements for any user-input controls
+        // on the form. This object can later be checked by our
+        // code by calling Validation.IsValid()
+        Validation.RequireField(nameof(productName), "You must supply a name for the product");
+        Validation.RequireField(nameof(unitPrice), "You must supply a price per unit for the product");
+        Validation.RequireField(nameof(qtyPerUnit), "Please identify the quantity & kind of item per unit");
+        Validation.RequireField(nameof(onOrder), "Please supply an on-order value");
+        Validation.Add(nameof(onOrder), Validator.Integer("On order quantity must be a whole number"));
+        Validation.Add(nameof(onOrder), Validator.Range(0, int.MaxValue, "On order quantity cannot be negative"));
+        Validation.Add(nameof(unitPrice), Validator.Range(0.01, double.MaxValue, "Unit prices have to be greater than zero"));
     }
     <div class="diagnostics">
         <!-- TODO: Put this in a Razor Helper -->
         <h4>Diagnostics</h4>
         <p>Before processing the post-back:</p>
         <div>
-            Testing error reporting: 
-            @{ 
+            Testing error reporting:
+            @{
                 try
                 {
                     throw new NotImplementedException("Just testing the errors");
@@ -91,17 +107,62 @@
             {
                 case "Edit":
                     sql = "SELECT ProductName, SupplierID, CategoryID, UnitPrice, QuantityPerUnit, UnitsOnOrder, Discontinued FROM Products WHERE ProductID = @0";
-                    var result = QueryDatabase(westWindDatabase, sql, selectedProductId);
+                    var result = QueryDatabase(westWindDatabase, sql, true, selectedProductId);
+                    // Check that I actually got something back
+                    if (result == null)
+                    {
+                        submitAction = string.Empty; // for correct buttons
+                        <div>Please select a product before clicking the Edit button.</div>
+                    }
+                    else
+                    {
+                        // Place the values inside the variables for the form's
+                        // user input controls.
+                        productName = result.ProductName;
+                        supplierId = result.SupplierID.ToString();
+                        categoryId = result.CategoryID.ToString();
+                        unitPrice = result.UnitPrice.ToString();
+                        qtyPerUnit = result.QuantityPerUnit;
+                        onOrder = result.UnitsOnOrder.ToString();
+                        // The ternary operator is a shorthand way
+                        // of producing an expression that can give
+                        // alternative values.
+                        // The ternary operator has these parts:
+                        //      booleanExpression ? valueIfTrue : valueIfFalse
+                        isDiscontinued = result.Discontinued ? "on" : "";
+                    }
                     break;
                 case "Add":
-                    sql = "INSERT INTO Products(ProductName, SupplierID, CategoryID, UnitPrice, QuantityPerUnit, UnitsOnOrder, Discontinued) VALUES(@0, @1, @2, @3, @4, @5, @6)";
-                    error = Execute(westWindDatabase, out count, sql, productName, supplierId, categoryId, unitPrice, qtyPerUnit, onOrder, isDiscontinued);
-                    // TODO: Error processing - check the error result and the count
-                    // After successful insert
-                    sql = "SELECT SCOPE_IDENTITY()";
+                    if (Validation.IsValid())
+                    {
+                        sql = "INSERT INTO Products(ProductName, SupplierID, CategoryID, UnitPrice, QuantityPerUnit, UnitsOnOrder, Discontinued) VALUES(@0, @1, @2, @3, @4, @5, @6)";
+                        error = Execute(westWindDatabase, out count, sql, productName, supplierId, categoryId, unitPrice, qtyPerUnit, onOrder,
+                            !string.IsNullOrEmpty(isDiscontinued));
+                        // TODO: Error processing - check the error result and the count
+                        if (error is Exception)
+                        {
+                            @ReportError(error)
+                        }
+                        else if (count == 0)
+                        {
+                            <div>The add failed without an error.</div>
+                        }
+                        else
+                        {
+                            // After successful insert
+                            // Note that I'm NOT using a query for the identity value.
+                            // That's because having split the database call into
+                            // two statements, the call to SCOPE_IDENTITY() returns null.
+                            sql = "SELECT TOP(1) ProductID FROM Products WHERE ProductName = @0";
+                            selectedProductId = westWindDatabase.QueryValue(sql, productName).ToString();
+                        }
+                    }
                     break;
                 case "Update":
-                    sql = "UPDATE Products SET ProductName = @0, SupplierID = @1, CategoryID = @2, UnitPrice = @3, QuantityPerUnit = @4, UnitsOnOrder = @5, Discontinued = @6 WHERE ProductID = @7";
+                    if (Validation.IsValid())
+                    {
+                        sql = "UPDATE Products SET ProductName = @0, SupplierID = @1, CategoryID = @2, UnitPrice = @3, QuantityPerUnit = @4, UnitsOnOrder = @5, Discontinued = @6 WHERE ProductID = @7";
+                    }
                     break;
                 case "Delete":
                     sql = "DELETE FROM Products WHERE ProductID = @0";
@@ -126,10 +187,15 @@
         {
             <text>Use this form to manage items in the Product catalog.</text>
         }
+        @* NOTE: ValidationSummary() will only have content if there are errors *@
+        @if (!Validation.IsValid() && submitAction == "Add" || submitAction == "Update")
+        {
+            @Html.ValidationSummary("Please correct the following errors and re-submit your form.")
+        }
     </div>
 
     @{
-        var products = QueryDatabase(westWindDatabase, "SELECT ProductID, ProductName FROM Products");
+        var products = QueryDatabase(westWindDatabase, "SELECT ProductID, ProductName FROM Products", false);
         if (products is Exception)
         {
             // I call the Razor helper with the @ symbol - that is to acknowledge that it can
@@ -155,13 +221,13 @@
                 <hr />
 
                 <label for="ProductName">Name</label>
-                <input type="text" name="@productName" id="ProductName" />
+                <input type="text" name="@nameof(productName)" id="ProductName" value="@productName" />
 
                 <label for="SuppliersList">Supplier</label>
                 <select name="@nameof(supplierId)" id="SuppliersList">
                     <option value="">[Select a Supplier]</option>
                     @{
-                        var suppliers = QueryDatabase(westWindDatabase, "SELECT SupplierID, CompanyName FROM Suppliers");
+                        var suppliers = QueryDatabase(westWindDatabase, "SELECT SupplierID, CompanyName FROM Suppliers", false);
                         if (suppliers is Exception)
                         {
                             <option value="">[Suppliers unavailable]</option>
@@ -180,7 +246,7 @@
                 <select name="@nameof(categoryId)" id="CategoriesList">
                     <option value="">[Select a Category]</option>
                     @{
-                        var categories = QueryDatabase(westWindDatabase, "SELECT CategoryID, CategoryName FROM Categories");
+                        var categories = QueryDatabase(westWindDatabase, "SELECT CategoryID, CategoryName FROM Categories", false);
                         if (categories is Exception)
                         {
                             <option value="">[Categories unavailable]</option>
@@ -197,22 +263,28 @@
 
 
                 <label for="UnitPrice">Unit Price</label>
-                <input type="text" name="unitPrice" id="UnitPrice" />
+                <input type="text" name="@nameof(unitPrice)" id="UnitPrice" value="@unitPrice" />
 
                 <label for="QtyPerUnit">Quantity Per Unit</label>
-                <input type="text" name="qtyPerUnit" id="QtyPerUnit" />
+                <input type="text" name="@nameof(qtyPerUnit)" id="QtyPerUnit" value="@qtyPerUnit" />
 
                 <label for="OnOrder">On Order</label>
-                <input type="text" name="onOrder" id="OnOrder" />
+                <input type="text" name="@nameof(onOrder)" id="OnOrder" value="@onOrder" />
 
                 <label for="IsDiscontinued">Discontinued</label>
-                <input type="checkbox" name="isDiscontinued" id="IsDiscontinued" />
+                <input type="checkbox" name="@nameof(isDiscontinued)" id="IsDiscontinued" checked="@isDiscontinued" />
                 <label for="IsDiscontinued">Check if Discontinued</label>
 
                 <fieldset>
-                    <button type="submit" name="submitAction" value="Add">Add New Product</button>
-                    <button type="submit" name="submitAction" value="Update">Update Product</button>
-                    <button type="submit" name="submitAction" value="Delete">Remove From Catalog</button>
+                    @if (submitAction != "Edit")
+                    {
+                        <button type="submit" name="submitAction" value="Add">Add New Product</button>
+                    }
+                    else
+                    {
+                        <button type="submit" name="submitAction" value="Update">Update Product</button>
+                        <button type="submit" name="submitAction" value="Delete">Remove From Catalog</button>
+                    }
                     <button type="submit" name="submitAction" value="Clear">Clear Form</button>
                     <input type="reset" value="Reset Form" />
                 </fieldset>
@@ -256,12 +328,19 @@
         return result;
     }
 
-    private dynamic QueryDatabase(WebMatrix.Data.Database db, string query, params object[] values)
+    private dynamic QueryDatabase(WebMatrix.Data.Database db, string query, bool querySingle, params object[] values)
     {
         dynamic result;
         try
         {
-            result = db.Query(query, values);
+            if (querySingle)
+            {
+                result = db.QuerySingle(query, values);
+            }
+            else
+            {
+                result = db.Query(query, values);
+            }
         }
         catch (Exception ex)
         {

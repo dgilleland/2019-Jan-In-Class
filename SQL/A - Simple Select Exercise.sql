@@ -7,17 +7,31 @@ GO
 SELECT  'Dan', 'Gilleland'
 
 -- Simple Select with expressions
-SELECT  'Dan' + ' ' + 'Gilleland', 18 * 52
+SELECT  'Dan' + ' ' + 'Gilleland', 18 * 52, '5' + '10'
 
 -- Specify a column name with some hard-code/calculated values
 SELECT  'Dan' + ' ' + 'Gilleland' AS 'Instructor',
-        18 * 52 AS 'Weeks at the job'
+        19 * 52 AS 'Weeks at the job'
 
 -- Let's use the SELECT statement with database tables
 
 -- 1.   Select all the information from the Club table
+-- The SELECT statement produces a table of results which will consist of one or more rows of data.
 SELECT  ClubId, ClubName
 FROM    Club
+
+-- The * can be used to indicate all of the columns. But DO NOT DO THIS, or your instructor
+-- WILL deduct marks EVERY TIME you do this.
+SELECT  *
+FROM    Club
+
+-- Notice that when selecting from an existing table, when we identify which columns we want to
+-- show, then those column names are used as the column title for the results table.
+-- The AS keyword  in the SELECT clause is used to assign a title to the column in the results table
+SELECT  ClubId AS 'ID', ClubName
+FROM    Club
+
+  -- Pro-Tip: Press [ctrl] + r to toggle the results window
   -- Pro-Tip: If you write the FROM clause before specifying the columns,
   --            you will get Intellisense help on the column names
   -- Pro-Tip: Press [ctrl] + [shift] + r to "refresh" intellisense
@@ -44,7 +58,7 @@ SELECT CourseID, CourseName, CourseHours, MaxStudents, CourseCost
 FROM   Course
 WHERE  CourseID = 'DMIT101'
 
---5. Select the Staff names who have positionID of 3
+--5. Select the Staff names who have job positionID of 3
 SELECT FirstName, LastName
        --,PositionID -- Press [ctrl] + k, then [ctrl] + u to un-comment
 FROM   Staff
@@ -58,6 +72,15 @@ FROM    Position
 SELECT  C.CourseName
 FROM    Course C -- I can have an alias to the table name
 WHERE   C.CourseHours < 96
+-- Type with me the following...
+SELECT  ST.LastName, ST.DateHired, ST.DateReleased
+FROM    Staff AS ST -- The use of the AS keyword in producing table/column aliases is optional
+                    -- but it can be a good idea for readability.
+-- You can use the full table name to fully-qualify your column names
+SELECT  Staff.LastName, Staff.FirstName, Staff.DateHired
+FROM    Staff
+WHERE   Staff.DateReleased IS NOT NULL
+-- NOTE: You can't mix the use of a table alias with the full name of the table
 
 -- 7.   Select the studentID's, CourseID and mark where the Mark is between 70 and 80
 SELECT  StudentID, CourseId, Mark
@@ -86,7 +109,8 @@ WHERE   R.Mark BETWEEN 70 AND 80
 SELECT  R.StudentID, R.CourseId, R.Mark
 FROM    Registration R
 WHERE   R.Mark BETWEEN 70 AND 80
-  AND   R.CourseId IN ('DMIT223', 'DMIT168')
+  AND   R.CourseId IN ('DMIT223', 'DMIT168') -- The IN keyword allows us to have a list of values
+                                             -- that will be checked in a OR manner.
 
 --8.a. Select the studentIDs, CourseID and mark where the Mark is 80 and 85
 SELECT  R.StudentID, R.CourseId, R.Mark

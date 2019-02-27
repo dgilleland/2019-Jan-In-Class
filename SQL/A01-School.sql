@@ -312,6 +312,14 @@ Insert into Student
 	(StudentID, FirstName, LastName, Gender, StreetAddress, City, Province, PostalCode, Birthdate, BalanceOwing)
 Values
 	(200978400, 'Peter', 'Pan', 'M', '182 Downing St.', 'Tisdale', 'SK', 'S1K9H3', 'Nov  7 1986', 0.00)
+Insert into Student
+	(StudentID, FirstName, LastName, Gender, StreetAddress, City, Province, PostalCode, Birthdate, BalanceOwing)
+Values
+	(200645328, 'Andy', 'Brown', 'M', '11206 Empire Building', 'Edmonton', 'AB', 'T4S6S2', 'Oct  2 1977', 0.00)
+Insert into Student
+	(StudentID, FirstName, LastName, Gender, StreetAddress, City, Province, PostalCode, Birthdate, BalanceOwing)
+Values
+	(200645329, 'Zach', 'Brown', 'M', '11206 Empire Building', 'Edmonton', 'AB', 'T4S6S2', 'Oct  2 1977', 0.00)
 set Identity_Insert Student Off
 go
 

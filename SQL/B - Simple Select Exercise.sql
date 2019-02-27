@@ -25,13 +25,29 @@ WHERE   CourseId = 'DMIT104'
 SELECT  COUNT(FirstName) AS 'Student Count'
 FROM    Student
 
---3.    The argument for the COUNT() function can be any column and/or expression.
+--3.b   The argument for the COUNT() function can be any column and/or expression.
 --      COUNT() will count the number of occurrences (i.e., "rows").
 SELECT  COUNT(1) AS 'Student Count'
 FROM    Student
 
---4.	Select how many students are taking (have a grade for) DMIT152
+-- 3.c  Select how many people are in the Staff table
+SELECT  COUNT(StaffID) AS 'Staff Count' -- It's common to use the PK as the column that you're counting
+FROM    Staff
+
+-- 3.d  Do a count of the people in the Staff table who are no longer working here
+--      Refresh your memory about all the data in the Staff table
+SELECT  * FROM Staff
+SELECT  COUNT(DateReleased) AS 'Retired Staff'
+FROM    Staff
+
+--4.	Select how many students have taken (have a grade for) DMIT152
 SELECT  COUNT(Mark) AS 'Student Count for DMIT152'
+FROM    Registration
+WHERE   CourseId = 'DMIT152'
+
+--4.b   Select how many students are or have been in DMIT152
+--      SELECT * FROM Registration WHERE CourseId = 'DMIT152'
+SELECT  COUNT(StudentID)
 FROM    Registration
 WHERE   CourseId = 'DMIT152'
     -- BTW, what course is 'DMIT152'???

@@ -731,6 +731,14 @@ Insert into Registration
 	(StudentID, CourseID, Semester, Mark, WithdrawYN, StaffID)
 Values
 	(199912010, 'DMIT254', '2005M', 0, 'Y', 6)
+Insert into Registration
+	(StudentID, CourseID, Semester, Mark, WithdrawYN, StaffID)
+Values
+	(200688700, 'DMIT152', '2005S', null, 'N', 4)
+Insert into Registration
+	(StudentID, CourseID, Semester, Mark, WithdrawYN, StaffID)
+Values
+	(200645320, 'DMIT152', '2005S', null, 'N', 4)
 go
 
 set Identity_Insert PaymentType ON

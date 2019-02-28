@@ -17,6 +17,7 @@ GO
 
 	-- SUBSTRING
 	SELECT SUBSTRING('Hello World', 1, 2)
+	SELECT SUBSTRING('To be or not to be', 10, 3)
 	-- REVERSE
     SELECT REVERSE('Dan')
     -- (Club whose id is an anagram)

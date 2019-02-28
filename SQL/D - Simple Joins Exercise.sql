@@ -5,18 +5,19 @@ GO
 --1.	Select Student full names and the course ID's they are registered in.
 SELECT  FirstName + ' ' + LastName AS 'Full Name',
         CourseId
-FROM    Student
-    INNER JOIN Registration
+FROM    Student -- Start the FROM statement by identifying one of the tables you want
+    INNER JOIN Registration -- Identify another table you are connecting to
+        -- ON is where we specify which columns should be used in the relationship
         ON Student.StudentID = Registration.StudentID
 
 --1.a. Select Student full names, the course ID and the course name that the students are registered in.
 SELECT  FirstName + ' ' + LastName AS 'FullName',
         C.CourseId,
         CourseName
-FROM    Student S
-    INNER JOIN Registration R
-        ON S.StudentID = R.StudentID
-    INNER JOIN Course C
+FROM    Student AS S
+    INNER JOIN Registration AS R
+        ON S.StudentID = R.StudentID -- ON helps us identify MATCHING data
+    INNER JOIN Course AS C
         ON R.CourseId = C.CourseId
 
 --2.	Select the Staff full names and the Course ID's they teach.

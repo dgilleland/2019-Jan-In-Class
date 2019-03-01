@@ -24,6 +24,8 @@ namespace BackEnd.BLL
             //  - Total assignment weight must be exactly 100.
             if (assignments == null)
                 throw new ArgumentNullException(nameof(assignments), "Missing a collection of weighted items");
+            if (assignments.Count() < 2)
+                throw new ArgumentException("There must be at least two assignments for a course");
             if (assignments.Any(x => x == null))
                 throw new ArgumentNullException(nameof(assignments), "One or more of the weighted items is null");
             if (assignments.Sum(x => x.Weight) != 100)

@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Reflection;
+using BackEnd.BLL;
 
 namespace WebApp.UserControls
 {
@@ -105,7 +106,11 @@ namespace WebApp.UserControls
                 callback();
                 return true;
             }
-            catch (DbEntityValidationException ex)
+            catch (BusinessRuleException ex)
+            {
+                HandleException(ex);
+            }
+            catch (DbEntityValidationException ex) // gets thrown by EF when validating on SaveChanges()
             {
                 HandleException(ex);
             }
@@ -114,6 +119,15 @@ namespace WebApp.UserControls
                 HandleException(ex);
             }
             return false;
+        }
+        private void HandleException(BusinessRuleException ex)
+        {
+            var details = from error in ex.Errors
+                          select new
+                          {
+                              Error = error.Message
+                          };
+            ShowExceptions(details, $"There are business rule errors in processing {ex.ExecutionContext}", STR_TITLE_ValidationErrors, STR_TITLE_ICON_warning, STR_PANEL_danger);
         }
         /// <summary>
         /// Handles a DbEntityValidationException by getting the details of each validation error and showing it as a Validation Exception.

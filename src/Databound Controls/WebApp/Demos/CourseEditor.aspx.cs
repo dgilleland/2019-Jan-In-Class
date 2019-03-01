@@ -72,16 +72,19 @@ namespace WebApp.Demos
         // Final processing for this page to add courses to our system.
         protected void AddCourse_Click(object sender, EventArgs e)
         {
-            // 1) Extract the data from the form
-            DateTime start;
-            DateTime.TryParse(StartsOn.Text, out start);
-            var courseInfo = new CourseOffering(CourseName.Text, start);
+            MessageUserControl.TryRun(() =>
+           {
+                // 1) Extract the data from the form
+                DateTime start;
+               DateTime.TryParse(StartsOn.Text, out start);
+               var courseInfo = new CourseOffering(CourseName.Text, start);
 
-            RetrieveAssignments();
+               RetrieveAssignments();
 
-            // 2) Send the data to the BLL for processing
-            var controller = new StudentGradesController();
-            controller.CreateCourse(courseInfo, 7, Assignments);
+                // 2) Send the data to the BLL for processing
+                var controller = new StudentGradesController();
+               controller.CreateCourse(courseInfo, 7, Assignments);
+           }, "Course Added", $"Successfully added the {CourseName.Text} course");
         }
     }
 }

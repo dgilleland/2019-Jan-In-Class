@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLL\BlackMarketController.cs" />
+    <Compile Include="BLL\BusinessRuleException.cs" />
     <Compile Include="BLL\Commands\CourseOffering.cs" />
     <Compile Include="BLL\Commands\WeightedItem.cs" />
     <Compile Include="BLL\StudentGradesController.cs" />

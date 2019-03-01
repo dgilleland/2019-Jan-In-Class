@@ -1,7 +1,12 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CourseEditor.aspx.cs" Inherits="WebApp.Demos.CourseEditor" %>
 
+<%@ Register Src="~/UserControls/MessageUserControl.ascx" TagPrefix="uc1" TagName="MessageUserControl" %>
+
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <h1 class="page-header">Course Editor</h1>
+    
+    <uc1:MessageUserControl runat="server" ID="MessageUserControl" />
 
     <asp:Label ID="Label1" runat="server" AssociatedControlID="CourseName" Text="Course Name" />
     <asp:TextBox ID="CourseName" runat="server" CssClass="form-content" />

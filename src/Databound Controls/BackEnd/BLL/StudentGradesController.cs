@@ -19,7 +19,17 @@ namespace BackEnd.BLL
                 throw new ArgumentException("Course is already registered");
             // TODO: Other validation
             //  - Max students between 5 and 15
+            if (enrollmentCount < 5 || enrollmentCount > 15)
+                throw new ArgumentException("Max number of students must be between 5 and 15");
             //  - Total assignment weight must be exactly 100.
+            if (assignments == null)
+                throw new ArgumentNullException(nameof(assignments), "Missing a collection of weighted items");
+            if (assignments.Any(x => x == null))
+                throw new ArgumentNullException(nameof(assignments), "One or more of the weighted items is null");
+            if (assignments.Sum(x => x.Weight) != 100)
+                throw new ArgumentException("Assignments must total to 100% for the course");
+            if (assignments.Any(x => x.Weight <= 0))
+                throw new ArgumentException("Assignment weights must be greater than zero");
 
             // 1) Create the course
             var course = new Course

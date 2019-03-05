@@ -84,5 +84,10 @@
     <asp:HyperLink ID="HyperLink1" runat="server">HyperLink</asp:HyperLink>
     vs.
     <asp:ImageButton ID="AddThing" runat="server" ImageUrl="https://www.google.ca/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" />
-
+    <br />
+    <asp:Calendar ID="Calendar1" runat="server"></asp:Calendar>
+    <hr />
+    <asp:LinkButton ID="Interact" runat="server" CssClass="btn btn-primary"
+         OnClick="Interact_Click">Programmatically Interact With Controls</asp:LinkButton>
+    <asp:Label ID="Results" runat="server" />
 </asp:Content>

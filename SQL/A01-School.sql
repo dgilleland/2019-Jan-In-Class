@@ -921,3 +921,10 @@ set Identity_Insert Payment OFF
 -- need to turn date check back on
 alter table Payment CHECK constraint CK_PAY_PDate_Not_Old
 go
+
+-- Additional data
+INSERT INTO Course(CourseId, CourseName, CourseHours, MaxStudents, CourseCost)
+VALUES  ('DMIT115', 'Visual SQL', 60, 12, 500),
+        ('DMIT175', 'Database Programming', 60, 12, 500),
+        ('DMIT228', 'Advanced Application Development', 60, 12, 500),
+        ('DMIT215', 'Database Administration', 60, 12, 500)

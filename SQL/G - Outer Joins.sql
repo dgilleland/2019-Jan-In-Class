@@ -39,18 +39,10 @@ FROM    Student S
     LEFT OUTER JOIN Registration R
         ON S.StudentID  = R.StudentID
 GROUP BY FirstName, LastName
-
 --5. How many students are in each club? Display club name and count.
 -- TODO: Student Answer Here...
 
 --6. How many times has each course been offered? Display the course ID and course name along with the number of times it has been offered.
--- HINT: Run the following to add some more rows to your Course table.
-INSERT INTO Course(CourseId, CourseName, CourseHours, MaxStudents, CourseCost)
-VALUES  ('DMIT115', 'Visual SQL', 60, 12, 500),
-        ('DMIT175', 'Database Programming', 60, 12, 500),
-        ('DMIT228', 'Advanced Application Development', 60, 12, 500),
-        ('DMIT215', 'Database Administration', 60, 12, 500)
-
 -- TODO: Student Answer Here...
 
 --7. How many courses have each of the staff taught? Display the full name and the count.
@@ -58,8 +50,12 @@ VALUES  ('DMIT115', 'Visual SQL', 60, 12, 500),
 
 --8. How many second-year courses have the staff taught? Include all the staff and their job position.
 --   A second-year course is one where the number portion of the course id starts with a '2'.
+-- TODO: Student Answer Here...
 
 --9. What is the average payment amount made by each student? Include all the students,
 --   and display the students' full names.
+-- TODO: Student Answer Here...
 
 --10. Display the names of all students who have not made a payment.
+-- TODO: Student Answer Here...
+

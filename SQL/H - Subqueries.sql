@@ -7,7 +7,9 @@ GO
 --1. Select the Payment dates and payment amount for all payments that were Cash
 SELECT PaymentDate, Amount
 FROM   Payment
-WHERE  PaymentTypeID = 
+WHERE  PaymentTypeID = -- Using the = means that the RH side must be a single value
+     -- Assuming that every PaymentTypeDescription will be UNIQUE,
+     -- the following subquery will return a single column and a single row
     (SELECT PaymentTypeID
      FROM   PaymentType
      WHERE  PaymentTypeDescription = 'cash')
@@ -21,7 +23,6 @@ WHERE  PaymentTypeDescription = 'cash'
 
 --2. Select The Student ID's of all the students that are in the 'Association of Computing Machinery' club
 -- TODO: Student Answer Here
-
 
 --3. Select All the staff full names for staff that have taught a course.
 SELECT FirstName + ' ' + LastName AS 'Staff'

@@ -8,17 +8,6 @@
         <p><a href="http://www.asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
     </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <asp:Label ID="MessageLabel" runat="server" />
-            <asp:TextBox ID="UserReply" runat="server" />
-            <asp:LinkButton ID="RespondToUser" runat="server"
-                 Text="Tell me something" OnClick="RespondToUser_Click" />
-            <br />
-            <asp:Calendar ID="Calendar1" runat="server"></asp:Calendar>
-            <asp:LinkButton ID="TellUserBirthdate" runat="server" OnClick="TellUserBirthdate_Click">Tell me your birthdate.</asp:LinkButton>
-        </div>
-    </div>
 
     <div class="row">
         <div class="col-md-4">

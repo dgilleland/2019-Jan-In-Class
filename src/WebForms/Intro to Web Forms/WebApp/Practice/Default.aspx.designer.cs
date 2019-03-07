@@ -7,9 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebApp {
-    
-    
-    public partial class _Default {
-    }
+
+
+public partial class Practice_Default {
 }

@@ -148,7 +148,6 @@
     <Content Include="Images\User Registration %28Alternate 263h%29.png" />
     <Content Include="Images\User Registration.png" />
     <Content Include="Practice\Default.aspx" />
-    <Content Include="Practice\UserRegistrationForm.aspx" />
     <Content Include="Sandbox.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -284,15 +283,10 @@
     </Compile>
     <Compile Include="Practice\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Practice\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Practice\UserRegistrationForm.aspx.cs">
-      <DependentUpon>UserRegistrationForm.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Practice\UserRegistrationForm.aspx.designer.cs">
-      <DependentUpon>UserRegistrationForm.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sandbox.aspx.cs">

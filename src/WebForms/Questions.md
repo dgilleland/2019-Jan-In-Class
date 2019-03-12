@@ -26,7 +26,7 @@
 ## C# Questions
 
 - What are pocos and dto
-- All the classes on the back end are labeled "Protected" what does that do differently from static or public or private?
+- All the class methods on the back end are labeled "Protected" what does that do differently from static or public or private?
 - DateTime when;  - I dont know what that does (DemoWebControls.aspx.cs line 29)
 - Convert string to date time, how does the try parse vs try extract work
 - determining return value.  what does this return?

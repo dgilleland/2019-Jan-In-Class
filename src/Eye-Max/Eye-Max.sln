@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "WebApp\WebApp.csproj", "{FAE5C656-D8A2-4BF6-841F-1C30286B76BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EyeMaxBooking", "EyeMaxBooking\EyeMaxBooking.csproj", "{651F8014-A71B-4DCC-BB49-B267C7306F32}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FAE5C656-D8A2-4BF6-841F-1C30286B76BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAE5C656-D8A2-4BF6-841F-1C30286B76BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAE5C656-D8A2-4BF6-841F-1C30286B76BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAE5C656-D8A2-4BF6-841F-1C30286B76BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{651F8014-A71B-4DCC-BB49-B267C7306F32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{651F8014-A71B-4DCC-BB49-B267C7306F32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{651F8014-A71B-4DCC-BB49-B267C7306F32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{651F8014-A71B-4DCC-BB49-B267C7306F32}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {59F39493-A7DD-4F4A-9EDF-AD9D9F44644C}
+	EndGlobalSection
+EndGlobal

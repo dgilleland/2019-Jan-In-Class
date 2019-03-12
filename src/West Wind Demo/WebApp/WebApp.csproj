@@ -213,6 +213,11 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\Diagrams-CustomerSalesSequenceDiagram.png" />
+    <Content Include="Images\Diagrams-WestWindERD.png" />
+    <Content Include="Images\ManageInventory.png" />
+    <Content Include="Images\ProductCatalog.png" />
+    <Content Include="Images\www-ProductCatalog.png" />
     <Content Include="OurProducts.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

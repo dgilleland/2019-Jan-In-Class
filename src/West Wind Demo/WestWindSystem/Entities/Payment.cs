@@ -19,6 +19,10 @@ namespace WestWindSystem.Entities
 
         public int OrderID { get; set; }
 
+        public Guid TransactionID { get; set; }
+
+        public DateTime? ClearedDate { get; set; }
+
         public virtual Order Order { get; set; }
 
         public virtual PaymentType PaymentType { get; set; }

@@ -16,7 +16,9 @@
             <h2>The Database</h2>
             <uc1:BetaRelease runat="server" ID="BetaRelease" CssClass="bg-info" />
             <p>The following ERD represents the entire database schema.</p>
-            <img src="/Images/Diagrams-WestWindERD.png" class="img-responsive" />
+            <a href="/Images/Diagrams-WestWindERD.png" data-toggle="lightbox" data-title="West Wind ERD">
+                <img src="/Images/Diagrams-WestWindERD.png" class="img-responsive" />
+            </a>
         </div>
         <div class="col-md-6">
             <h2>Get more libraries</h2>
@@ -28,5 +30,14 @@
             </p>
         </div>
     </div>
-
+    <link href="Scripts/Bootstrap-Lightbox/ekko-lightbox.min.css" rel="stylesheet" />
+    <script src="Scripts/Bootstrap-Lightbox/ekko-lightbox.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(document).on('click', '[data-toggle="lightbox"]', function (event) {
+                event.preventDefault();
+                $(this).ekkoLightbox();
+            });
+        });
+    </script>
 </asp:Content>

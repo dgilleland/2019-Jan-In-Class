@@ -78,6 +78,21 @@ GROUP BY PaymentType.PaymentTypeID, PaymentTypeDescription
 HAVING COUNT(PaymentType.PaymentTypeID) >= ALL (SELECT COUNT(PaymentTypeID)
                                                 FROM Payment 
                                                 GROUP BY PaymentTypeID)
+--   Examining the solution:
+--   - First, take a look at the results of the subquery by itself - this gives us
+--     the counts and we can visually see what the highest value is
+                                               (SELECT COUNT(PaymentTypeID)
+                                                FROM Payment 
+                                                GROUP BY PaymentTypeID)
+--   - Second, take a look at the outer query, but leave out the filtering of aggregates.
+--     Also, display the count that is used in the HAVING clause. This should give you
+--     an idea of what the right answers should be.
+SELECT PaymentTypeDescription
+       , COUNT(PaymentType.PaymentTypeID)
+FROM   Payment 
+    INNER JOIN PaymentType 
+        ON Payment.PaymentTypeID = PaymentType.PaymentTypeID
+GROUP BY PaymentType.PaymentTypeID, PaymentTypeDescription 
 
 --8. What is the total avg mark for the students from Edm?
 SELECT AVG(Mark) AS 'Average'

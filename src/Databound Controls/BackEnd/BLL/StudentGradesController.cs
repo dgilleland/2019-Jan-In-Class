@@ -1,17 +1,23 @@
 ﻿using BackEnd.BLL.Commands;
+using BackEnd.BLL.Queries;
 using BackEnd.DataModels.School;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BackEnd.BLL
 {
+    [DataObject]
     public class StudentGradesController
     {
+        #region In-Memory Database
         internal static Dictionary<string, Course> CourseDb = new Dictionary<string, Course>();
+        #endregion
 
+        #region Command Processing
         public void CreateCourse(CourseOffering commandData, int enrollmentCount, IEnumerable<WeightedItem> assignments)
         {
             var violations = new BusinessRuleException(nameof(CreateCourse));
@@ -63,5 +69,22 @@ namespace BackEnd.BLL
             // 4) "Save" to the "database"
             CourseDb.Add(course.CourseName, course);
         }
+        #endregion
+
+        #region Queries
+        [DataObjectMethod(DataObjectMethodType.Select)]
+        public List<CourseSummary> ExistingCourses()
+        {
+            var result = from data in CourseDb.Values
+                         select new CourseSummary
+                         {
+                             CourseName = data.CourseName,
+                             StartDate = data.StartDate,
+                             EnrolledStudentCount = data.Students.Count,
+                             Evaluations = string.Join(", ", data.Assignments)
+                         };
+            return result.ToList();
+        }
+        #endregion
     }
 }

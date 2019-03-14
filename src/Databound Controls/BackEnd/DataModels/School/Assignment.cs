@@ -6,5 +6,10 @@
         public string Name { get; set; }
         public int WeightedValue { get; set; }
         public int? TotalPossibleMarks { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Name} ({WeightedValue} %)";
+        }
     }
 }

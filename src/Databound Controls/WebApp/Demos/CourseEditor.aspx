@@ -43,4 +43,14 @@
     <asp:LinkButton ID="AddCourse" runat="server" CssClass="btn btn-primary" Text="Add Course"
          OnClick="AddCourse_Click"/>
 
+    <hr />
+    <asp:GridView ID="Courses" runat="server" AutoGenerateColumns="False" DataSourceID="CourseListingDataSource" CssClass="table table-condensed table-hover">
+        <Columns>
+            <asp:BoundField DataField="CourseName" HeaderText="Course" SortExpression="CourseName"></asp:BoundField>
+            <asp:BoundField DataField="StartDate" HeaderText="Starting" SortExpression="StartDate"></asp:BoundField>
+            <asp:BoundField DataField="EnrolledStudentCount" HeaderText="# Students" SortExpression="EnrolledStudentCount"></asp:BoundField>
+            <asp:BoundField DataField="Evaluations" HeaderText="Evaluation Plan" SortExpression="Evaluations"></asp:BoundField>
+        </Columns>
+    </asp:GridView>
+    <asp:ObjectDataSource runat="server" ID="CourseListingDataSource" OldValuesParameterFormatString="original_{0}" SelectMethod="ExistingCourses" TypeName="BackEnd.BLL.StudentGradesController"></asp:ObjectDataSource>
 </asp:Content>

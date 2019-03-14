@@ -84,6 +84,7 @@ namespace WebApp.Demos
                 // 2) Send the data to the BLL for processing
                 var controller = new StudentGradesController();
                controller.CreateCourse(courseInfo, 7, Assignments);
+               Courses.DataBind();
            }, "Course Added", $"Successfully added the {CourseName.Text} course");
         }
     }

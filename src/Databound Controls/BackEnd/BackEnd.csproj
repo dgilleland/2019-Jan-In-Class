@@ -56,6 +56,8 @@
     <Compile Include="BLL\BusinessRuleException.cs" />
     <Compile Include="BLL\Commands\CourseOffering.cs" />
     <Compile Include="BLL\Commands\WeightedItem.cs" />
+    <Compile Include="BLL\FakeUniversity.cs" />
+    <Compile Include="BLL\Queries\CourseSummary.cs" />
     <Compile Include="BLL\StudentGradesController.cs" />
     <Compile Include="DataModels\BlackMarket\Ad.cs" />
     <Compile Include="DataModels\School\Assignment.cs" />
@@ -70,8 +72,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="BLL\Queries\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

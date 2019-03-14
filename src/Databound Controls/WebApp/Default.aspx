@@ -13,7 +13,9 @@
                 In this demo, you will create a list of courses with assignments using a "batch processing" approach.
             </p>
             <p>
-                <a class="btn btn-default" href="Demos/CourseEditor.aspx">Run Demo &raquo;</a>
+                <asp:LinkButton ID="PrepopulateCourses" runat="server"
+                     OnClick="PrepopulateCourses_Click" CssClass="btn btn-default"><i class="fa fa-graduation-cap"></i> Pre-populate Courses</asp:LinkButton>
+                <a class="btn btn-primary" href="Demos/CourseEditor.aspx">Run Demo &raquo;</a>
             </p>
         </div>
         <div class="col-md-4">

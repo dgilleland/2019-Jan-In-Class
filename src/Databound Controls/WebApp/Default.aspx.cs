@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BackEnd.BLL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,6 +13,11 @@ namespace WebApp
         protected void Page_Load(object sender, EventArgs e)
         {
 
+        }
+
+        protected void PrepopulateCourses_Click(object sender, EventArgs e)
+        {
+            FakeUniversity.FakeItToMakeIt();
         }
     }
 }

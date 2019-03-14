@@ -28,6 +28,7 @@ Apply the following validation rules:
 - First and Last Name are required.
 - Postal Code must be in the correct format: `\D\d\D \d\D\d`
 - Email is required.
+- Contest Entry Code is required.
 
 ## Processing User Input
 

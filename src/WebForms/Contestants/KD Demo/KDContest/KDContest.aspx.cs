@@ -30,7 +30,7 @@ namespace KDContest
                                                  LastName.Text,
                                                  Email.Text,
                                                  City.Text,
-                                                 Province.Text,
+                                                 Province.SelectedValue, // for a DropDownList control
                                                  PostalCode.Text,
                                                  int.Parse(Age.Text));
                     Entries.Add(submission);

@@ -108,7 +108,7 @@ AS
 RETURN
 GO
 EXEC FindStudentClubs ''    -- What do you predict the result will be?
-
+EXEC FindStudentClubs 'NA'  -- Should give good results with no errors.
 
 
 -- 3. Create a stored procedure that will change the mailing address for a student. Call it ChangeMailingAddress.

@@ -34,6 +34,7 @@ AS
 RETURN
 GO
 
+
 -- 1.b. Modify the AddClub procedure to ensure that the club name and id are actually supplied. Use the RAISERROR() function to report that this data is required.
 ALTER PROCEDURE AddClub
     -- Parameters here
@@ -53,8 +54,64 @@ AS
 RETURN
 GO
 
+-- 2. Make a stored procedure that will find a club based on the first two or more characters of the club's ID. Call the procedure "FindStudentClubs"
+-- The following stored procedure does the query, but without validation
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'FindStudentClubs')
+    DROP PROCEDURE FindStudentClubs
+GO
+CREATE PROCEDURE FindStudentClubs
+    @PartialID      varchar(10)
+AS
+    -- Body of procedure here
+    SELECT  ClubID, ClubName
+    FROM    Club
+    WHERE   ClubId LIKE @PartialID + '%'
+RETURN
+GO
 
--- 2. Create a stored procedure that will change the mailing address for a student. Call it ChangeMailingAddress.
+EXEC FindStudentClubs NULL  -- What do you predict the result will be?
+EXEC FindStudentClubs ''    -- What do you predict the result will be?
+GO
+ALTER PROCEDURE FindStudentClubs
+    @PartialID      varchar(10)
+AS
+    -- Body of procedure here
+    IF @PartialID IS NULL OR LEN(@PartialID) < 2
+    BEGIN   -- {
+        RAISERROR('The partial ID must be two or more characters', 16, 1)
+        -- The 16 is the error number and the 1 is the severity
+    END     -- }
+    SELECT  ClubID, ClubName
+    FROM    Club
+    WHERE   ClubId LIKE @PartialID + '%'
+RETURN
+GO
+EXEC FindStudentClubs ''    -- What do you predict the result will be?
+GO
+-- The above change did not stop the select.
+-- To fix it, we need the ELSE side of the IF validation
+ALTER PROCEDURE FindStudentClubs -- Third time's the charm ;)
+    @PartialID      varchar(10)
+AS
+    -- Body of procedure here
+    IF @PartialID IS NULL OR LEN(@PartialID) < 2
+    BEGIN   -- {
+        RAISERROR('The partial ID must be two or more characters', 16, 1)
+        -- The 16 is the error number and the 1 is the severity
+    END     -- }
+    ELSE
+    BEGIN
+        SELECT  ClubID, ClubName
+        FROM    Club
+        WHERE   ClubId LIKE @PartialID + '%'
+    END
+RETURN
+GO
+EXEC FindStudentClubs ''    -- What do you predict the result will be?
+
+
+
+-- 3. Create a stored procedure that will change the mailing address for a student. Call it ChangeMailingAddress.
 --    Make sure all the parameter values are supplied before running the UPDATE (ie: no NULLs).
 -- sp_help Student
 IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'ChangeMailingAddress')
@@ -86,17 +143,17 @@ AS
 RETURN
 
 
--- 3. Create a stored procedure that will remove a student from a club. Call it RemoveFromClub.
+-- 4. Create a stored procedure that will remove a student from a club. Call it RemoveFromClub.
 
 
 -- Query-based Stored Procedures
--- 4. Create a stored procedure that will display all the staff and their position in the school.
+-- 5. Create a stored procedure that will display all the staff and their position in the school.
 --    Show the full name of the staff member and the description of their position.
 
--- 5. Display all the final course marks for a given student. Include the name and number of the course
+-- 6. Display all the final course marks for a given student. Include the name and number of the course
 --    along with the student's mark.
 
--- 6. Display the students that are enrolled in a given course on a given semester.
+-- 7. Display the students that are enrolled in a given course on a given semester.
 --    Display the course name and the student's full name and mark.
 
--- 7. The school is running out of money! Find out who still owes money for the courses they are enrolled in.
+-- 8. The school is running out of money! Find out who still owes money for the courses they are enrolled in.

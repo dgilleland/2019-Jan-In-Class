@@ -1,4 +1,5 @@
 --Stored Procedures (Sprocs)
+--  A Stored Procedure is a controlled execution of some SQL script.
 
 USE [A01-School]
 GO
@@ -69,7 +70,8 @@ AS
     HAVING AVG(R.Mark) > 80
 RETURN
 GO
-
+EXEC HonorCoursesOneTerm
+GO
 --3. Oops, made a mistake! For question 2, it should have been for semester 2004S. Write the code to change the procedure accordingly. 
 ALTER PROCEDURE HonorCoursesOneTerm
 AS
@@ -84,7 +86,7 @@ GO
 
 --3.B. Your instructor is back, and recommends that the previous stored procedure use a parameter for the semester, making it more "re-usable"
 ALTER PROCEDURE HonorCoursesOneTerm
-    @Semester   char(5)   -- @ preceeds the name of the parameter
+    @Semester   char(5) -- @ preceeds the name of the parameter
 AS
     SELECT C.CourseName
     FROM   Course C
@@ -161,12 +163,10 @@ AS
     --                                  GROUP BY CourseId)
 RETURN
 GO
--- Run the above with the database as-is, and you will see three courses coming back.
+-- Run the above with the database as-is, and you will see five courses coming back.
 EXEC LowNumbers
 INSERT INTO Course(CourseId, CourseName, CourseHours, CourseCost, MaxStudents)
 VALUES ('DMIT987', 'Advanced Logic', 90, 420.00, 12)
--- Now, run the stored procedure and you will see only this new course
-EXEC LowNumbers
 
 --6. Create a stored procedure called "Provinces" to list all the students provinces.
 

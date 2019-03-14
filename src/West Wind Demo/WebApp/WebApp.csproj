@@ -213,6 +213,11 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\Diagrams-CustomerSalesSequenceDiagram.png" />
+    <Content Include="Images\Diagrams-WestWindERD.png" />
+    <Content Include="Images\ManageInventory.png" />
+    <Content Include="Images\ProductCatalog.png" />
+    <Content Include="Images\www-ProductCatalog.png" />
     <Content Include="OurProducts.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -222,6 +227,13 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Scripts\Bootstrap-Lightbox\ekko-lightbox.css" />
+    <Content Include="Scripts\Bootstrap-Lightbox\ekko-lightbox.js" />
+    <Content Include="Scripts\Bootstrap-Lightbox\ekko-lightbox.min.css" />
+    <Content Include="Scripts\Bootstrap-Lightbox\ekko-lightbox.min.js" />
+    <Content Include="Scripts\Bootstrap-Lightbox\ekko-lightbox.min.js.map" />
+    <Content Include="Scripts\Bootstrap-Lightbox\ekko-lightbox.min.css.map" />
+    <Content Include="Scripts\Bootstrap-Lightbox\ekko-lightbox.js.map" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -255,7 +267,9 @@
     <Content Include="UserControls\BetaRelease.ascx" />
     <Content Include="UserControls\MessageUserControl.ascx" />
     <Content Include="ViewSwitcher.ascx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Bundle.config" />
   </ItemGroup>
   <ItemGroup>

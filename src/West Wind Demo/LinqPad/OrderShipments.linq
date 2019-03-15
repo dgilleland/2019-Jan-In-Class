@@ -20,7 +20,7 @@ select new // SupplierShipment
                   Phone = shipment.ShipViaShipper.Phone
               },
     Manifest = from item in shipment.ManifestItems
-               select new // ManifestItem
+               select new // ShippedItem
                {
                    Product = item.Product.ProductName,
                    Quantity = item.ShipQuantity

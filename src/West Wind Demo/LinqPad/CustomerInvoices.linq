@@ -15,8 +15,6 @@ select new // Invoice
 {
     Name = order.Customer.CompanyName,
     OrderId = order.OrderID,
-    Attn = order.Customer.ContactName,
-    AttnTitle = order.Customer.ContactTitle,
     OrderDate = order.OrderDate,
     RequiredBy = order.RequiredDate,
     IsShipped = order.Shipped,

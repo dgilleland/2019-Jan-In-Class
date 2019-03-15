@@ -49,8 +49,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLL\OrderHistoryController.cs" />
     <Compile Include="BLL\ProductManagementController.cs" />
     <Compile Include="BLL\SetupUserRegistrationController.cs" />
+    <Compile Include="DataModels\InvoiceHeader.cs" />
     <Compile Include="DataModels\ProductCategory.cs" />
     <Compile Include="DataModels\ProductInfo.cs" />
     <Compile Include="DataModels\ProductSummary.cs" />

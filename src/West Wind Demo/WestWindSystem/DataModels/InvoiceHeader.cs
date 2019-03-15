@@ -23,6 +23,7 @@ namespace WestWindSystem.DataModels
         public DateTime ShippedOn { get; set; }
         public ShipVia ShipVia { get; set; }
         public List<ShippedItem> Manifest { get; set; }
+        public decimal FreightCost { get; set; }
     }
     public class ShipVia
     {

@@ -28,8 +28,12 @@ namespace WestWindSystem.Entities
 
         public DateTime? RequiredDate { get; set; }
 
+        public DateTime? PaymentDueDate { get; set; }
+
         [Column(TypeName = "money")]
         public decimal? Freight { get; set; }
+
+        public bool Shipped { get; set; }
 
         [StringLength(40)]
         public string ShipName { get; set; }

@@ -37,6 +37,7 @@ namespace WebApp.UserControls
             if (user != null)
             {
                 signInManager.SignIn(user, isPersistent: false, rememberBrowser: false);
+                Response.Redirect(Request.Url.OriginalString);
             }
         }
     }

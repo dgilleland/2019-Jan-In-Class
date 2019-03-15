@@ -30,7 +30,7 @@
         </AnonymousTemplate>
         <LoggedInTemplate>
             You are logged in as <b><%: Context.User.Identity.GetUserName()  %></b>.
-                <asp:LoginStatus runat="server" CssClass="btn btn-info"
+                <asp:LoginStatus runat="server" CssClass="btn btn-info" LogoutAction="Refresh"
                     LogoutText="Log off" OnLoggingOut="Unnamed_LoggingOut" />
         </LoggedInTemplate>
     </asp:LoginView>

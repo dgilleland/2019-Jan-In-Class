@@ -7,6 +7,7 @@ using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.AspNet.Identity;
+using WebApp.Admin.Security;
 
 namespace WebApp
 {
@@ -75,6 +76,15 @@ namespace WebApp
         protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)
         {
             Context.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+        }
+
+        protected void Page_PreRender(object sender, EventArgs e)
+        {
+            // Hide menu items accordingly
+            if(!Request.IsAuthenticated || !Page.User.IsInRole(Settings.CustomerRole))
+            {
+                CustomerOrderHistory.Visible = false;
+            }
         }
     }
 

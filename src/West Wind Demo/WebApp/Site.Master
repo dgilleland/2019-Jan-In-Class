@@ -51,6 +51,7 @@
                     <ul class="nav navbar-nav">
                         <li><a runat="server" href="~/">Home</a></li>
                         <li><a runat="server" href="~/OurProducts.aspx">Our Products</a></li>
+                        <li runat="server" id="CustomerOrdersForm"><a runat="server" href="~/Sales/CustomerOrderForm.aspx">Customer Order Form</a></li>
                         <li runat="server" id="CustomerOrderHistory"><a runat="server" href="~/Customers/OrderHistory.aspx">Order History</a></li>
                         <li><a runat="server" href="~/About">About</a></li>
                         <li><a runat="server" href="~/Contact">Contact</a></li>

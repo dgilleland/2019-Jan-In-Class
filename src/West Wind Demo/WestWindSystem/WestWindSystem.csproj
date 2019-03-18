@@ -51,11 +51,14 @@
   <ItemGroup>
     <Compile Include="BLL\OrderHistoryController.cs" />
     <Compile Include="BLL\ProductManagementController.cs" />
+    <Compile Include="BLL\SalesController.cs" />
     <Compile Include="BLL\SetupUserRegistrationController.cs" />
+    <Compile Include="DataModels\EditCustomerOrder.cs" />
     <Compile Include="DataModels\InvoiceHeader.cs" />
     <Compile Include="DataModels\ProductCategory.cs" />
     <Compile Include="DataModels\ProductInfo.cs" />
     <Compile Include="DataModels\ProductSummary.cs" />
+    <Compile Include="DataModels\RegionalManager.cs" />
     <Compile Include="DataModels\SetupUserInfo.cs" />
     <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\Customer.cs" />

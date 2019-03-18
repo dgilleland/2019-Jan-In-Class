@@ -13,7 +13,7 @@
                 <div class="col-md-4">
                     <asp:DropDownList ID="UserList" runat="server" AppendDataBoundItems="true" CssClass="form-control"
                         DataSourceID="UserDataSource" DataTextField="Text" DataValueField="Value">
-                        <asp:ListItem Value="">[Select a Role]</asp:ListItem>
+                        <asp:ListItem Value="">[Select a User]</asp:ListItem>
                     </asp:DropDownList>
                 </div>
                 <div class="col-md-4">

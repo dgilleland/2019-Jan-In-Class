@@ -81,9 +81,16 @@ namespace WebApp
         protected void Page_PreRender(object sender, EventArgs e)
         {
             // Hide menu items accordingly
-            if(!Request.IsAuthenticated || !Page.User.IsInRole(Settings.CustomerRole))
+            if (!Request.IsAuthenticated)
             {
-                CustomerOrderHistory.Visible = false;
+                if (!Page.User.IsInRole(Settings.CustomerRole))
+                {
+                    CustomerOrderHistory.Visible = false;
+                }
+                if (!Page.User.IsInRole(Settings.EmployeeRole))
+                {
+                    CustomerOrdersForm.Visible = false;
+                }
             }
         }
     }

@@ -228,6 +228,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Sales\CustomerOrderForm.aspx" />
     <Content Include="Scripts\Bootstrap-Lightbox\ekko-lightbox.css" />
     <Content Include="Scripts\Bootstrap-Lightbox\ekko-lightbox.js" />
     <Content Include="Scripts\Bootstrap-Lightbox\ekko-lightbox.min.css" />
@@ -433,6 +434,13 @@
       <DependentUpon>OurProducts.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sales\CustomerOrderForm.aspx.cs">
+      <DependentUpon>CustomerOrderForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sales\CustomerOrderForm.aspx.designer.cs">
+      <DependentUpon>CustomerOrderForm.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -13,7 +13,51 @@ WHERE   Mark BETWEEN 70 AND 80 -- BETWEEN is inclusive
 --      Place this in a stored procedure that has two parameters,
 --      one for the upper value and one for the lower value.
 --      Call the stored procedure ListStudentMarksByRange
+GO
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'ListStudentMarksByRange')
+    DROP PROCEDURE ListStudentMarksByRange
+GO
+CREATE PROCEDURE ListStudentMarksByRange
+    @lower  decimal,
+    @upper  decimal
+AS
+    SELECT  StudentID, CourseId, Mark
+    FROM    Registration
+    WHERE   Mark BETWEEN @lower AND @upper -- BETWEEN is inclusive
+RETURN
+GO
 
+-- Testing
+--  Good inputs
+EXEC ListStudentMarksByRange 70, 80
+--  Bad inputs
+EXEC ListStudentMarksByRange 80, 70
+EXEC ListStudentMarksByRange 70, NULL
+EXEC ListStudentMarksByRange NULL, 80
+EXEC ListStudentMarksByRange NULL, NULL
+EXEC ListStudentMarksByRange -5, 80
+EXEC ListStudentMarksByRange 70, 101 -- Specifically checking the upper limit
+
+--  Alter the stored procedure to handle validation of inputs
+GO
+ALTER PROCEDURE ListStudentMarksByRange
+    @lower  decimal,
+    @upper  decimal
+AS
+    IF @lower IS NULL OR @upper IS NULL
+        RAISERROR('Lower and Upper values are required and cannot be null', 16, 1)
+    ELSE IF @lower > @upper
+        RAISERROR('The lower limit cannot be larger than the upper limit', 16, 1)
+    ELSE IF @lower < 0
+        RAISERROR('The lower limit cannot be less than zero', 16, 1)
+    ELSE IF @upper > 100
+        RAISERROR('The upper limit cannot be greater than 100', 16, 1)
+    ELSE
+        SELECT  StudentID, CourseId, Mark
+        FROM    Registration
+        WHERE   Mark BETWEEN @lower AND @upper -- BETWEEN is inclusive
+RETURN
+GO
 
 /* ----------------------------------------------------- */
 
@@ -66,23 +110,4 @@ HAVING COUNT(PaymentType.PaymentTypeID) >= ALL (SELECT COUNT(PaymentTypeID)
 
 /* ----------------------------------------------------- */
 
--- 6.   Selects the current staff members that are in a particular job position.
-SELECT  FirstName + ' ' + LastName AS 'StaffFullName'
-FROM    Position P
-    INNER JOIN Staff S ON S.PositionID = P.PositionID
-WHERE   DateReleased IS NULL
-  AND   PositionDescription = 'Instructor'
---      Place this in a stored procedure called StaffByPosition
-
-/* ----------------------------------------------------- */
-
--- 7.   Selects the staff members that have taught a particular course (e.g.: 'DMIT101').
-SELECT  DISTINCT FirstName + ' ' + LastName AS 'StaffFullName',
-        CourseId
-FROM    Registration R
-    INNER JOIN Staff S ON S.StaffID = R.StaffID
-WHERE   DateReleased IS NULL
-  AND   CourseId = 'DMIT101'
---      This select should also accommodate inputs with wildcards. (Change = to LIKE)
---      Place this in a stored procedure called StaffByCourseExperience
-
+-- 6.   

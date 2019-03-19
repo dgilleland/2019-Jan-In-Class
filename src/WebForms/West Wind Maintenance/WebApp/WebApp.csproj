@@ -143,6 +143,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
+    <Content Include="Admin\ViewSuppliers.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -200,6 +201,13 @@
     <Content Include="Site.Mobile.Master" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\ViewSuppliers.aspx.cs">
+      <DependentUpon>ViewSuppliers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ViewSuppliers.aspx.designer.cs">
+      <DependentUpon>ViewSuppliers.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="About.aspx.cs">
       <DependentUpon>About.aspx</DependentUpon>
@@ -262,6 +270,16 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WestWindModels\WestWindModels.csproj">
+      <Project>{d4bc81e0-536d-4f2b-b01b-19837a024cb0}</Project>
+      <Name>WestWindModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WestWindSystem\WestWindSystem.csproj">
+      <Project>{ff4ed39d-cb38-46e6-bf56-8d46b98d6890}</Project>
+      <Name>WestWindSystem</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

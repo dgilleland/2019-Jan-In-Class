@@ -79,7 +79,7 @@ RETURN
 GO
 
 
--- 2. Add a stored procedure called AdjustMarks that takes in a course ID. The procedure should adjusts the marks of all students for that course by increasing the mark by 10%. Be sure that nobody gets a mark over 100%.
+-- 2. Add a stored procedure called AdjustMarks that takes in a course ID. The procedure should adjust the marks of all students for that course by increasing the mark by 10%. Be sure that nobody gets a mark over 100%.
 IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'AdjustMarks')
     DROP PROCEDURE AdjustMarks
 GO
@@ -150,13 +150,14 @@ AS
     ELSE
     BEGIN
         -- Declare a bunch of local/temp variables
+        -- Each variable can only hold a single value at a time
         DECLARE @MaxStudents    smallint
         DECLARE @CurrentCount   smallint
         DECLARE @CourseCost     money
         -- Assign a value to each of the local variables
         SELECT @MaxStudents = MaxStudents FROM Course WHERE CourseId = @CourseID
         SELECT @CurrentCount = COUNT (StudentID) FROM Registration WHERE CourseId = @CourseID AND Semester = @Semester
-        SELECT @CourseCost = coursecost FROM Course WHERE CourseId = @CourseID
+        SELECT @CourseCost = CourseCost FROM Course WHERE CourseId = @CourseID
 
         IF @MaxStudents >= @currentcount 
         BEGIN

@@ -41,7 +41,7 @@ AS
                 RAISERROR('Duplicate positions are not allowed', 16, 1)
             END   -- }
             ELSE
-            BEGIN -- {
+            BEGIN -- { -- This BEGIN/END is needed, because of two SQL statements
                 INSERT INTO Position(PositionDescription)
                 VALUES (@Description)
                 -- Send back the database-generated primary key
@@ -58,7 +58,48 @@ EXEC AddPosition 'The Boss'
 EXEC AddPosition NULL -- This should result in an error being raised
 EXEC AddPosition 'Me' -- This should result in an error being raised
 EXEC AddPosition 'The Boss' -- This should result in an error as well (a duplicate)
+-- This long string gets truncated at the parameter, because the parameter size is 50
+EXEC AddPosition 'The Boss of everything and everyone, everywhere and all the time, both past present and future, without any possible exception. Unless, of course, I''m not...'
+SELECT * FROM Position
+-- DELETE FROM Position WHERE PositionID = 12
 GO
+
+ALTER PROCEDURE AddPosition
+    -- Parameters here
+    @Description    varchar(500) -- Just to "allow" a larger value, but check the length later
+AS
+    -- Body of procedure here
+    IF @Description IS NULL
+    BEGIN -- {
+        RAISERROR('Description is required', 16, 1) -- Throw an exception
+    END   -- }
+    ELSE
+    BEGIN -- {
+        IF LEN(@Description) < 5 OR Len(@Description) > 50
+        BEGIN -- {
+            RAISERROR('Description must be between 5 and 50 characters', 16, 1)
+        END   -- }
+        ELSE
+        BEGIN -- {
+            IF EXISTS(SELECT * FROM Position WHERE PositionDescription = @Description)
+            BEGIN -- {
+                RAISERROR('Duplicate positions are not allowed', 16, 1)
+            END   -- }
+            ELSE
+            BEGIN -- { -- This BEGIN/END is needed, because of two SQL statements
+                INSERT INTO Position(PositionDescription)
+                VALUES (@Description)
+                -- Send back the database-generated primary key
+                SELECT @@IDENTITY -- This is a global variable
+            END   -- }
+        END   -- }
+    END   -- }
+RETURN
+GO
+
+EXEC AddPosition 'Still the Boss of everything and everyone, everywhere and all the time, both past present and future, without any possible exception. Unless, of course, I''m not...'
+SELECT * FROM Position
+-- DELETE FROM Position WHERE PositionID = 12
 
 -- 2) Create a stored procedure called LookupClubMembers that takes a club ID and returns the full names of all members in the club.
 IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'LookupClubMembers')
@@ -107,6 +148,7 @@ AS
     BEGIN
         DELETE FROM Activity
         WHERE       ClubId = @ClubId
+        -- Any Insert/Update/Delete will affect the global @@ROWCOUNT value
         IF @@ROWCOUNT = 0
         BEGIN
             RAISERROR('No members were deleted', 16, 1)

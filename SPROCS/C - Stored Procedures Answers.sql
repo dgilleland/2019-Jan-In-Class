@@ -110,4 +110,23 @@ HAVING COUNT(PaymentType.PaymentTypeID) >= ALL (SELECT COUNT(PaymentTypeID)
 
 /* ----------------------------------------------------- */
 
--- 6.   
+-- 6.   Selects the current staff members that are in a particular job position.
+SELECT  FirstName + ' ' + LastName AS 'StaffFullName'
+FROM    Position P
+    INNER JOIN Staff S ON S.PositionID = P.PositionID
+WHERE   DateReleased IS NULL
+  AND   PositionDescription = 'Instructor'
+--      Place this in a stored procedure called StaffByPosition
+
+/* ----------------------------------------------------- */
+
+-- 7.   Selects the staff members that have taught a particular course (e.g.: 'DMIT101').
+SELECT  DISTINCT FirstName + ' ' + LastName AS 'StaffFullName',
+        CourseId
+FROM    Registration R
+    INNER JOIN Staff S ON S.StaffID = R.StaffID
+WHERE   DateReleased IS NULL
+  AND   CourseId = 'DMIT101'
+--      This select should also accommodate inputs with wildcards. (Change = to LIKE)
+--      Place this in a stored procedure called StaffByCourseExperience
+

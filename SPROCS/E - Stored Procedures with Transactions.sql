@@ -37,7 +37,7 @@ AS
     ELSE
     BEGIN
         -- Begin Transaction
-        BEGIN TRANSACTION
+        BEGIN TRANSACTION   -- Means that any insert/update/delete is "temporary" until committed
         -- Step 1) Withdraw the student from the first course
         --PRINT('Update Registration to set WithdrawYN to Y')
         UPDATE Registration
@@ -51,7 +51,7 @@ AS
         BEGIN
             --PRINT('RAISERROR + ROLLBACK')
             RAISERROR('Unable to withdraw student', 16, 1)
-            ROLLBACK TRANSACTION
+            ROLLBACK TRANSACTION -- reverses the "temporary" changes to the database
         END
         ELSE
         BEGIN
@@ -60,7 +60,9 @@ AS
             INSERT INTO Registration(StudentID, CourseId, Semester)
             VALUES (@StudentID, @EnterCourseID, @Semester)
             --         Check for error/rowcount
-            IF @@ERROR > 0 OR @@ROWCOUNT = 0
+            -- Since @@ERROR and @@ROWCOUNT are global variables,
+            -- we have to check them immediately after our insert/update/delete
+            IF @@ERROR > 0 OR @@ROWCOUNT = 0 -- Do our check for errors after each I/U/D
             BEGIN
                 --PRINT('RAISERROR + ROLLBACK')
                 RAISERROR('Unable to transfer student to new course', 16, 1)
@@ -69,7 +71,7 @@ AS
             ELSE
             BEGIN
                 --PRINT('COMMIT TRANSACTION')
-                COMMIT TRANSACTION
+                COMMIT TRANSACTION -- Make the changes permanent on the database
             END
         END
     END

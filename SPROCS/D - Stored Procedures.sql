@@ -1,5 +1,7 @@
 --Stored Procedures (Sprocs)
-
+-- Global Variables - @@IDENTITY, @@ROWCOUNT, @@ERROR
+-- Other global variables can be found here:
+--  https://code.msdn.microsoft.com/Global-Variables-in-SQL-749688ef
 USE [A01-School]
 GO
 

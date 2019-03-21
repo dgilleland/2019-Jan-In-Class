@@ -15,13 +15,15 @@ namespace WestWindModels
     public class Product
     {
         [Key]
-        public int ProductID { get; set; }
-        public string ProductName { get; set; }
-        public int SupplierID { get; set; }
-        public int CategoryID { get; set; }
-        public string QuantityPerUnit { get; set; }
-        public decimal UnitPrice { get; set; }
-        public int UnitsOnOrder { get; set; }
-        public bool Discontinued { get; set; }
+        public int ProductID { get; set; }                  // int          NOT NULL
+        public string ProductName { get; set; }             // nvarchar     NOT NULL
+        public int SupplierID { get; set; }                 // int          NOT NULL
+        public int CategoryID { get; set; }                 // int          NOT NULL
+        public string QuantityPerUnit { get; set; }         // nvarchar     NOT NULL
+        // short? is a short-hand way of writing Nullable<short>
+        public short? MinimumOrderQuantity { get; set; }    // smallint         NULL
+        public decimal UnitPrice { get; set; }              // money        NOT NULL
+        public int UnitsOnOrder { get; set; }               // int          NOT NULL
+        public bool Discontinued { get; set; }              // bit          NOT NULL
     }
 }

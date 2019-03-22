@@ -73,9 +73,19 @@ namespace WebApp
         {
             if(!IsPostBack)
             {
-                var about = new AboutController();
-                var data = about.GetDatabaseVersion();
-                DbInfo.Text = $"Database is {data.Version.ToString()} - {data.ReleaseDate.ToShortDateString()}";
+                try
+                {
+                    var about = new AboutController();
+                    var data = about.GetDatabaseVersion();
+                    DbInfo.Text = $"Database is {data.Version.ToString()} - {data.ReleaseDate.ToShortDateString()}";
+                }
+                catch(Exception ex)
+                {
+                    if (Request.Url.LocalPath != "/default.aspx")
+                        Response.Redirect("/");
+                    DbProblems.Text = ex.Message;
+                    DbProblems.Visible = true;
+                }
             }
         }
 

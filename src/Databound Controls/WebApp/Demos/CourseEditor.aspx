@@ -14,6 +14,9 @@
     <asp:Label ID="Label2" runat="server" AssociatedControlID="StartsOn" Text="Starts On" />
     <asp:TextBox ID="StartsOn" runat="server" CssClass="form-content" TextMode="Date" />
 
+    <asp:LinkButton ID="AddCourse" runat="server" CssClass="btn btn-primary" Text="Add Course"
+         OnClick="AddCourse_Click"/>
+
     <asp:ListView ID="AssignmentsList" runat="server"
          InsertItemPosition="FirstItem" ItemType="BackEnd.BLL.Commands.WeightedItem"
          OnItemInserting="AssignmentsList_ItemInserting">
@@ -32,6 +35,7 @@
             </div>
         </ItemTemplate>
         <LayoutTemplate>
+            <h3>Course Assignments</h3>
             <%--The ListView looks for a server-run control with an id of 
             itemPlaceholder
             as the element to replace with the contents of a template
@@ -40,17 +44,22 @@
         </LayoutTemplate>
     </asp:ListView>
 
-    <asp:LinkButton ID="AddCourse" runat="server" CssClass="btn btn-primary" Text="Add Course"
-         OnClick="AddCourse_Click"/>
-
     <hr />
+    <h2>Current Courses</h2>
     <asp:GridView ID="Courses" runat="server" AutoGenerateColumns="False" DataSourceID="CourseListingDataSource" CssClass="table table-condensed table-hover">
         <Columns>
             <asp:BoundField DataField="CourseName" HeaderText="Course" SortExpression="CourseName"></asp:BoundField>
-            <asp:BoundField DataField="StartDate" HeaderText="Starting" SortExpression="StartDate"></asp:BoundField>
+            <asp:BoundField DataField="StartDate" HeaderText="Starting" DataFormatString="{0:MMM dd yyyy}" SortExpression="StartDate"></asp:BoundField>
+            <%--TODO: Switch # Students to Template Column with selected item template--%>
             <asp:BoundField DataField="EnrolledStudentCount" HeaderText="# Students" SortExpression="EnrolledStudentCount"></asp:BoundField>
             <asp:BoundField DataField="Evaluations" HeaderText="Evaluation Plan" SortExpression="Evaluations"></asp:BoundField>
         </Columns>
     </asp:GridView>
     <asp:ObjectDataSource runat="server" ID="CourseListingDataSource" OldValuesParameterFormatString="original_{0}" SelectMethod="ExistingCourses" TypeName="BackEnd.BLL.StudentGradesController"></asp:ObjectDataSource>
+
+    <hr />
+
+    <h2>Searching Courses</h2>
+
+    <%--TODO: Cascading drop-downs--%>
 </asp:Content>

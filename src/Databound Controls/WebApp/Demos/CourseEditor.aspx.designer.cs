@@ -58,15 +58,6 @@ namespace WebApp.Demos {
         protected global::System.Web.UI.WebControls.TextBox StartsOn;
         
         /// <summary>
-        /// AssignmentsList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ListView AssignmentsList;
-        
-        /// <summary>
         /// AddCourse control.
         /// </summary>
         /// <remarks>
@@ -74,6 +65,15 @@ namespace WebApp.Demos {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton AddCourse;
+        
+        /// <summary>
+        /// AssignmentsList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListView AssignmentsList;
         
         /// <summary>
         /// Courses control.

@@ -23,7 +23,7 @@ namespace WebApp
             }
             catch(Exception ex)
             {
-                MessageLabel.Text = ex.Message;
+                MessageLabel.Text = ex.ToString();
             }
         }
     }

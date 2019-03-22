@@ -16,7 +16,16 @@ namespace BackEnd.BLL
             // ?? is the Null Coallation Operator
             ExecutionContext = context ?? "No context supplied";
         }
+
+        public override string ToString()
+        {
+            string message = "Business rule violation for the following: ";
+            var errorMessages = Errors.Select(x => x.Message).ToList();
+            message += $"{string.Join(", ", errorMessages)}";
+            return message;
+        }
     }
+
     public class Text
     {
         public readonly string Message;

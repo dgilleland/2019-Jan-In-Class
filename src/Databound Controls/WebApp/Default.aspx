@@ -4,6 +4,7 @@
 
     <div class="jumbotron">
         <h1>Databound Controls</h1>
+        <asp:Label ID="MessageLabel" runat="server" />
     </div>
 
     <div class="row">

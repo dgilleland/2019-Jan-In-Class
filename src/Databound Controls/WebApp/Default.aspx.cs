@@ -17,7 +17,14 @@ namespace WebApp
 
         protected void PrepopulateCourses_Click(object sender, EventArgs e)
         {
-            FakeUniversity.FakeItToMakeIt();
+            try
+            {
+                FakeUniversity.FakeItToMakeIt();
+            }
+            catch(Exception ex)
+            {
+                MessageLabel.Text = ex.Message;
+            }
         }
     }
 }

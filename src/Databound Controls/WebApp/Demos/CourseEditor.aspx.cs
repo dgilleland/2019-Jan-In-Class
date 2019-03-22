@@ -1,5 +1,6 @@
 ﻿using BackEnd.BLL;
 using BackEnd.BLL.Commands;
+using BackEnd.BLL.Queries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,9 @@ namespace WebApp.Demos
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Clean up
+            GridViewEventInfo.Text = string.Empty;
+
             if(!IsPostBack)
             {
                 PopulateAssignments(null);
@@ -86,6 +90,54 @@ namespace WebApp.Demos
                controller.CreateCourse(courseInfo, 7, Assignments);
                Courses.DataBind();
            }, "Course Added", $"Successfully added the {CourseName.Text} course");
+        }
+
+        protected void Courses_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)
+        {
+            // our opportunity to do something BEFORE the change actually takes place.
+            GridViewEventInfo.Text += $"Changing Event - Index position {e.NewSelectedIndex}<br />";
+        }
+
+        protected void Courses_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // our chance to do something AFTER the change takes place
+            GridViewEventInfo.Text += $"Changed Event - {Courses.SelectedDataKey.Value}<br />";
+            GridViewEventInfo.Text += "<ul>";
+            foreach(var item in Courses.SelectedDataKey.Values.Values)
+            {
+                GridViewEventInfo.Text += $"<li>{item}</li>";
+            }
+            GridViewEventInfo.Text += "</ul>";
+
+            // Our actual processing of getting the students based on our "data key" values
+            string courseName = Courses.SelectedDataKey[nameof(CourseSummary.CourseName)].ToString();
+            string startingDate = Courses.SelectedDataKey[nameof(CourseSummary.StartDate)].ToString();
+            // $"" is called String Interpolation
+            GridViewEventInfo.Text += $"-{courseName}-{startingDate}-";
+
+            var controller = new StudentGradesController();
+            var classListData = controller.ListStudentsInClass(courseName, DateTime.Parse(startingDate));
+            ClassListRepeater.DataSource = classListData;
+            ClassListRepeater.DataBind();
+        }
+
+        protected void CourseDropDownList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Take the info from this drop-down and use it to get data for the next drop-down
+            if(CourseDropDownList.SelectedIndex > 0)
+            {
+                var controller = new StudentGradesController();
+                AssignmentDropDownList.DataSource = controller.ListAssignments(CourseDropDownList.SelectedValue);
+                AssignmentDropDownList.DataTextField = nameof(AssignmentInfo.Description);
+                AssignmentDropDownList.DataValueField = nameof(AssignmentInfo.Name);
+                AssignmentDropDownList.DataBind();
+                AssignmentDropDownList.Items.Insert(0, "[Select an assignment]");
+            }
+            else
+            {
+                // Clear out my second drop-down
+                AssignmentDropDownList.Items.Clear();
+            }
         }
     }
 }

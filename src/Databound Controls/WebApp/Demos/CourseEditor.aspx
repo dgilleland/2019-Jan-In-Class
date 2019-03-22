@@ -46,15 +46,35 @@
 
     <hr />
     <h2>Current Courses</h2>
-    <asp:GridView ID="Courses" runat="server" AutoGenerateColumns="False" DataSourceID="CourseListingDataSource" CssClass="table table-condensed table-hover">
+    <asp:Label ID="GridViewEventInfo" runat="server" />
+    <asp:GridView ID="Courses" runat="server" AutoGenerateColumns="False"
+        DataKeyNames="CourseName,StartDate"
+        OnSelectedIndexChanging="Courses_SelectedIndexChanging"
+        OnSelectedIndexChanged="Courses_SelectedIndexChanged"
+        DataSourceID="CourseListingDataSource" CssClass="table table-condensed table-hover"
+        ItemType="BackEnd.BLL.Queries.CourseSummary">
         <Columns>
-            <asp:BoundField DataField="CourseName" HeaderText="Course" SortExpression="CourseName"></asp:BoundField>
-            <asp:BoundField DataField="StartDate" HeaderText="Starting" DataFormatString="{0:MMM dd yyyy}" SortExpression="StartDate"></asp:BoundField>
+            <asp:CommandField ShowSelectButton="True"></asp:CommandField>
+            <asp:BoundField DataField="CourseName" HeaderText="CourseName" SortExpression="CourseName"></asp:BoundField>
+            <asp:BoundField DataField="StartDate" HeaderText="StartDate" SortExpression="StartDate"></asp:BoundField>
             <%--TODO: Switch # Students to Template Column with selected item template--%>
-            <asp:BoundField DataField="EnrolledStudentCount" HeaderText="# Students" SortExpression="EnrolledStudentCount"></asp:BoundField>
-            <asp:BoundField DataField="Evaluations" HeaderText="Evaluation Plan" SortExpression="Evaluations"></asp:BoundField>
+            <asp:TemplateField HeaderText="EnrolledStudentCount">
+                <ItemTemplate>
+                    <%# Item.EnrolledStudentCount %> students
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:BoundField DataField="Evaluations" HeaderText="Evaluations" SortExpression="Evaluations"></asp:BoundField>
         </Columns>
     </asp:GridView>
+
+    <asp:Repeater ID="ClassListRepeater" runat="server" ItemType="BackEnd.BLL.StudentInfo">
+        <ItemTemplate>
+            <b><%# Item.Surname %>, <%# Item.GivenName %></b>
+            (<%# Item.Id %>)
+        </ItemTemplate>
+        <SeparatorTemplate>, </SeparatorTemplate>
+    </asp:Repeater>
+
     <asp:ObjectDataSource runat="server" ID="CourseListingDataSource" OldValuesParameterFormatString="original_{0}" SelectMethod="ExistingCourses" TypeName="BackEnd.BLL.StudentGradesController"></asp:ObjectDataSource>
 
     <hr />
@@ -62,4 +82,13 @@
     <h2>Searching Courses</h2>
 
     <%--TODO: Cascading drop-downs--%>
+    <asp:DropDownList ID="CourseDropDownList" runat="server"
+         DataSourceID="CourseListingDataSource" AppendDataBoundItems="true"
+         DataTextField="CourseName" DataValueField="CourseName"
+         AutoPostBack="True" OnSelectedIndexChanged="CourseDropDownList_SelectedIndexChanged">
+        <asp:ListItem>[Select a course]</asp:ListItem>
+    </asp:DropDownList>
+
+    <asp:DropDownList ID="AssignmentDropDownList" runat="server">
+    </asp:DropDownList>
 </asp:Content>

@@ -76,6 +76,15 @@ namespace WebApp.Demos {
         protected global::System.Web.UI.WebControls.ListView AssignmentsList;
         
         /// <summary>
+        /// GridViewEventInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label GridViewEventInfo;
+        
+        /// <summary>
         /// Courses control.
         /// </summary>
         /// <remarks>
@@ -85,6 +94,15 @@ namespace WebApp.Demos {
         protected global::System.Web.UI.WebControls.GridView Courses;
         
         /// <summary>
+        /// ClassListRepeater control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater ClassListRepeater;
+        
+        /// <summary>
         /// CourseListingDataSource control.
         /// </summary>
         /// <remarks>
@@ -92,5 +110,23 @@ namespace WebApp.Demos {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ObjectDataSource CourseListingDataSource;
+        
+        /// <summary>
+        /// CourseDropDownList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList CourseDropDownList;
+        
+        /// <summary>
+        /// AssignmentDropDownList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList AssignmentDropDownList;
     }
 }

@@ -85,6 +85,46 @@ namespace BackEnd.BLL
                          };
             return result.ToList();
         }
+
+        public IEnumerable<StudentInfo> ListStudentsInClass(string courseName, DateTime dateTime)
+        {
+            var result = from data in CourseDb.Values
+                         where data.CourseName == courseName
+                            && data.StartDate == dateTime
+                         from person in data.Students
+                         select new StudentInfo
+                         {
+                             GivenName = person.FirstName,
+                             Surname = person.LastName,
+                             Id = person.StudentID
+                         };
+            return result;
+        }
+
+        public IEnumerable<AssignmentInfo> ListAssignments(string selectedValue)
+        {
+            var result = from data in CourseDb.Values
+                         where data.CourseName == selectedValue
+                         from work in data.Assignments
+                         select new AssignmentInfo
+                         {
+                             Name = work.Name,
+                             Description = $"{work.Name} ({work.WeightedValue} %)"
+                         };
+            return result;
+        }
         #endregion
+    }
+
+    public class AssignmentInfo
+    {
+        public string Name { get; set; }
+        public string Description { get; set; }
+    }
+    public class StudentInfo
+    {
+        public string GivenName { get; internal set; }
+        public string Surname { get; internal set; }
+        public int Id { get; internal set; }
     }
 }

@@ -28,6 +28,10 @@ namespace WestWindSystem.Entities
         public string ContactTitle { get; set; }
 
         [Required]
+        [StringLength(50)]
+        public string Email { get; set; }
+
+        [Required]
         [StringLength(60)]
         public string Address { get; set; }
 

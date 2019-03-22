@@ -18,5 +18,7 @@ namespace WebApp.Admin.Security
         { get { return ConfigurationManager.AppSettings["customerRole"]; } }
         public static string EmployeeRole
         { get { return ConfigurationManager.AppSettings["employeeRole"]; } }
+        public static string SupplierRole
+        { get { return ConfigurationManager.AppSettings["supplierRole"]; } }
     }
 }

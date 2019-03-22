@@ -65,6 +65,21 @@ namespace WebApp.Admin.Security
                     userManager.AddToRole(userManager.FindByName(person.UserName).Id, Settings.EmployeeRole);
             }
 
+            // Also create login accounts for all the suppliers
+            IEnumerable<SetupUserInfo> suppliers = controller.GetCurrentSuppliers();
+            foreach (var supplier in suppliers)
+            {
+                result = userManager.Create(new ApplicationUser
+                {
+                    UserName = supplier.UserName,
+                    Email = supplier.EmailAddress,
+                    EmailConfirmed = true,
+                    SupplierId = int.Parse(supplier.UserId)
+                }, defaultPassword);
+                if (result.Succeeded)
+                    userManager.AddToRole(userManager.FindByName(supplier.UserName).Id, Settings.SupplierRole);
+            }
+
             // Lastly, create login accounts for all the customers
             IEnumerable<SetupUserInfo> customers = controller.GetCurrentCustomers();
             foreach(var company in customers)

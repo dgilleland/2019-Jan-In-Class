@@ -7,6 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.AspNet.Identity.Owin; // for the .GetOwinContext() extension method
 using WebApp; // for the .GetUserManager<T>() extension method
+using WebApp.Admin.Security;
 using WestWindSystem.BLL;
 using WestWindSystem.DataModels;
 
@@ -17,7 +18,7 @@ namespace WebApp.Sales
         protected void Page_Load(object sender, EventArgs e)
         {
             // TODO: Uncomment once security is set up....
-            if (!EmployeeId.HasValue)
+            if (Request.IsAuthenticated && User.IsInRole(Settings.EmployeeRole) && !EmployeeId.HasValue)
                 Response.Redirect("~", true); // send back to the home page
         }
 

@@ -26,6 +26,21 @@ namespace WestWindSystem.BLL
             }
         }
 
+        public IEnumerable<SetupUserInfo> GetCurrentSuppliers()
+        {
+            using (var context = new WestWindContext())
+            {
+                var results = from company in context.Suppliers.ToList()
+                              select new SetupUserInfo
+                              {
+                                  UserId = company.SupplierID.ToString(),
+                                  UserName = company.ContactName.Replace(' ', '.'),
+                                  EmailAddress = company.Email
+                              };
+                return results;
+            }
+        }
+
         public IEnumerable<SetupUserInfo> GetCurrentCustomers()
         {
             using (var context = new WestWindContext())

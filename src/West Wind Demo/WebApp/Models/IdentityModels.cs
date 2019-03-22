@@ -21,6 +21,7 @@ namespace WebApp.Models
         [StringLength(5)] // To match the primary key of the Customer entity
         public string CustomerId { get; set; }
         public int? EmployeeId { get; set; }
+        public int? SupplierId { get; set; }
         #endregion
 
         public ClaimsIdentity GenerateUserIdentity(ApplicationUserManager manager)

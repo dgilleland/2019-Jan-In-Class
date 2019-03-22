@@ -124,34 +124,33 @@ namespace WebApp.Sales
             CustomerOrderEditingPanel.Visible = true;
 
             // Setup Order Editing
-            CustomerOrderEditingPanel.Enabled = !order.OrderDate.HasValue;
+            OrderItemsListView.Enabled = !order.OrderDate.HasValue;
+            //CustomerOrderEditingPanel.Enabled = !order.OrderDate.HasValue;
             SetupOrderDates(order);
             SetupOrderForEditing(order.Details.ToList());
+
+            // Only enable saving/placing if there is no order date
+            SaveOrder.Enabled = PlaceOrder.Enabled = !order.OrderDate.HasValue;
         }
 
         private void SetupOrderDates(CustomerOrderWithDetails order)
         {
-            string orderNumber = order.OrderId == 0 ? "New" : order.OrderId.ToString();
-            EditOrderId.Text = $"Order # {orderNumber}";
+            OrderId.Value = order.OrderId.ToString();
+            string orderNumber = order.OrderId == 0 ? "- New" : $"# {order.OrderId}";
+            SaveOrder.Text = $"Save <span class='badge'>Order {orderNumber}</span>";
             if (order.OrderDate.HasValue)
                 EditOrderDate.Text = order.OrderDate.Value.ToString("yyyy-MM-dd");
             else
-                EditOrderDate.Text = "";
+                EditOrderDate.Text = string.Empty;
             if (order.RequiredDate.HasValue)
                 EditRequiredDate.Text = order.RequiredDate.Value.ToString("yyyy-MM-dd");
             else
-                EditRequiredDate.Text = "";
-
-            // TODO: Design suitable replacement
-            //if (order.ShippedDate.HasValue)
-            //    EditShippedOnDate.Text = order.ShippedDate.Value.ToString("yyyy-MM-dd");
-            //else
-            //    EditShippedOnDate.Text = "";
+                EditRequiredDate.Text = string.Empty;
 
             if (order.Freight.HasValue)
                 EditFreight.Text = order.Freight.Value.ToString("C");
             else
-                EditFreight.Text = "";
+                EditFreight.Text = string.Empty;
         }
 
         private void SetupOrderForEditing(IList<CustomerOrderItem> orderItems)
@@ -230,7 +229,7 @@ namespace WebApp.Sales
                 QuantityPerUnit = qtyPerUnitLabel.Text,
                 Quantity = short.Parse(qtyTextBox.Text),
                 UnitPrice = decimal.Parse(priceTextBox.Text, System.Globalization.NumberStyles.Currency),
-                DiscountPercent = float.Parse(discountTextBox.Text.Replace("%", "")) / 100
+                DiscountPercent = float.Parse(discountTextBox.Text.Replace("%", string.Empty)) / 100
             };
             return result;
         }
@@ -336,6 +335,15 @@ namespace WebApp.Sales
                 CustomerOrderEditingPanel.Enabled = false;
             }, "Place Order", "The customer order has been placed and is in queue for shipping.");
         }
+
+        protected void BackToList_Click(object sender, EventArgs e)
+        {
+            // Similar to the CancelSelection_Click, but without resetting customer
+            //ToggleActiveCustomer(CustomerDropDown.SelectedIndex > 0);
+            //CustomerOrderHistoryPanel.Visible = true;
+            //CustomerOrderEditingPanel.Visible = false;
+            SelectCustomer_Click(sender, e);
+        }
         #endregion
 
         #region Helper Methods
@@ -376,7 +384,7 @@ namespace WebApp.Sales
         {
             EditCustomerOrder order = new EditCustomerOrder();
             int anId;
-            int.TryParse(EditOrderId.Text, out anId);
+            int.TryParse(OrderId.Value, out anId);
             order.OrderId = anId;
             order.CustomerId = CustomerDropDown.SelectedValue;
             DateTime someDate;
@@ -399,6 +407,7 @@ namespace WebApp.Sales
             return order;
         }
         #endregion
+
         #endregion
     }
 }

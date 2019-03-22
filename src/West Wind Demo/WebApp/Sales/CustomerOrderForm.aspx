@@ -51,7 +51,12 @@
             </asp:RadioButtonList>
             <asp:ObjectDataSource runat="server" ID="HistoryFilterDataSource" OldValuesParameterFormatString="original_{0}" SelectMethod="GetOrderHistoryFilters" TypeName="WestWindSystem.BLL.SalesController"></asp:ObjectDataSource>
             <hr />
-            <asp:GridView ID="CustomerOrderHistoryGridView" runat="server" CssClass="table table-condensed table-hover" AutoGenerateColumns="False" DataSourceID="OrderHistoryDataSource" DataKeyNames="OrderId" OnSelectedIndexChanged="CustomerOrderHistoryGridView_SelectedIndexChanged" SelectedRowStyle-CssClass="active">
+            <asp:GridView ID="CustomerOrderHistoryGridView" runat="server"
+                CssClass="table table-condensed table-hover"
+                SelectedRowStyle-CssClass="active"
+                AutoGenerateColumns="False" DataSourceID="OrderHistoryDataSource" DataKeyNames="OrderId"
+                OnSelectedIndexChanged="CustomerOrderHistoryGridView_SelectedIndexChanged"
+                ItemType="WestWindSystem.DataModels.CustomerOrder">
                 <Columns>
                     <asp:CommandField ShowSelectButton="True"></asp:CommandField>
                 </Columns>
@@ -60,13 +65,20 @@
                 </EmptyDataTemplate>
                 <Columns>
                     <asp:BoundField DataField="Employee" HeaderText="Employee" SortExpression="Employee"></asp:BoundField>
-                    <asp:BoundField DataField="OrderDate" HeaderText="Order Date" SortExpression="OrderDate"></asp:BoundField>
-                    <asp:BoundField DataField="RequiredDate" HeaderText="Required Date" SortExpression="RequiredDate"></asp:BoundField>
-                    <asp:TemplateField HeaderText="Shipments">
-                        <ItemTemplate>TBA</ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:BoundField DataField="Freight" HeaderText="Freight" HeaderStyle-HorizontalAlign="Right" ItemStyle-HorizontalAlign="Right" DataFormatString="{0:C}" SortExpression="Freight"></asp:BoundField>
+                    <asp:BoundField DataField="OrderDate" HeaderText="Order Date" SortExpression="OrderDate" DataFormatString="{0:MMM dd, yyyy}"></asp:BoundField>
+                    <asp:BoundField DataField="RequiredDate" HeaderText="Required Date" SortExpression="RequiredDate" DataFormatString="{0:MMM dd, yyyy}"></asp:BoundField>
                     <asp:BoundField DataField="OrderTotal" HeaderText="Order Total" HeaderStyle-HorizontalAlign="Right" ItemStyle-HorizontalAlign="Right" DataFormatString="{0:C}" SortExpression="OrderTotal"></asp:BoundField>
+                    <asp:BoundField DataField="Freight" HeaderText="Freight" HeaderStyle-HorizontalAlign="Right" ItemStyle-HorizontalAlign="Right" DataFormatString="{0:C}" SortExpression="Freight"></asp:BoundField>
+                    <asp:TemplateField HeaderText="Shipments">
+                        <ItemTemplate>
+                            <asp:Repeater ID="ShipmentsRepeater" runat="server"
+                                DataSource="<%# Item.Shipments %>"
+                                ItemType="WestWindSystem.DataModels.ShipmentSummary">
+                                <ItemTemplate><%# Item.ShippedOn.ToString("MMM dd yyyy") %> (<%# Item.Carrier %>)</ItemTemplate>
+                                <SeparatorTemplate>, </SeparatorTemplate>
+                            </asp:Repeater>
+                        </ItemTemplate>
+                    </asp:TemplateField>
                 </Columns>
             </asp:GridView>
             <asp:ObjectDataSource runat="server" ID="OrderHistoryDataSource" OldValuesParameterFormatString="original_{0}" SelectMethod="GetOrdersByCustomer" TypeName="WestWindSystem.BLL.SalesController">
@@ -81,33 +93,27 @@
     <asp:Panel ID="CustomerOrderEditingPanel" runat="server" CssClass="row" Visible="false">
         <div class="col-md-12">
             <h3>Edit Order:
+                <asp:HiddenField ID="OrderId" runat="server" />
+
                 <asp:LinkButton ID="SaveOrder" runat="server" CssClass="btn btn-info btn-sm" OnClick="SaveOrder_Click">
                     Save
                     &nbsp;
-                    <asp:Label ID="EditOrderId" runat="server" CssClass="badge" />
                 </asp:LinkButton>
                 <asp:LinkButton ID="PlaceOrder" runat="server" CssClass="btn btn-success btn-sm" OnClick="PlaceOrder_Click">Place Order</asp:LinkButton>
+                <asp:LinkButton ID="BackToList" runat="server" CssClass="btn btn-default btn-sm" OnClick="BackToList_Click">Back to Order History</asp:LinkButton>
             </h3>
             <uc1:MessageUserControl runat="server" ID="MessageUserControl" />
             <table class="table table-condensed">
                 <tr>
                     <th>Order Date</th>
                     <th>Required By</th>
-                    <th>Shipper</th>
                     <th>Freight</th>
-                    <th>Shipped On</th>
                     <th>Total</th>
                 </tr>
                 <tr>
                     <td><asp:TextBox ID="EditOrderDate" runat="server" TextMode="Date" CssClass="form-control" Enabled="false" /></td>
                     <td><asp:TextBox ID="EditRequiredDate" runat="server" TextMode="Date" CssClass="form-control" /></td>
-                    <td>
-                        <asp:DropDownList ID="EditShipper" runat="server" AppendDataBoundItems="true" DataSourceID="ShipperDataSource" DataTextField="Text" DataValueField="Key" CssClass="form-control">
-                            <asp:ListItem>[Select Shipper]</asp:ListItem>
-                        </asp:DropDownList><asp:ObjectDataSource runat="server" ID="ShipperDataSource" OldValuesParameterFormatString="original_{0}" SelectMethod="GetShippers" TypeName="WestWindSystem.BLL.SalesController"></asp:ObjectDataSource>
-                    </td>
                     <td><asp:TextBox ID="EditFreight" runat="server" CssClass="form-control" /></td>
-                    <td><asp:TextBox ID="EditShippedOnDate" runat="server" TextMode="Date" CssClass="form-control" Enabled="false" /></td>
                     <td class="bg-success" style="vertical-align:middle;"><asp:Label ID="OrderTotal" runat="server" CssClass="h4" style="font-weight:bold;" /></td>
                 </tr>
             </table>
@@ -152,7 +158,7 @@
                         </td>
                     </tr>
                     <tr runat="server" style="">
-                        <th runat="server">Product Name<br />In-Stock &hArr; Qty Per Unit</th>
+                        <th runat="server">Product Name &hArr; Qty Per Unit<br /><i>Supplier</i></th>
                         <th runat="server">Order Qty</th>
                         <th runat="server">Unit Price</th>
                         <th runat="server">Extended Price</th>
@@ -165,9 +171,12 @@
                     <tr>
                         <td>
                             <asp:HiddenField ID="ProductId" runat="server" Value="<%# Item.ProductId %>" />
-                            <asp:Label id="ProductNameLabel" runat="server" Text="<%# Item.ProductName %>" ToolTip='<%# $"Product ID: {Item.ProductId}" %>' />
-                            <br />
-                            <asp:Label id="QuantityPerUnitLabel" runat="server" Text="<%# Item.QuantityPerUnit %>" /></td>
+                            <b><asp:Label id="ProductNameLabel" runat="server" Text="<%# Item.ProductName %>" ToolTip='<%# $"Product ID: {Item.ProductId}" %>' /></b>
+                            &hArr;
+                            <asp:Label id="QuantityPerUnitLabel" runat="server" Text="<%# Item.QuantityPerUnit %>" />
+                            <br /> &mdash;
+                            <asp:Label ID="SupplierName" runat="server" Text="<%# Item.Supplier %>" />
+                        </td>
                         <td><asp:TextBox id="QuantityTextBox" runat="server" Text="<%# Item.Quantity %>" CssClass="form-control" /></td>
                         <td><asp:TextBox id="UnitPriceTextBox" runat="server" Text='<%# Item.UnitPrice.ToString("C") %>' CssClass="form-control" /></td>
                         <td class="text-right"><asp:Label id="Label4" runat="server" Text='<%# (Item.Quantity * Item.UnitPrice).ToString("C") %>' /></td>
@@ -182,4 +191,9 @@
             </asp:ListView>
         </div>
     </asp:Panel>
+    <style>
+        .aspNetDisabled, a:not([href]) {
+            cursor: not-allowed;
+        }
+    </style>
 </asp:Content>

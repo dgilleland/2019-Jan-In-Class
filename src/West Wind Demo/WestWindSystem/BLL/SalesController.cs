@@ -67,6 +67,7 @@ namespace WestWindSystem.BLL
                 var shipped = "shipped".Equals(filter.ToLower());
 
                 var results = from data in context.Orders
+                              orderby data.OrderDate descending
                               where data.CustomerID == customerId
                                  && data.Shipped == shipped
                               select new CustomerOrder
@@ -79,6 +80,7 @@ namespace WestWindSystem.BLL
                                   RequiredDate = data.RequiredDate,
                                   Freight = data.Freight,
                                   Shipments = from sent in data.Shipments
+                                              orderby sent.ShippedDate
                                               select new ShipmentSummary
                                               {
                                                   ShippedOn = sent.ShippedDate,
@@ -190,6 +192,7 @@ namespace WestWindSystem.BLL
                                      OrderId = item.OrderID,
                                      ProductId = item.ProductID,
                                      ProductName = item.Product.ProductName,
+                                     Supplier = item.Product.Supplier.CompanyName,
                                      UnitPrice = item.UnitPrice,
                                      Quantity = item.Quantity,
                                      DiscountPercent = item.Discount,

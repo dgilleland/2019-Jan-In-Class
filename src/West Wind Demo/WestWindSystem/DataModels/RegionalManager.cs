@@ -61,6 +61,7 @@ namespace WestWindSystem.DataModels
         public int OrderId { get; set; }
         public short Quantity { get; set; }
         public float DiscountPercent { get; set; }
+        public string Supplier { get; set; }
     }
     public class EditOrderItem
     {

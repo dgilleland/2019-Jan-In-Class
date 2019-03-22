@@ -238,6 +238,15 @@ namespace WebApp.Sales {
         protected global::System.Web.UI.WebControls.Panel CustomerOrderEditingPanel;
         
         /// <summary>
+        /// OrderId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField OrderId;
+        
+        /// <summary>
         /// SaveOrder control.
         /// </summary>
         /// <remarks>
@@ -247,15 +256,6 @@ namespace WebApp.Sales {
         protected global::System.Web.UI.WebControls.LinkButton SaveOrder;
         
         /// <summary>
-        /// EditOrderId control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label EditOrderId;
-        
-        /// <summary>
         /// PlaceOrder control.
         /// </summary>
         /// <remarks>
@@ -263,6 +263,15 @@ namespace WebApp.Sales {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton PlaceOrder;
+        
+        /// <summary>
+        /// BackToList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton BackToList;
         
         /// <summary>
         /// MessageUserControl control.
@@ -292,24 +301,6 @@ namespace WebApp.Sales {
         protected global::System.Web.UI.WebControls.TextBox EditRequiredDate;
         
         /// <summary>
-        /// EditShipper control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList EditShipper;
-        
-        /// <summary>
-        /// ShipperDataSource control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource ShipperDataSource;
-        
-        /// <summary>
         /// EditFreight control.
         /// </summary>
         /// <remarks>
@@ -317,15 +308,6 @@ namespace WebApp.Sales {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox EditFreight;
-        
-        /// <summary>
-        /// EditShippedOnDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox EditShippedOnDate;
         
         /// <summary>
         /// OrderTotal control.

@@ -8,6 +8,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.AspNet.Identity;
 using WebApp.Admin.Security;
+using WestWindSystem.BLL;
 
 namespace WebApp
 {
@@ -70,7 +71,12 @@ namespace WebApp
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if(!IsPostBack)
+            {
+                var about = new AboutController();
+                var data = about.GetDatabaseVersion();
+                DbInfo.Text = $"Database is {data.Version.ToString()} - {data.ReleaseDate.ToShortDateString()}";
+            }
         }
 
         protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)
@@ -81,16 +87,12 @@ namespace WebApp
         protected void Page_PreRender(object sender, EventArgs e)
         {
             // Hide menu items accordingly
-            if (!Request.IsAuthenticated)
+            if (Request.IsAuthenticated)
             {
-                if (!Page.User.IsInRole(Settings.CustomerRole))
-                {
-                    CustomerOrderHistory.Visible = false;
-                }
-                if (!Page.User.IsInRole(Settings.EmployeeRole))
-                {
-                    CustomerOrdersForm.Visible = false;
-                }
+                StaffOnly.Visible = Page.User.IsInRole(Settings.AdminRole) ||
+                                    Page.User.IsInRole(Settings.EmployeeRole);
+                CustomerOrderHistory.Visible = Page.User.IsInRole(Settings.CustomerRole);
+                CustomerOrdersForm.Visible = Page.User.IsInRole(Settings.EmployeeRole);
             }
         }
     }

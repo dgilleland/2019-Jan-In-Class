@@ -13,6 +13,7 @@ namespace WestWindSystem.DAL
         {
         }
 
+        public virtual DbSet<BuildVersion> BuildVersions { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }

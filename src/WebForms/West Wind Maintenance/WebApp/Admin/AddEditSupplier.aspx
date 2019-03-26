@@ -14,6 +14,11 @@
                 <asp:LinkButton ID="LookupSupplier" runat="server" CssClass="btn btn-primary"
                     OnClick="LookupSupplier_Click">Lookup Supplier</asp:LinkButton>
             </div>
+            <br /><br />
+            <div>
+                <asp:LinkButton ID="AddSupplier" runat="server" CssClass="btn btn-default"
+                     OnClick="AddSupplier_Click">Add Supplier</asp:LinkButton>
+            </div>
         </div>
         <div class="col-sm-6">
             <h4>Notes:</h4>
@@ -38,7 +43,7 @@
                 <asp:Label ID="Label3" runat="server" Text="Supplier ID" AssociatedControlID="CurrentSupplier"></asp:Label>
                 <asp:TextBox ID="CurrentSupplier" runat="server" Enabled="false"></asp:TextBox>
 
-                <asp:Label ID="Label4" runat="server" Text="Catgeory Name" AssociatedControlID="CompanyName"></asp:Label>
+                <asp:Label ID="Label4" runat="server" Text="Company Name" AssociatedControlID="CompanyName"></asp:Label>
                 <asp:TextBox ID="CompanyName" runat="server"></asp:TextBox>
 
                 <asp:Label ID="Label5" runat="server" Text="Contact name" AssociatedControlID="ContactName"></asp:Label>

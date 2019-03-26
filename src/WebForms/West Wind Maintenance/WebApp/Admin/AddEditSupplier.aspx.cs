@@ -75,6 +75,45 @@ namespace WebApp.Admin
                 }
             }
         }
+
+        protected void AddSupplier_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // TODO: 0) Validation
+                // 1) Create a Supplier object from the data in the form
+                Supplier item = new Supplier();
+                item.CompanyName = CompanyName.Text;
+                item.ContactName = ContactName.Text;
+                if(!string.IsNullOrWhiteSpace(ContactTitle.Text))
+                    item.ContactTitle = ContactTitle.Text; // nullable
+                item.Address = Address.Text;
+                item.City = City.Text;
+                if(!string.IsNullOrWhiteSpace(Region.Text))
+                    item.Region = Region.Text; // nullable
+                if(!string.IsNullOrWhiteSpace(PostalCode.Text))
+                    item.PostalCode = PostalCode.Text; // nullable
+                item.Country = CountryDropDown.SelectedValue; // NOTE: this is from a drop-down
+                item.Phone = Phone.Text;
+                if(!string.IsNullOrWhiteSpace(Fax.Text))
+                    item.Fax = Fax.Text; // nullable
+                item.Email = Email.Text;
+
+                // 2) Send the data to the BLL
+                var controller = new SupplierController();
+                int newSupplierId = controller.AddSupplier(item);
+
+                // 3) Update the form and give feedback to the user
+                BindSupplierDropDown(); // because there's a new supplier in town
+                SupplierDropDown.SelectedValue = newSupplierId.ToString();
+                CurrentSupplier.Text = newSupplierId.ToString();
+                ShowMessage("Supplier has been added.", STYLE_SUCCESS);
+            }
+            catch (Exception ex)
+            {
+                ShowMessage(ex.Message, STYLE_WARNING);
+            }
+        }
         #endregion
 
         #region Private Methods

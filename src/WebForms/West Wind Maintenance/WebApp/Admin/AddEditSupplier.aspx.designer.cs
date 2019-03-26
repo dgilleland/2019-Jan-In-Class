@@ -40,6 +40,15 @@ namespace WebApp.Admin {
         protected global::System.Web.UI.WebControls.LinkButton LookupSupplier;
         
         /// <summary>
+        /// AddSupplier control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton AddSupplier;
+        
+        /// <summary>
         /// MessagePanel control.
         /// </summary>
         /// <remarks>

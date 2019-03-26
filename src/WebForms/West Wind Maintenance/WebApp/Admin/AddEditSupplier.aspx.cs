@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using WestWindModels;
 using WestWindSystem.BLL;
+using WestWindSystem.DataModels;
 
 namespace WebApp.Admin
 {
@@ -25,8 +26,8 @@ namespace WebApp.Admin
             {
                 try
                 {
-                    //throw new NotImplementedException("TBA");
                     BindSupplierDropDown();
+                    BindCountryDropDown();
                 }
                 catch (Exception ex)
                 {
@@ -55,7 +56,7 @@ namespace WebApp.Admin
                     var controller = new SupplierController();
                     var result = controller.GetSuppier(supplierId);
 
-                    //      "Unpack" the object into the form's controls
+                    // "Unpack" the object into the form's controls
                     CurrentSupplier.Text = result.SupplierID.ToString();
                     CompanyName.Text = result.CompanyName;
                     ContactTitle.Text = result.ContactTitle;
@@ -66,6 +67,7 @@ namespace WebApp.Admin
                     PostalCode.Text = result.PostalCode;
                     Phone.Text = result.Phone;
                     Fax.Text = result.Fax;
+                    CountryDropDown.SelectedValue = result.Country;
                 }
                 catch (Exception ex)
                 {
@@ -81,6 +83,15 @@ namespace WebApp.Admin
             MessageLabel.Text = message;
             MessagePanel.CssClass = $"alert {style} alert-dismissible";
             MessagePanel.Visible = true;
+        }
+        private void BindCountryDropDown()
+        {
+            SupplierController controller = new SupplierController();
+            CountryDropDown.DataSource = controller.ListCountries();
+            CountryDropDown.DataTextField = nameof(Country.Name);
+            CountryDropDown.DataValueField = nameof(Country.Name);
+            CountryDropDown.DataBind();
+            CountryDropDown.Items.Insert(0, "[select a country]");
         }
         private void BindSupplierDropDown()
         {

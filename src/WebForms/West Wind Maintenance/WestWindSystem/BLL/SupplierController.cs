@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WestWindModels;
 using WestWindSystem.DAL;
+using WestWindSystem.DataModels;
 
 namespace WestWindSystem.BLL
 {
@@ -17,6 +18,19 @@ namespace WestWindSystem.BLL
             using (var context = new WestWindContext())
             {
                 return context.Suppliers.ToList();
+            }
+        }
+
+        public List<Country> ListCountries()
+        {
+            using (var context = new WestWindContext())
+            {
+                string sql = "SELECT DISTINCT Country AS 'Name' FROM Suppliers ORDER BY Country";
+                // The .Database property of our DbContext object gives more direct access
+                // to the database. With this, we can call methods such as .Execute()
+                // or .SqlQuery<TResult>().
+                var result = context.Database.SqlQuery<Country>(sql);
+                return result.ToList();
             }
         }
 

@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="BLL\SupplierController.cs" />
     <Compile Include="DAL\WestWindContext.cs" />
+    <Compile Include="DataModels\Country.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

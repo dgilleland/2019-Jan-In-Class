@@ -42,8 +42,8 @@ namespace WebApp.Admin
             // Check that the supplier selected is not the prompt line (index 0)
             if (SupplierDropDown.SelectedIndex == 0)
             {
-                //      Error message
-                MessageLabel.Text = "Please select a supplier before clicking the Lookup button.";
+                // Error message
+                ShowMessage("Please select a supplier before clicking the Lookup button.", STYLE_INFO);
             }
             else
             {
@@ -69,7 +69,7 @@ namespace WebApp.Admin
                 }
                 catch (Exception ex)
                 {
-                    MessageLabel.Text = ex.Message;
+                    ShowMessage(ex.Message, STYLE_WARNING);
                 }
             }
         }

@@ -11,9 +11,16 @@ namespace WebApp.Admin
 {
     public partial class AddEditSupplier : System.Web.UI.Page
     {
+        #region Private properties/fields
+        const string STYLE_WARNING = "alert-warning"; // This is a Bootstrap style
+        const string STYLE_INFO = "alert-info";
+        const string STYLE_SUCCESS = "alert-success";
+        #endregion
+
         #region Page Events
         protected void Page_Load(object sender, EventArgs e)
         {
+            MessagePanel.Visible = false; // hide messages
             if(!IsPostBack)
             {
                 try
@@ -23,9 +30,7 @@ namespace WebApp.Admin
                 }
                 catch (Exception ex)
                 {
-                    MessageLabel.Text = ex.Message;
-                    MessagePanel.CssClass = "alert alert-warning alert-dismissible";
-                    MessagePanel.Visible = true;
+                    ShowMessage(ex.Message, STYLE_WARNING);
                 }
             }
         }
@@ -71,6 +76,12 @@ namespace WebApp.Admin
         #endregion
 
         #region Private Methods
+        private void ShowMessage(string message, string style)
+        {
+            MessageLabel.Text = message;
+            MessagePanel.CssClass = $"alert {style} alert-dismissible";
+            MessagePanel.Visible = true;
+        }
         private void BindSupplierDropDown()
         {
             SupplierController controller = new SupplierController();

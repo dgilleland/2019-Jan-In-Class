@@ -19,5 +19,14 @@ namespace WestWindSystem.BLL
                 return context.Suppliers.ToList();
             }
         }
+
+        public Supplier GetSuppier(int id)
+        {
+            using (var context = new WestWindContext())
+            {
+                // The .Find() method will look up the object based on its primary key
+                return context.Suppliers.Find(id);
+            }
+        }
     }
 }

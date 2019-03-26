@@ -34,7 +34,39 @@ namespace WebApp.Admin
         #region Button Events
         protected void LookupSupplier_Click(object sender, EventArgs e)
         {
+            // Check that the supplier selected is not the prompt line (index 0)
+            if (SupplierDropDown.SelectedIndex == 0)
+            {
+                //      Error message
+                MessageLabel.Text = "Please select a supplier before clicking the Lookup button.";
+            }
+            else
+            {
+                try
+                {
+                    // Get the supplier info from the BLL
+                    // Note that the .SelectedValue is always a string
+                    int supplierId = int.Parse(SupplierDropDown.SelectedValue);
+                    var controller = new SupplierController();
+                    var result = controller.GetSuppier(supplierId);
 
+                    //      "Unpack" the object into the form's controls
+                    CurrentSupplier.Text = result.SupplierID.ToString();
+                    CompanyName.Text = result.CompanyName;
+                    ContactTitle.Text = result.ContactTitle;
+                    ContactName.Text = result.ContactName;
+                    Email.Text = result.Email;
+                    Address.Text = result.Address;
+                    City.Text = result.City;
+                    PostalCode.Text = result.PostalCode;
+                    Phone.Text = result.Phone;
+                    Fax.Text = result.Fax;
+                }
+                catch (Exception ex)
+                {
+                    MessageLabel.Text = ex.Message;
+                }
+            }
         }
         #endregion
 

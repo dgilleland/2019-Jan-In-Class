@@ -142,18 +142,40 @@ AS
     END   -- ...B }
 RETURN
 
+-- 4. Create a stored procedure that allows us to make corrections to a student's name. It should take in the student ID and the corrected name (first/last) of the student. Call the stored procedure CorrectStudentName. Validate that the student exists before attempting to change the name.
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'CorrectStudentName')
+    DROP PROCEDURE CorrectStudentName
+GO
+CREATE PROCEDURE CorrectStudentName
+    @StudentId      int,
+    @FirstName      varchar(25),
+    @LastName       varchar(35)
+AS
+    IF @StudentId IS NULL OR @FirstName IS NULL OR @LastName IS NULL
+        RAISERROR('All parameters are required.', 16, 1)
+    ELSE IF NOT EXISTS (SELECT StudentID FROM Student WHERE StudentID = @StudentId)
+        RAISERROR('That student id does not exist', 16, 1)
+    ELSE
+        UPDATE  Student
+        SET     FirstName = @FirstName,
+                LastName = @LastName
+        WHERE   StudentID = @StudentId
+RETURN
+GO
 
--- 4. Create a stored procedure that will remove a student from a club. Call it RemoveFromClub.
+
+
+-- 5. Create a stored procedure that will remove a student from a club. Call it RemoveFromClub.
 
 
 -- Query-based Stored Procedures
--- 5. Create a stored procedure that will display all the staff and their position in the school.
+-- 6. Create a stored procedure that will display all the staff and their position in the school.
 --    Show the full name of the staff member and the description of their position.
 
--- 6. Display all the final course marks for a given student. Include the name and number of the course
+-- 7. Display all the final course marks for a given student. Include the name and number of the course
 --    along with the student's mark.
 
--- 7. Display the students that are enrolled in a given course on a given semester.
+-- 8. Display the students that are enrolled in a given course on a given semester.
 --    Display the course name and the student's full name and mark.
 
--- 8. The school is running out of money! Find out who still owes money for the courses they are enrolled in.
+-- 9. The school is running out of money! Find out who still owes money for the courses they are enrolled in.

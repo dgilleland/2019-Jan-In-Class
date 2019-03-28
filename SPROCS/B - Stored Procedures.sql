@@ -16,6 +16,7 @@ RETURN
 GO
 ************************************** */
 
+
 -- 1. Create a stored procedure called AddClub that will add a new club to the database. (No validation is required).
 IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'AddClub')
     DROP PROCEDURE AddClub

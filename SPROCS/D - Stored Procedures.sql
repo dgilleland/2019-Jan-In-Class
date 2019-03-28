@@ -47,7 +47,7 @@ AS
                 INSERT INTO Position(PositionDescription)
                 VALUES (@Description)
                 -- Send back the database-generated primary key
-                SELECT @@IDENTITY -- This is a global variable
+                SELECT @@IDENTITY AS 'NewPositionID' -- This is a global variable
             END   -- }
         END   -- }
     END   -- }
@@ -62,6 +62,7 @@ EXEC AddPosition 'Me' -- This should result in an error being raised
 EXEC AddPosition 'The Boss' -- This should result in an error as well (a duplicate)
 -- This long string gets truncated at the parameter, because the parameter size is 50
 EXEC AddPosition 'The Boss of everything and everyone, everywhere and all the time, both past present and future, without any possible exception. Unless, of course, I''m not...'
+EXEC AddPosition 'The Janitor'
 SELECT * FROM Position
 -- DELETE FROM Position WHERE PositionID = 12
 GO

@@ -47,6 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLL\CustomerController.cs" />
+    <Compile Include="BLL\EmployeeController.cs" />
+    <Compile Include="BLL\OrderController.cs" />
     <Compile Include="BLL\SupplierController.cs" />
     <Compile Include="DAL\WestWindContext.cs" />
     <Compile Include="DataModels\Country.cs" />

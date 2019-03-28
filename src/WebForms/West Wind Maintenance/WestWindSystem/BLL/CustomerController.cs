@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using WestWindModels;
 using WestWindSystem.DAL;
@@ -19,7 +20,9 @@ namespace WestWindSystem.BLL
         {
             using (var context = new WestWindContext())
             {
-                var result = context.Database.SqlQuery<Customer>("EXEC Customers_GetByPartialCompanyName @0", partialCompanyName);
+                string sql = "EXEC Customers_GetByPartialCompanyName @0";
+                DbRawSqlQuery<Customer> result = context.Database.SqlQuery<Customer>(sql, partialCompanyName);
+
                 return result.ToList();
             }
         }

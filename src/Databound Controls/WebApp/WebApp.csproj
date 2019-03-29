@@ -135,6 +135,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
     <Content Include="Demos\CourseEditor.aspx" />
+    <Content Include="Demos\CourseGradeEditor.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -218,6 +219,13 @@
     </Compile>
     <Compile Include="Demos\CourseEditor.aspx.designer.cs">
       <DependentUpon>CourseEditor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Demos\CourseGradeEditor.aspx.cs">
+      <DependentUpon>CourseGradeEditor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Demos\CourseGradeEditor.aspx.designer.cs">
+      <DependentUpon>CourseGradeEditor.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

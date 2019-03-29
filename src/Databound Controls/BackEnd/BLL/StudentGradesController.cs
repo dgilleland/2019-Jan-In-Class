@@ -15,6 +15,7 @@ namespace BackEnd.BLL
     {
         #region In-Memory Database
         internal static Dictionary<string, Course> CourseDb = new Dictionary<string, Course>();
+        internal static Dictionary<string, Dictionary<string, List<AssignedGrade>>> GradesDb = new Dictionary<string, Dictionary<string, List<AssignedGrade>>>();
         #endregion
 
         #region Command Processing
@@ -101,6 +102,7 @@ namespace BackEnd.BLL
             return result;
         }
 
+        [DataObjectMethod(DataObjectMethodType.Select)]
         public IEnumerable<AssignmentInfo> ListAssignments(string selectedValue)
         {
             var result = from data in CourseDb.Values
@@ -113,6 +115,52 @@ namespace BackEnd.BLL
                          };
             return result;
         }
+
+        [DataObjectMethod(DataObjectMethodType.Select)]
+        public IEnumerable<StudentMark> ListStudentGrades(string courseName, string assignmentName)
+        {
+            if(GradesDb.ContainsKey(courseName))
+            {
+                // Get the data from the GradesDb
+                var grades = GradesDb[courseName][assignmentName];
+                var course = CourseDb[courseName];
+                List<StudentMark> marks = new List<StudentMark>();
+                foreach (var item in grades)
+                {
+                    marks.Add(new StudentMark
+                    {
+                        EarnedMarks = item.EarnedMarks,
+                        PossibleMarks = item.PossibleMarks,
+                        StudentID = item.StudentID,
+                        GivenName = course.Students.Single(x => x.StudentID == item.StudentID).FirstName,
+                        Surname = course.Students.Single(x => x.StudentID == item.StudentID).LastName
+                    });
+                }
+                return marks;
+            }
+            else
+            {
+                // Make up a list of "empty" student marks
+                var course = CourseDb[courseName];
+                List<StudentMark> marks = new List<StudentMark>();
+                foreach(var student in course.Students)
+                {
+                    var assignment = course.Assignments.Single(x => x.Name == assignmentName);
+                    marks.Add(new StudentMark
+                    {
+                        GivenName = student.FirstName,
+                        Surname = student.LastName,
+                        StudentID = student.StudentID
+                    });
+                }
+                return marks;
+            }
+        }
+
+        public void ProcessMarks(string courseName, string assignmentName, IEnumerable<AssignedGrade> grades)
+        {
+
+        }
         #endregion
     }
 
@@ -123,8 +171,19 @@ namespace BackEnd.BLL
     }
     public class StudentInfo
     {
-        public string GivenName { get; internal set; }
-        public string Surname { get; internal set; }
+        public string GivenName { get; set; }
+        public string Surname { get; set; }
         public int Id { get; internal set; }
+    }
+    public class StudentMark : AssignedGrade
+    {
+        public string GivenName { get; set; }
+        public string Surname { get; set; }
+    }
+    public class AssignedGrade
+    {
+        public int PossibleMarks { get; set; }
+        public double EarnedMarks { get; set; }
+        public int StudentID { get; set; }
     }
 }

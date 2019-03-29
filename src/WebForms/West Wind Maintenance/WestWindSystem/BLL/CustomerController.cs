@@ -27,12 +27,12 @@ namespace WestWindSystem.BLL
                 // In Sql Server, a parameter is denoted by the @ symbol.
                 // Parameters are numbered rather than named, and the
                 // numbering starts at zero.
-                string sql = "EXEC Customers_GetByPartialCompanyName @0";
+                string sql = "EXEC Customers_GetByPartialCompanyName {0}";
                 // We call our context class' .Database object to run
                 // the SQL Query with the expected return type.
                 DbRawSqlQuery<Customer> result = 
                     context.Database.SqlQuery<Customer>(sql, partialCompanyName);
-                //                           \row type/      \     @0         /
+                //                           \row type/      \     {0}         /
                 // The order of arguments sent in relates to the SQL parameter's
                 // position.
 
@@ -48,7 +48,7 @@ namespace WestWindSystem.BLL
         {
             using (var context = new WestWindContext())
             {
-                var result = context.Database.SqlQuery<Customer>("EXEC Customers_GetByPartialContactName @0", partialContactName);
+                var result = context.Database.SqlQuery<Customer>("EXEC Customers_GetByPartialContactName {0}", partialContactName);
                 return result.ToList();
             }
         }

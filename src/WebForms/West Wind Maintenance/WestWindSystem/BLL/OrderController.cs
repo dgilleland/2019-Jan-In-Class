@@ -19,7 +19,7 @@ namespace WestWindSystem.BLL
         {
             using (var context = new WestWindContext())
             {
-                string sql = "EXEC Orders_GetByCustomer @0";
+                string sql = "EXEC Orders_GetByCustomer {0}";
                 var result = context.Database.SqlQuery<Order>(sql, byCustomerId);
                 return result.ToList();
             }

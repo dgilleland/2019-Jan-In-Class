@@ -22,8 +22,23 @@ namespace WestWindModels
         public string PostalCode { get; set; }
         public string Country { get; set; }
         public string HomePhone { get; set; }
-        public byte[] Photo { get; set; }
-        public string PhotoMimeType { get; set; }
+        // NOTE: varbinary is an array of bytes in C#
+        //       Arrays are, by nature, Reference Types
+        public byte[] Photo { get; set; }           //  varbinary       NULL
+
+        private string _PhotoMimeType;  // use a field as my "backing store"
+        public string PhotoMimeType     // an explicitly implemented property
+        {
+            get { return _PhotoMimeType; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                    _PhotoMimeType = null;
+                else
+                    _PhotoMimeType = value.ToLower();
+            }
+        }
+
         public string Notes { get; set; }
         public bool? Active { get; set; }
         public DateTime? TerminationDate { get; set; }
@@ -31,8 +46,8 @@ namespace WestWindModels
         public string LeaveReason { get; set; }
         public DateTime? ReturnDate { get; set; }
 
-        [NotMapped]
-        public string FullName
+        [NotMapped] // This property does NOT correspond with a column in the table
+        public string FullName  // Calculataing value based on other properties
         { get { return $"{TitleOfCourtesy} {FirstName} {LastName}".Trim(); } }
 
         [NotMapped]

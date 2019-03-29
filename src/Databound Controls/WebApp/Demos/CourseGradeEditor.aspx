@@ -27,7 +27,7 @@
         </div>
         <div class="col-md-7">
             <asp:TextBox ID="PossibleMarks" runat="server" placeholder="Possible Marks" />
-            <asp:LinkButton ID="SubmitGrades" runat="server" CssClass="btn btn-primary">Submit Grades</asp:LinkButton>
+            <asp:LinkButton ID="SubmitGrades" runat="server" CssClass="btn btn-primary" OnClick="SubmitGrades_Click">Submit Grades</asp:LinkButton>
             <asp:ListView ID="StudentMarkListView" runat="server" DataSourceID="StudentMarkDataSource">
                 <ItemTemplate>
                     <tr style="">

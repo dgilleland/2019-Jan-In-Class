@@ -17,6 +17,7 @@
                 <asp:LinkButton ID="PrepopulateCourses" runat="server"
                      OnClick="PrepopulateCourses_Click" CssClass="btn btn-default"><i class="fa fa-graduation-cap"></i> Pre-populate Courses</asp:LinkButton>
                 <a class="btn btn-primary" href="Demos/CourseEditor.aspx">Run Demo &raquo;</a>
+                <a class="btn btn-primary" href="Demos/CourseGradeEditor.aspx">Enter Grades &raquo;</a>
             </p>
         </div>
         <div class="col-md-4">

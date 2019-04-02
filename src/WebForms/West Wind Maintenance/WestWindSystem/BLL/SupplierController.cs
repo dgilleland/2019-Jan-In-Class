@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -54,6 +55,35 @@ namespace WestWindSystem.BLL
                 // that was generated from the table's IDENTITY constraint.
                 return added.SupplierID;
             }
+        }
+
+        public void UpdateSupplier(Supplier item)
+        {
+            using (var context = new WestWindContext())
+            {
+                // The following approach will update the entire Supplier object in the database
+                DbEntityEntry<Supplier> existing = context.Entry(item);
+                // Treat the whole entity (all properties) as being modified
+                existing.State = System.Data.Entity.EntityState.Modified;
+                // Save the changes
+                context.SaveChanges();
+            }
+        }
+
+        public void DeleteSupplier(int supplierId)
+        {
+            using (var context = new WestWindContext())
+            {
+                Supplier found = context.Suppliers.Find(supplierId);
+                context.Suppliers.Remove(found);
+                context.SaveChanges();
+            }
+        }
+
+        // Here is an overloaded method that "chains" to the DeleteSupplier(int) version
+        public void DeleteSupplier(Supplier item)
+        {
+            DeleteSupplier(item.SupplierID);
         }
     }
 }

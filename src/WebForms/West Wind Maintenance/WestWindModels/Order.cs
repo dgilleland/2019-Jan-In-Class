@@ -16,7 +16,7 @@ namespace WestWindModels
         [Key]                                           //  SQL Types
         public int OrderID { get; set; }                // int      NOT NULL
         public int SalesRepID { get; set; }             // int      NOT NULL
-        public string CutomerID { get; set; }           // nchar(5) NOT NULL
+        public string CustomerID { get; set; }          // nchar(5) NOT NULL
         public DateTime? OrderDate { get; set; }        // datetime     NULL
         public DateTime? RequiredDate { get; set; }     // datetime     NULL
         public decimal? Freight { get; set; }           // money        NULL

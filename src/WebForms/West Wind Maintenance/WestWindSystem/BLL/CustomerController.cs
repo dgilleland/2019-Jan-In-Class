@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.Linq;
 using WestWindModels;
 using WestWindSystem.DAL;
@@ -27,12 +28,15 @@ namespace WestWindSystem.BLL
                 // In Sql Server, a parameter is denoted by the @ symbol.
                 // Parameters are numbered rather than named, and the
                 // numbering starts at zero.
-                string sql = "EXEC Customers_GetByPartialCompanyName {0}";
+                string sql = "EXEC Customers_GetByPartialCompanyName @name";
+                // @name is a "named parameter", and we prevent SQL Injection Attacks
+                // by constructing an SqlParameter object with the value we want to supply
+                var param = new SqlParameter("name", partialCompanyName);
                 // We call our context class' .Database object to run
                 // the SQL Query with the expected return type.
                 DbRawSqlQuery<Customer> result = 
-                    context.Database.SqlQuery<Customer>(sql, partialCompanyName);
-                //                           \row type/      \     {0}         /
+                    context.Database.SqlQuery<Customer>(sql, param);
+                //                           \row type/     \@name/
                 // The order of arguments sent in relates to the SQL parameter's
                 // position.
 

@@ -143,6 +143,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
+    <Content Include="Admin\AddEditOrder.aspx" />
     <Content Include="Admin\AddEditSupplier.aspx" />
     <Content Include="Admin\ViewSuppliers.aspx" />
     <Content Include="Contact.aspx" />
@@ -204,6 +205,13 @@
     <Content Include="Site.Mobile.Master" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\AddEditOrder.aspx.cs">
+      <DependentUpon>AddEditOrder.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AddEditOrder.aspx.designer.cs">
+      <DependentUpon>AddEditOrder.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\AddEditSupplier.aspx.cs">
       <DependentUpon>AddEditSupplier.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

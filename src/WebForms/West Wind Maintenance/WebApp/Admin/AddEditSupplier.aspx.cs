@@ -22,7 +22,7 @@ namespace WebApp.Admin
         protected void Page_Load(object sender, EventArgs e)
         {
             MessagePanel.Visible = false; // hide messages
-            if(!IsPostBack)
+            if (!IsPostBack)
             {
                 try
                 {
@@ -82,22 +82,7 @@ namespace WebApp.Admin
             {
                 // TODO: 0) Validation
                 // 1) Create a Supplier object from the data in the form
-                Supplier item = new Supplier();
-                item.CompanyName = CompanyName.Text;
-                item.ContactName = ContactName.Text;
-                if(!string.IsNullOrWhiteSpace(ContactTitle.Text))
-                    item.ContactTitle = ContactTitle.Text; // nullable
-                item.Address = Address.Text;
-                item.City = City.Text;
-                if(!string.IsNullOrWhiteSpace(Region.Text))
-                    item.Region = Region.Text; // nullable
-                if(!string.IsNullOrWhiteSpace(PostalCode.Text))
-                    item.PostalCode = PostalCode.Text; // nullable
-                item.Country = CountryDropDown.SelectedValue; // NOTE: this is from a drop-down
-                item.Phone = Phone.Text;
-                if(!string.IsNullOrWhiteSpace(Fax.Text))
-                    item.Fax = Fax.Text; // nullable
-                item.Email = Email.Text;
+                Supplier item = BuildSupplierFromUserInput();
 
                 // 2) Send the data to the BLL
                 var controller = new SupplierController();
@@ -114,15 +99,108 @@ namespace WebApp.Admin
                 ShowMessage(ex.Message, STYLE_WARNING);
             }
         }
+
+        protected void UpdateSupplier_Click(object sender, EventArgs e)
+        {
+            int supplierId;
+            if (int.TryParse(CurrentSupplier.Text, out supplierId))
+            {
+                try
+                {
+                    // TODO: 0) Validation
+                    // 1) Create a Supplier object from the data in the form
+                    Supplier item = BuildSupplierFromUserInput();
+                    item.SupplierID = supplierId;
+
+                    // 2) Send the data to the BLL
+                    var controller = new SupplierController();
+                    controller.UpdateSupplier(item);
+
+                    // 3) Update the form and give feedback to the user
+                    BindSupplierDropDown(); // because there's a new supplier in town
+                    SupplierDropDown.SelectedValue = supplierId.ToString();
+                    ShowMessage("Supplier has been updated.", STYLE_SUCCESS);
+                }
+                catch (Exception ex)
+                {
+                    ShowMessage(ex.Message, STYLE_WARNING);
+                }
+            }
+            else
+            {
+                ShowMessage("Please look up a supplier before clicking the Update button", STYLE_INFO);
+            }
+        }
+
+        protected void DeleteSupplier_Click(object sender, EventArgs e)
+        {
+            int supplierId;
+            if (int.TryParse(CurrentSupplier.Text, out supplierId))
+            {
+                try
+                {
+                    var controller = new SupplierController();
+                    controller.DeleteSupplier(supplierId);
+                    BindSupplierDropDown(); // because there's a new supplier in town
+                    ShowMessage("Supplier has been removed.", STYLE_SUCCESS);
+                }
+                catch (Exception ex)
+                {
+                    ShowMessage(ex.Message, STYLE_WARNING);
+                }
+            }
+            else
+            {
+                ShowMessage("Please look up a supplier before clicking the Delete button", STYLE_INFO);
+            }
+        }
+
+        protected void ClearForm_Click(object sender, EventArgs e)
+        {
+            CurrentSupplier.Text = string.Empty;
+            CompanyName.Text = string.Empty;
+            ContactName.Text = string.Empty;
+            ContactTitle.Text = string.Empty;
+            Email.Text = string.Empty;
+            Address.Text = string.Empty;
+            City.Text = string.Empty;
+            Region.Text = string.Empty;
+            PostalCode.Text = string.Empty;
+            CountryDropDown.SelectedIndex = -1;
+            Phone.Text = string.Empty;
+            Fax.Text = string.Empty;
+        }
         #endregion
 
         #region Private Methods
+        private Supplier BuildSupplierFromUserInput()
+        {
+            Supplier item = new Supplier();
+            item.CompanyName = CompanyName.Text;
+            item.ContactName = ContactName.Text;
+            if (!string.IsNullOrWhiteSpace(ContactTitle.Text))
+                item.ContactTitle = ContactTitle.Text; // nullable
+            item.Address = Address.Text;
+            item.City = City.Text;
+            if (!string.IsNullOrWhiteSpace(Region.Text))
+                item.Region = Region.Text; // nullable
+            if (!string.IsNullOrWhiteSpace(PostalCode.Text))
+                item.PostalCode = PostalCode.Text; // nullable
+            item.Country = CountryDropDown.SelectedValue; // NOTE: this is from a drop-down
+            item.Phone = Phone.Text;
+            if (!string.IsNullOrWhiteSpace(Fax.Text))
+                item.Fax = Fax.Text; // nullable
+            item.Email = Email.Text;
+            return item;
+        }
+
         private void ShowMessage(string message, string style)
         {
             MessageLabel.Text = message;
             MessagePanel.CssClass = $"alert {style} alert-dismissible";
             MessagePanel.Visible = true;
         }
+
         private void BindCountryDropDown()
         {
             SupplierController controller = new SupplierController();
@@ -132,6 +210,7 @@ namespace WebApp.Admin
             CountryDropDown.DataBind();
             CountryDropDown.Items.Insert(0, "[select a country]");
         }
+
         private void BindSupplierDropDown()
         {
             SupplierController controller = new SupplierController();

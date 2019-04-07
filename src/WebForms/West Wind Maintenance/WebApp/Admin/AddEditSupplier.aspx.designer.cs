@@ -49,6 +49,33 @@ namespace WebApp.Admin {
         protected global::System.Web.UI.WebControls.LinkButton AddSupplier;
         
         /// <summary>
+        /// UpdateSupplier control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton UpdateSupplier;
+        
+        /// <summary>
+        /// DeleteSupplier control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton DeleteSupplier;
+        
+        /// <summary>
+        /// ClearForm control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton ClearForm;
+        
+        /// <summary>
         /// MessagePanel control.
         /// </summary>
         /// <remarks>

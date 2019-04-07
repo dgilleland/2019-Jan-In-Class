@@ -18,6 +18,12 @@
             <div>
                 <asp:LinkButton ID="AddSupplier" runat="server" CssClass="btn btn-default"
                      OnClick="AddSupplier_Click">Add Supplier</asp:LinkButton>
+                <asp:LinkButton ID="UpdateSupplier" runat="server" CssClass="btn btn-default"
+                     OnClick="UpdateSupplier_Click">Update Supplier</asp:LinkButton>
+                <asp:LinkButton ID="DeleteSupplier" runat="server" CssClass="btn btn-default"
+                     OnClick="DeleteSupplier_Click" OnClientClick="return confirm('Are you sure you want to delete this supplier?')">Delete Supplier</asp:LinkButton>
+                <asp:LinkButton ID="ClearForm" runat="server" CssClass="btn btn-default"
+                     OnClick="ClearForm_Click">Clear Form</asp:LinkButton>
             </div>
         </div>
         <div class="col-sm-6">

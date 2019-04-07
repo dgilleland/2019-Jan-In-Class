@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using WestWindModels;
 using WestWindSystem.DAL;
 using WestWindSystem.DataModels;
 
@@ -8,6 +9,14 @@ namespace WestWindSystem.BLL
 {
     public class CategoryController
     {
+        public List<Category> ListCategories()
+        {
+            using (var context = new WestWindContext())
+            {
+                return context.Categories.ToList();
+            }
+        }
+
         public List<DropDownSelection<int>> ListCategoriesNameAndId()
         {
             using (var context = new WestWindContext())

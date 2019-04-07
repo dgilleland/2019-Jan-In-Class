@@ -5,39 +5,10 @@ using System.Data.SqlClient;
 using System.Linq;
 using WestWindModels;
 using WestWindSystem.DAL;
+using WestWindSystem.DataModels;
 
 namespace WestWindSystem.BLL
 {
-    public class CategoryController
-    {
-        public List<KeyValuePair<int, string>> ListCategoriesNameAndId()
-        {
-            using (var context = new WestWindContext())
-            {
-                string sql = "SELECT CategoryID AS Key, CategoryName as Value FROM Categories ORDER BY CategoryName";
-                var result = context.Database.SqlQuery<KeyValuePair<int, string>>(sql);
-                return result.ToList();
-            }
-        }
-    }
-
-    public class ProductController
-    {
-        public List<Product> GetProductsByCategory(int searchId)
-        {
-            throw new NotImplementedException();
-        }
-        public List<Product> GetProductsBySupplier(int searchId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Product> GetProductsByPartialName(string name)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
     public class CustomerController
     {
         public List<Customer> ListCustomers()

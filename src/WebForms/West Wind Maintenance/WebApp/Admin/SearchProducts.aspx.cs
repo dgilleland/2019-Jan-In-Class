@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using WestWindModels;
 using WestWindSystem.BLL;
+using WestWindSystem.DataModels;
 
 namespace WebApp.Admin
 {
@@ -13,6 +14,7 @@ namespace WebApp.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            MessagePanel.Visible = false;
             if (!IsPostBack)
             {
                 try
@@ -49,10 +51,10 @@ namespace WebApp.Admin
         private void PopulateCategoryDropDown()
         {
             CategoryController controller = new CategoryController();
-            List<KeyValuePair<int, string>> data = controller.ListCategoriesNameAndId();
+            var data = controller.ListCategoriesNameAndId();
             CategoryDropDown.DataSource = data;
-            CategoryDropDown.DataTextField = nameof(KeyValuePair<int, string>.Value);
-            CategoryDropDown.DataValueField = nameof(KeyValuePair<int, string>.Key);
+            CategoryDropDown.DataTextField = nameof(DropDownSelection<int>.Text);
+            CategoryDropDown.DataValueField = nameof(DropDownSelection<int>.Value);
             CategoryDropDown.DataBind();
             CategoryDropDown.Items.Insert(0, "[select a Category]");
         }

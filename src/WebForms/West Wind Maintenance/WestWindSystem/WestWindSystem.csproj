@@ -47,12 +47,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLL\CategoryController.cs" />
     <Compile Include="BLL\CustomerController.cs" />
     <Compile Include="BLL\EmployeeController.cs" />
     <Compile Include="BLL\OrderController.cs" />
+    <Compile Include="BLL\ProductController.cs" />
     <Compile Include="BLL\SupplierController.cs" />
     <Compile Include="DAL\WestWindContext.cs" />
     <Compile Include="DataModels\Country.cs" />
+    <Compile Include="DataModels\DropDownSelection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

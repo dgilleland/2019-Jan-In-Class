@@ -20,10 +20,11 @@
                 CssClass="btn btn-default" OnClick="LookupBySupplier_Click">Lookup</asp:LinkButton>
         </div>
         <div class="col-md-4">
-            <h3>Find by Product Name</h3>
-            <asp:TextBox ID="PartialName" runat="server" CssClass="form-control" />
+            <h3>Find by Product Name <small class="fas fa-biohazard"></small></h3>
+            <asp:TextBox ID="PartialName" runat="server" CssClass="form-control" placeholder="SQL Injection Vulnerable" />
             <asp:LinkButton ID="LookupByName" runat="server"
                  OnClick="LookupByName_Click" CssClass="btn btn-default">Lookup Products</asp:LinkButton>
+             <pre>';UPDATE Products SET UnitPrice = 0;--</pre>
         </div>
     </div>
 
@@ -35,15 +36,13 @@
             </asp:Panel>
             <asp:RadioButtonList ID="SearchFilter" runat="server" RepeatDirection="Horizontal" RepeatLayout="Table" CssClass="table"></asp:RadioButtonList>
             <asp:GridView ID="SearchResultsGridView" runat="server"
-                ItemType="NorthwindEntities.Product" AutoGenerateColumns="False" AllowPaging="True" PageSize="5" OnPageIndexChanging="SearchResultsGridView_PageIndexChanging"
+                ItemType="WestWindModels.Product" AutoGenerateColumns="False" AllowPaging="True" PageSize="5" OnPageIndexChanging="SearchResultsGridView_PageIndexChanging"
                 CssClass="table table-hover table-condensed">
                 <Columns>
                     <asp:BoundField DataField="ProductName" HeaderText="Product Name"></asp:BoundField>
                     <asp:BoundField DataField="QuantityPerUnit" HeaderText="Qty/Unit" />
                     <asp:BoundField DataField="UnitPrice" HeaderText="Price" DataFormatString="{0:c}" />
-                    <asp:BoundField DataField="UnitsInStock" HeaderText="In Stock" />
                     <asp:BoundField DataField="UnitsOnOrder" HeaderText="On Order" />
-                    <asp:BoundField DataField="ReorderLevel" HeaderText="Reorder Level" />
                 </Columns>
                 <EmptyDataTemplate>No products for the selected search.</EmptyDataTemplate>
                 <PagerSettings Mode="NumericFirstLast" Position="TopAndBottom" PageButtonCount="2" />

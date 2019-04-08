@@ -45,11 +45,14 @@ ON Activity
 FOR Insert, Update -- Choose only the DML statement(s) that apply
 AS
     -- Body of Trigger
-    IF @@ROWCOUNT > 0 AND
-       EXISTS (SELECT * FROM Activity A INNER JOIN inserted I ON A.StudentID = I.StudentID
-               GROUP BY I.StudentID HAVING COUNT(*) > 3)
+    IF @@ROWCOUNT > 0 -- It's a good idea to see if any rows were affected first
+       AND
+       EXISTS (SELECT StudentID FROM Activity
+               GROUP BY StudentID HAVING COUNT(StudentID) > 3)
     BEGIN
+        -- State why I'm going to abort the changes
         RAISERROR('Max of 3 clubs that a student can belong to', 16, 1)
+        -- "Undo" the changes
         ROLLBACK TRANSACTION
     END
 RETURN
@@ -57,7 +60,7 @@ GO
 -- Before doing my tests, examine the data in the table
 -- to see what I could use for testing purposes
 SELECT * FROM Activity
-SELECT StudentID, FirstName, LastName FROM Student
+SELECT StudentID, FirstName, LastName FROM Student WHERE StudentID = 200495500
 
 -- The following test should result in a rollback.
 INSERT INTO Activity(StudentID, ClubId)
@@ -68,11 +71,12 @@ INSERT INTO Activity(StudentID, ClubId)
 VALUES (200312345, 'CIPS') -- Mary Jane
 
 INSERT INTO Activity(StudentID, ClubId)
-VALUES (200122100, 'CIPS'), -- Peter Codd
-       (200494476, 'CIPS'), -- Joe Cool
-       (200522220, 'CIPS'), -- Joe Petroni
-       (200978400, 'CIPS'), -- Peter Pan
-       (200688700, 'CIPS')  -- Robbie Chan
+VALUES (200122100, 'CIPS'), -- Peter Codd   -- New to the Activity table
+       (200494476, 'CIPS'), -- Joe Cool     -- New to the Activity table
+       (200522220, 'CIPS'), -- Joe Petroni  -- New to the Activity table
+       (200978400, 'CIPS'), -- Peter Pan    -- New to the Activity table
+       (200688700, 'CIPS')  -- Robbie Chan  -- New to the Activity table
+      ,(200495500, 'CIPS')  -- Robert Smith -- This would be his 4th club!
 
 -- 2. The Education Board is concerned with rising course costs! Create a trigger to ensure that a course cost does not get increased by more than 20% at any one time.
 IF EXISTS (SELECT * FROM sys.triggers WHERE object_id = OBJECT_ID(N'[dbo].[Course_Update_CourseCostLimit]'))
@@ -94,6 +98,10 @@ AS
 RETURN
 GO
 -- TODO: Write the code that will test this stored procedure.
+SELECT * FROM Course
+UPDATE Course SET CourseCost = 1000 -- This should fail
+UPDATE Course SET CourseCost = CourseCost * 1.21
+UPDATE Course SET CourseCost = CourseCost * 1.195
 
 -- 3. Too many students owe us money and keep registering for more courses! Create a trigger to ensure that a student cannot register for any more courses if they have a balance owing of more than $500.
 IF EXISTS (SELECT * FROM sys.triggers WHERE object_id = OBJECT_ID(N'[dbo].[Registration_Insert_BalanceOwing]'))
@@ -106,7 +114,7 @@ FOR Insert
 AS
     -- Body of Trigger
     IF @@ROWCOUNT > 0 AND
-       EXISTS(SELECT * FROM inserted I INNER JOIN  Student S ON I.StudentID = S.StudentID
+       EXISTS(SELECT S.StudentID FROM inserted I INNER JOIN  Student S ON I.StudentID = S.StudentID
               WHERE S.BalanceOwing > 500)
     BEGIN
         RAISERROR('Student owes too much money - cannot register student in course', 16, 1)
@@ -115,7 +123,10 @@ AS
 RETURN
 GO
 -- TODO: Write code to test this trigger
+SELECT * FROM Student WHERE BalanceOwing > 0
+
 -- Write a stored procedure called RegisterStudent that puts a student in a course and increases the balance owing by the cost of the course.
+
 
 --4. Our school DBA has suddenly disabled some Foreign Key constraints to deal with performance issues! Create a trigger on the Registration table to ensure that only valid CourseIDs, StudentIDs and StaffIDs are used for grade records. (You can use sp_help tablename to find the name of the foreign key constraints you need to disable to test your trigger.) Have the trigger raise an error for each foreign key that is not valid. If you have trouble with this question create the trigger so it just checks for a valid student ID.
 -- sp_help Registration -- then disable the foreign key constraints....
@@ -177,7 +188,8 @@ AS
     END
 RETURN
 GO
-
+INSERT INTO Club(ClubId, ClubName) VALUES ('HACK', 'Honest Analyst Computer Knowledge')
+GO
 -- 6. Our network security officer suspects our system has a virus that is allowing students to alter their balance owing records! In order to track down what is happening we want to create a logging table that will log any changes to the balance owing in the Student table. You must create the logging table and the trigger to populate it when the balance owing is modified.
 -- Step 1) Make the logging table
 IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'BalanceOwingLog')
@@ -186,9 +198,10 @@ GO
 CREATE TABLE BalanceOwingLog
 (
     LogID           int  IDENTITY (1,1) NOT NULL CONSTRAINT PK_BalanceOwingLog PRIMARY KEY,
+    StudentID       int                 NOT NULL,
     ChangeDateTime  datetime            NOT NULL,
-    OldBalance      decimal (7,2)       NOT NULL,
-    NewBalance      decimal (7,2)       NOT NULL
+    OldBalance      money               NOT NULL,
+    NewBalance      money               NOT NULL
 )
 GO
 
@@ -203,8 +216,8 @@ AS
 	-- Body of Trigger
     IF @@ROWCOUNT > 0 AND UPDATE(BalanceOwing)
 	BEGIN
-	    INSERT INTO BalanceOwingLog (ChangedateTime,OldBalance,NewBalance)
-	    SELECT GETDATE(), D.BalanceOwing, I.BalanceOwing
+	    INSERT INTO BalanceOwingLog (StudentID, ChangedateTime, OldBalance, NewBalance)
+	    SELECT I.StudentID, GETDATE(), D.BalanceOwing, I.BalanceOwing
         FROM deleted D INNER JOIN inserted I on D.StudentID = I.StudentID
 	    IF @@ERROR <> 0 
 	    BEGIN
@@ -214,3 +227,14 @@ AS
 	END
 RETURN
 GO
+
+SELECT * FROM BalanceOwingLog -- To see what's in there before an update
+-- Hacker statements happening offline....
+UPDATE Student SET BalanceOwing = BalanceOwing - 100 -- Hacker failed, but not disuaded
+UPDATE Student SET BalanceOwing = BalanceOwing - 100 WHERE BalanceOwing > 100
+SELECT * FROM BalanceOwingLog -- To see what's in there after a hack attempt
+UPDATE Student SET BalanceOwing = 10000 -- He's graduated, and doesn't want competition
+SELECT * FROM BalanceOwingLog -- To see what's in there after a hack attempt
+
+
+

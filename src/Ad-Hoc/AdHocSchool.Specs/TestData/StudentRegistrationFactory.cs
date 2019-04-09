@@ -57,9 +57,31 @@ namespace AdHocSchool.Specs.TestData
             _data.Year = year;
             return this;
         }
+
+        internal StudentRegistrationFactory WithStudentIds(params int[] studentIds)
+        {
+            _data.StudentIds = studentIds;
+            return this;
+        }
         #endregion
 
         #region Methods for getting back test data
+        public List<string> ListFirstTermCourses()
+        {
+            using (var context = new AdHocContext())
+            {
+                var result = from data in context.Courses
+                             where data.CourseId.StartsWith("DMIT1")
+                                && (data.CourseId.Substring(4, 1) == "0"
+                                || data.CourseId.Substring(4, 1) == "1"
+                                || data.CourseId.Substring(4, 1) == "2"
+                                || data.CourseId.Substring(4, 1) == "3"
+                                || data.CourseId.Substring(4, 1) == "4")
+                             select data.CourseId;
+                return result.ToList();
+            }
+        }
+
         public List<Registration> ListFirstTermRegistrations(string semester)
         {
             using (var context = new AdHocContext())

@@ -28,6 +28,7 @@ namespace AdHocSchool.BLL
             if (cohort.StudentIds == null || cohort.StudentIds.Count == 0)
                 throw new ArgumentException("Must have at least one student to register for first term courses");
 
+
             // The following validations will be based on having actual data rather than
             // on the absense of data
             var errors = new List<Exception>(); // to "gather" the errors
@@ -35,9 +36,6 @@ namespace AdHocSchool.BLL
             // Make sure the year is not in the past
             if (cohort.Year < DateTime.Today.Year)
                 errors.Add(new Exception("Cannot register students for a school year in the past"));
-
-            if (errors.Any())
-                throw new BusinessRuleException($"Errors in {nameof(RegisterFirstTermStudents)}", errors);
 
             using (var context = new AdHocSchool.DAL.AdHocContext())
             {
@@ -59,23 +57,32 @@ namespace AdHocSchool.BLL
                     // Get my student, with the Registration information for the student
                     var student = context.Students
                                   .Include(x => x.Registrations)
-                                  .Single(x => x.StudentID == id);
-                    // Add them to my courses
-                    foreach(var courseId in firstTermCourses)
+                                  .SingleOrDefault(x => x.StudentID == id);
+                    if (student == null)
+                        errors.Add(new Exception($"Invalid Student ID: {id}"));
+                    else
                     {
-                        student.Registrations.Add(new Entities.Registration
+                        // Add them to my courses
+                        foreach (var courseId in firstTermCourses)
                         {
-                            CourseId = courseId,
-                            Semester = cohort.Semester,
-                            StudentID = id
-                        });
+                            student.Registrations.Add(new Entities.Registration
+                            {
+                                CourseId = courseId,
+                                Semester = cohort.Semester,
+                                StudentID = id
+                            });
+                        }
+                        // Bill the student for the course
+                        student.BalanceOwing += 1980;
+                        context.Entry(student).State = EntityState.Modified;
+                        // or
+                        // context.Entry(student).Property(x => x.BalanceOwing).IsModified = true;
                     }
-                    // Bill the student for the course
-                    student.BalanceOwing += 1980;
-                    context.Entry(student).State = EntityState.Modified;
-                    // or
-                    // context.Entry(student).Property(x => x.BalanceOwing).IsModified = true;
                 }
+
+                // Checking after the loop because I needed to ensure the student ids existed.
+                if (errors.Any())
+                    throw new BusinessRuleException($"Errors in {nameof(RegisterFirstTermStudents)}", errors);
 
                 // A single .SaveChanges() to do the transaction
                 context.SaveChanges();

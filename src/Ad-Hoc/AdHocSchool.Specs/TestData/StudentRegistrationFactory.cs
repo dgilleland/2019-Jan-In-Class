@@ -66,8 +66,12 @@ namespace AdHocSchool.Specs.TestData
             {
                 var result = from data in context.Registrations
                              where data.Semester == semester
-                                && data.CourseId[4] == '1'
-                                && data.CourseId[5] < '5'
+                                && data.CourseId.StartsWith("DMIT1")
+                                && (data.CourseId.Substring(4, 1) == "0"
+                                || data.CourseId.Substring(4, 1) == "1"
+                                || data.CourseId.Substring(4, 1) == "2"
+                                || data.CourseId.Substring(4, 1) == "3"
+                                || data.CourseId.Substring(4, 1) == "4")
                              select data;
                 return result.Include(x => x.Student).ToList();
             }

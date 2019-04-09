@@ -335,8 +335,15 @@ namespace WestWindSystem.BLL
                 var customer = context.Customers.Find(order.CustomerId);
                 if (customer == null)
                     throw new Exception("Customer does not exist");
-                var orderInProcess = context.Orders.Find(order.OrderId);
+                // orderInProcess will be an "in-memory" copy of the object in the database
+                var orderInProcess =
+                    context.Orders // From the Orders table
+                    // make sure to include the OrderDetails and each OrderDetail's Product info
+                    .Include(x => x.OrderDetails.Select(y => y.Product))
+                    // get the one order that should match the order ID supplied
+                    .SingleOrDefault(x => x.OrderID == order.OrderId);
                 if (orderInProcess == null)
+                    // Add a new "blank" order, and have a ref to it so we can manipulate it
                     orderInProcess = context.Orders.Add(new Order());
                 else
                 {
@@ -364,10 +371,9 @@ namespace WestWindSystem.BLL
                 foreach (var detail in orderInProcess.OrderDetails)
                 {
                     var changes = order.OrderItems.SingleOrDefault(x => x.ProductId == detail.ProductID);
-                    if (changes == null)
-                        //toRemove.Add(detail);
+                    if (changes == null) // then I need to remove it from my list of previous order items
                         context.Entry(detail).State = EntityState.Deleted; // flag for deletion
-                    else
+                    else // I need to update information on this ordered item
                     {
                         detail.Discount = changes.DiscountPercent;
                         detail.Quantity = changes.OrderQuantity;

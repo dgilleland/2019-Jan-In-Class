@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2026
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdHocSchool", "AdHocSchool\AdHocSchool.csproj", "{97821997-9ADB-42C8-B6D7-6D12C313B886}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdHocSchool.Specs", "AdHocSchool.Specs\AdHocSchool.Specs.csproj", "{A8FC89EF-6FFF-4B36-A257-7BD3CD16BFF1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{97821997-9ADB-42C8-B6D7-6D12C313B886}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97821997-9ADB-42C8-B6D7-6D12C313B886}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97821997-9ADB-42C8-B6D7-6D12C313B886}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97821997-9ADB-42C8-B6D7-6D12C313B886}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8FC89EF-6FFF-4B36-A257-7BD3CD16BFF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8FC89EF-6FFF-4B36-A257-7BD3CD16BFF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8FC89EF-6FFF-4B36-A257-7BD3CD16BFF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8FC89EF-6FFF-4B36-A257-7BD3CD16BFF1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C04D3149-C400-4620-A99E-897638E4F36B}
+	EndGlobalSection
+EndGlobal

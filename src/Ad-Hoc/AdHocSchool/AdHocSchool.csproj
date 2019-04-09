@@ -49,7 +49,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLL\BusinessRuleException.cs" />
     <Compile Include="BLL\RegistrationController.cs" />
+    <Compile Include="BLL\Text.cs" />
     <Compile Include="DAL\AdHocContext.cs" />
     <Compile Include="DataModels\StudentRegistration.cs" />
     <Compile Include="Entities\Club.cs" />

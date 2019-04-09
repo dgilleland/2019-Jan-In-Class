@@ -70,6 +70,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="First_Term_Student_Registrations_Must.cs" />
     <Compile Include="Helpers\AutoRollbackAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestData\StudentRegistrationFactory.cs" />

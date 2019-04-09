@@ -10,6 +10,7 @@ namespace AdHocSchool.Specs.TestData
 {
     public class StudentRegistrationFactory
     {
+        #region Factory Setup
         private StudentRegistration _data;
         public static StudentRegistrationFactory Instance => new StudentRegistrationFactory();
         private StudentRegistrationFactory()
@@ -17,13 +18,30 @@ namespace AdHocSchool.Specs.TestData
             _data = new StudentRegistration
             {
                 Month = StudentRegistration.Term.SEP,
-                Year = DateTime.Today.Year
+                Year = DateTime.Today.Year,
+                StudentIds = UnregisteredStudents
             };
-            using (var context = new AdHocContext())
+        }
+        private static List<int> _students;
+        private static List<int> UnregisteredStudents
+        {
+            get
             {
-                var students = context.Students.Where(x => x.Registrations.Count == 0).Select(x => x.StudentID).ToList();
-                _data.StudentIds = students;
+                if (!_students.Any())
+                    using (var context = new AdHocContext())
+                    {
+                        _students = context.Students.Where(x => x.Registrations.Count == 0).Select(x => x.StudentID).ToList();
+                    }
+                return new List<int>(_students); // shallow clone
             }
         }
+        #endregion
+
+        #region Factory Methods
+        public StudentRegistration Build()
+        {
+            return _data;
+        }
+        #endregion
     }
 }

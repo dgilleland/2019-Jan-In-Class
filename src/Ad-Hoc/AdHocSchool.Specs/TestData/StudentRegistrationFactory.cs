@@ -1,7 +1,9 @@
 ﻿using AdHocSchool.DAL;
 using AdHocSchool.DataModels;
+using AdHocSchool.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,7 +29,7 @@ namespace AdHocSchool.Specs.TestData
         {
             get
             {
-                if (!_students.Any())
+                if (_students == null)
                     using (var context = new AdHocContext())
                     {
                         _students = context.Students.Where(x => x.Registrations.Count == 0).Select(x => x.StudentID).ToList();
@@ -42,6 +44,35 @@ namespace AdHocSchool.Specs.TestData
         {
             return _data;
         }
+
+        #region Fluent methods for modifying the test data
+        public StudentRegistrationFactory WithoutStudents()
+        {
+            _data.StudentIds.Clear(); // empty out the list of student ids
+            return this;
+        }
+
+        public StudentRegistrationFactory WithSchoolYear(int year)
+        {
+            _data.Year = year;
+            return this;
+        }
+        #endregion
+
+        #region Methods for getting back test data
+        public List<Registration> ListFirstTermRegistrations(string semester)
+        {
+            using (var context = new AdHocContext())
+            {
+                var result = from data in context.Registrations
+                             where data.Semester == semester
+                                && data.CourseId[4] == '1'
+                                && data.CourseId[5] < '5'
+                             select data;
+                return result.Include(x => x.Student).ToList();
+            }
+        }
+        #endregion
         #endregion
     }
 }

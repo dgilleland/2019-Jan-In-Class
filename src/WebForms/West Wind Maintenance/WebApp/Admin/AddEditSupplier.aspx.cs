@@ -117,7 +117,7 @@ namespace WebApp.Admin
                     controller.UpdateSupplier(item);
 
                     // 3) Update the form and give feedback to the user
-                    BindSupplierDropDown(); // because there's a new supplier in town
+                    BindSupplierDropDown(); // because the supplier's name might have changed
                     SupplierDropDown.SelectedValue = supplierId.ToString();
                     ShowMessage("Supplier has been updated.", STYLE_SUCCESS);
                 }
@@ -141,7 +141,9 @@ namespace WebApp.Admin
                 {
                     var controller = new SupplierController();
                     controller.DeleteSupplier(supplierId);
-                    BindSupplierDropDown(); // because there's a new supplier in town
+                    BindSupplierDropDown(); // because this current supplier no longer exists
+                    // Having removed this supplier, I should "clean up" the form
+                    ClearForm_Click(sender, e); // Pass off the job to an existing button click
                     ShowMessage("Supplier has been removed.", STYLE_SUCCESS);
                 }
                 catch (Exception ex)

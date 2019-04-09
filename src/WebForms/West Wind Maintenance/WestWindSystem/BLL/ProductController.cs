@@ -51,7 +51,7 @@ namespace WestWindSystem.BLL
             {
                 // WARNING! NEVER, EVER, do this....
                 // because it's vulnerable to an SQL Injection Attack
-                string sql = $"EXEC Products_GetByPartialProductName {name}";
+                string sql = $"EXEC Products_GetByPartialProductName '{name}'";
                 var result = context.Database.SqlQuery<Product>(sql);
                 return result.ToList();
             }

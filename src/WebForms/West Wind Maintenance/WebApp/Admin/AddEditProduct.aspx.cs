@@ -42,7 +42,6 @@ namespace WebApp.Admin
             SupplierDropDown.DataBind();
             // Let's insert a couple of options at the top of the drop-down
             SupplierDropDown.Items.Insert(0, new ListItem("[select a supplier]"));
-            SupplierDropDown.Items.Insert(1, new ListItem("[no supplier]", string.Empty)); // because Product.SupplierID is nullable
         }
 
         private void PopulateCategoryDropDown()
@@ -55,8 +54,6 @@ namespace WebApp.Admin
             CategoryDropDown.DataBind();
             // Let's insert a couple of options at the top of the drop-down
             CategoryDropDown.Items.Insert(0, new ListItem("[select a category]"));
-            CategoryDropDown.Items.Insert(1, new ListItem("[no category]", string.Empty));
-            // The second inserted item is to accommodate a NULL value for the Product.CategoryID
         }
 
         private void PopulateProductDropDown()

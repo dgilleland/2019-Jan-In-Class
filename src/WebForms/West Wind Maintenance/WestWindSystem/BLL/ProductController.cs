@@ -1,13 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using WestWindModels;
 using WestWindSystem.DAL;
 
 namespace WestWindSystem.BLL
 {
+    // We will "decorate" our class with an "annotation" attribute that allows "discoverability"
+    // on our ProductController class by Visual Studio
+    // [DataObject] tells Visual Studio that this class produces data objects for databound controls
+    [DataObject] // <-- This is the System.ComponentModel.DataObjectAttribute class
     public class ProductController
     {
+        #region Queries
         public List<Product> ListProducts()
         {
             // This "using" statement is different than the "using" at the top of this file.
@@ -57,6 +63,19 @@ namespace WestWindSystem.BLL
             }
         }
 
+        [DataObjectMethod(DataObjectMethodType.Select)] // used for SELECT statements
+        public List<Product> GetProductsByPriceRange(decimal minValue, decimal maxValue)
+        {
+            using (var context = new WestWindContext())
+            {
+                var result = context.Database
+                             .SqlQuery<Product>("EXEC Products_GetByPriceRange @p0, @p1", minValue, maxValue);
+                return result.ToList();
+            }
+        }
+        #endregion
+
+        #region Insert/Update/Delete Commands
         public int AddProduct(Product item) // we could also just return void
         {
             using (var context = new WestWindContext())
@@ -96,5 +115,6 @@ namespace WestWindSystem.BLL
         {
             DeleteProduct(item.ProductID);
         }
+        #endregion
     }
 }

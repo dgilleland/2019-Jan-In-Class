@@ -147,6 +147,7 @@
     <Content Include="Admin\AddEditProduct.aspx" />
     <Content Include="Admin\AddEditSupplier.aspx" />
     <Content Include="Admin\SearchProducts.aspx" />
+    <Content Include="Admin\SearchProductsByPrice.aspx" />
     <Content Include="Admin\ViewSuppliers.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -234,6 +235,13 @@
     </Compile>
     <Compile Include="Admin\SearchProducts.aspx.designer.cs">
       <DependentUpon>SearchProducts.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\SearchProductsByPrice.aspx.cs">
+      <DependentUpon>SearchProductsByPrice.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\SearchProductsByPrice.aspx.designer.cs">
+      <DependentUpon>SearchProductsByPrice.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\ViewSuppliers.aspx.cs">
       <DependentUpon>ViewSuppliers.aspx</DependentUpon>

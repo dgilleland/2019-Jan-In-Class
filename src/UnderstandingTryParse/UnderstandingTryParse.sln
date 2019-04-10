@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2026
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnderstandingTryParse", "UnderstandingTryParse\UnderstandingTryParse.csproj", "{60B2ABEF-1B83-4394-8AAE-A5A336826659}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{60B2ABEF-1B83-4394-8AAE-A5A336826659}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60B2ABEF-1B83-4394-8AAE-A5A336826659}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60B2ABEF-1B83-4394-8AAE-A5A336826659}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60B2ABEF-1B83-4394-8AAE-A5A336826659}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5B320E87-60E6-4429-93F0-3755BF16F087}
+	EndGlobalSection
+EndGlobal

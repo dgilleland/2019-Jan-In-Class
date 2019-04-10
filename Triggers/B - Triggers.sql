@@ -1,3 +1,6 @@
+USE [A01-School]
+GO
+
 -- A. Create a trigger to ensure that an instructor does not teach more than 3 courses in a given semester.
 
 -- B. Create a trigger to ensure that students cannot be added to a course if the course is already full.

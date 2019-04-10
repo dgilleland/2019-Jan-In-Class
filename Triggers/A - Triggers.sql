@@ -31,7 +31,9 @@ AS
 RETURN
 GO
 -- Demonstrate the diagnostic trigger
+SELECT * FROM Activity
 INSERT INTO Activity(StudentID, ClubId) VALUES (200494476, 'CIPS')
+-- (note: generally, it's not a good idea to change a primary key, even part of one)
 UPDATE Activity SET ClubId = 'NASA1' WHERE StudentID = 200494476
 DELETE FROM Activity WHERE StudentID = 200494476
 

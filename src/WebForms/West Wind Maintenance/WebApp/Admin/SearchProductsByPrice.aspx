@@ -14,17 +14,19 @@
                 <asp:TextBox ID="MaxPrice" runat="server" Text="150" />
             </fieldset>
             <hr />
-            <asp:GridView ID="ProductsGridView" runat="server" AutoGenerateColumns="False" DataSourceID="ProductsDataSource">
+            <asp:GridView ID="ProductsGridView" runat="server"
+                AutoGenerateColumns="False" DataSourceID="ProductsDataSource"
+                DataKeyNames="ProductID" CssClass="table table-condensed table-hover" AllowPaging="True">
                 <Columns>
-                    <asp:BoundField DataField="ProductID" HeaderText="ProductID" SortExpression="ProductID"></asp:BoundField>
-                    <asp:BoundField DataField="ProductName" HeaderText="ProductName" SortExpression="ProductName"></asp:BoundField>
-                    <asp:BoundField DataField="SupplierID" HeaderText="SupplierID" SortExpression="SupplierID"></asp:BoundField>
-                    <asp:BoundField DataField="CategoryID" HeaderText="CategoryID" SortExpression="CategoryID"></asp:BoundField>
-                    <asp:BoundField DataField="QuantityPerUnit" HeaderText="QuantityPerUnit" SortExpression="QuantityPerUnit"></asp:BoundField>
-                    <asp:BoundField DataField="MinimumOrderQuantity" HeaderText="MinimumOrderQuantity" SortExpression="MinimumOrderQuantity"></asp:BoundField>
-                    <asp:BoundField DataField="UnitPrice" HeaderText="UnitPrice" SortExpression="UnitPrice"></asp:BoundField>
-                    <asp:BoundField DataField="UnitsOnOrder" HeaderText="UnitsOnOrder" SortExpression="UnitsOnOrder"></asp:BoundField>
-                    <asp:CheckBoxField DataField="Discontinued" HeaderText="Discontinued" SortExpression="Discontinued"></asp:CheckBoxField>
+                    <asp:CommandField ShowSelectButton="True"></asp:CommandField>
+                    <asp:BoundField DataField="ProductName" HeaderText="Product"></asp:BoundField>
+                    <asp:BoundField DataField="SupplierID" HeaderText="Supplier"></asp:BoundField>
+                    <asp:BoundField DataField="CategoryID" HeaderText="Category"></asp:BoundField>
+                    <asp:BoundField DataField="QuantityPerUnit" HeaderText="Qty Per Unit"></asp:BoundField>
+                    <asp:BoundField DataField="MinimumOrderQuantity" HeaderText="Min Order Qty"></asp:BoundField>
+                    <asp:BoundField DataField="UnitPrice" HeaderText="Unit Price" DataFormatString="{0:c}"></asp:BoundField>
+                    <asp:BoundField DataField="UnitsOnOrder" HeaderText="On Order"></asp:BoundField>
+                    <asp:CheckBoxField DataField="Discontinued" HeaderText="Discontinued"></asp:CheckBoxField>
                 </Columns>
             </asp:GridView>
 

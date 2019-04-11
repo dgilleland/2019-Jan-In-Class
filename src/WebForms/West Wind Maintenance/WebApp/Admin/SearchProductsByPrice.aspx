@@ -14,10 +14,14 @@
                 <asp:TextBox ID="MaxPrice" runat="server" Text="150" />
             </fieldset>
             <hr />
+            <div>
+                <asp:Label ID="MessageLabel" runat="server" />
+            </div>
             <asp:GridView ID="ProductsGridView" runat="server"
                 AutoGenerateColumns="False" DataSourceID="ProductsDataSource"
                 DataKeyNames="ProductID" CssClass="table table-condensed table-hover" AllowPaging="True"
-                ItemType="WestWindModels.Product">
+                ItemType="WestWindModels.Product"
+                OnSelectedIndexChanged="ProductsGridView_SelectedIndexChanged">
                 <Columns>
                     <asp:CommandField ShowSelectButton="True"></asp:CommandField>
                     <asp:BoundField DataField="ProductName" HeaderText="Product"></asp:BoundField>

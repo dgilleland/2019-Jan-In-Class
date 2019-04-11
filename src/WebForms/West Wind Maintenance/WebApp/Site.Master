@@ -12,7 +12,7 @@
         <%: Scripts.Render("~/bundles/modernizr") %>
     </asp:PlaceHolder>
 
-    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <webopt:BundleReference runat="server" Path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 </head>
@@ -55,7 +55,13 @@
                         <li><a runat="server" href="~/Admin/AddEditSupplier.aspx">Manage Suppliers</a></li>
                         <li><a runat="server" href="~/Admin/AddEditProduct.aspx">Manage Products</a></li>
                         <li><a runat="server" href="~/Admin/AddEditOrder.aspx">Manage Orders</a></li>
-                        <li><a runat="server" href="~/Admin/SearchProducts.aspx">Search Products</a></li>
+                        <li>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Search <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a runat="server" href="~/Admin/SearchProducts.aspx">Search Products</a></li>
+                                <li><a runat="server" href="~/Admin/SearchProductsByPrice.aspx">Search Products by Price</a></li>
+                            </ul>
+                        </li>
                         <li><a runat="server" href="~/About">About</a></li>
                         <li><a runat="server" href="~/Contact">Contact</a></li>
                     </ul>

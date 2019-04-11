@@ -16,17 +16,27 @@
             <hr />
             <asp:GridView ID="ProductsGridView" runat="server"
                 AutoGenerateColumns="False" DataSourceID="ProductsDataSource"
-                DataKeyNames="ProductID" CssClass="table table-condensed table-hover" AllowPaging="True">
+                DataKeyNames="ProductID" CssClass="table table-condensed table-hover" AllowPaging="True"
+                ItemType="WestWindModels.Product">
                 <Columns>
                     <asp:CommandField ShowSelectButton="True"></asp:CommandField>
                     <asp:BoundField DataField="ProductName" HeaderText="Product"></asp:BoundField>
-                    <asp:BoundField DataField="SupplierID" HeaderText="Supplier"></asp:BoundField>
+                    <asp:TemplateField HeaderText="Supplier">
+                        <ItemTemplate>
+                            <asp:DropDownList ID="SupplierDropDown" runat="server"
+                                DataSourceID="SupplierDataSource"
+                                DataTextField="CompanyName" DataValueField="SupplierID"
+                                SelectedValue="<%# Item.SupplierID %>"
+                                Enabled="false"></asp:DropDownList>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+
                     <asp:BoundField DataField="CategoryID" HeaderText="Category"></asp:BoundField>
                     <asp:BoundField DataField="QuantityPerUnit" HeaderText="Qty Per Unit"></asp:BoundField>
                     <asp:BoundField DataField="MinimumOrderQuantity" HeaderText="Min Order Qty"></asp:BoundField>
                     <asp:BoundField DataField="UnitPrice" HeaderText="Unit Price" DataFormatString="{0:c}"></asp:BoundField>
                     <asp:BoundField DataField="UnitsOnOrder" HeaderText="On Order"></asp:BoundField>
-                    <asp:CheckBoxField DataField="Discontinued" HeaderText="Discontinued"></asp:CheckBoxField>
+                    <asp:CheckBoxField DataField="Discontinued" HeaderText="Discontinued" Text="Is Discontinued"></asp:CheckBoxField>
                 </Columns>
             </asp:GridView>
 
@@ -36,6 +46,10 @@
                     <asp:ControlParameter ControlID="MaxPrice" PropertyName="Text" Name="maxValue" Type="Decimal"></asp:ControlParameter>
                 </SelectParameters>
             </asp:ObjectDataSource>
+
+            <asp:ObjectDataSource ID="SupplierDataSource" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="ListSuppliers" TypeName="WestWindSystem.BLL.SupplierController"></asp:ObjectDataSource>
+
+            <asp:ObjectDataSource ID="CategoryDataSource" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="ListCategories" TypeName="WestWindSystem.BLL.CategoryController"></asp:ObjectDataSource>
         </div>
     </div>
     <link href="../Content/bootwrap-freecode.css" rel="stylesheet" />

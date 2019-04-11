@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using WestWindModels;
 using WestWindSystem.DAL;
@@ -7,8 +8,10 @@ using WestWindSystem.DataModels;
 
 namespace WestWindSystem.BLL
 {
+    [DataObject]
     public class CategoryController
     {
+        [DataObjectMethod(DataObjectMethodType.Select)]
         public List<Category> ListCategories()
         {
             using (var context = new WestWindContext())

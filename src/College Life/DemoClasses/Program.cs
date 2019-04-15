@@ -50,7 +50,10 @@ namespace DemoClasses
         private Person GetPersonData()
         {
             return new Person
-            {
+            {   // This is an Initializer List. It's where you set
+                // values to public properties of the class
+                // when the object is created, but AFTER the
+                // constructor runs.
                 FirstName = Prompt("Enter a first Name: "),
                 LastName = Prompt("Enter a last Name: "),
                 DateOfBirth = PromptDate("Enter your birthdate: ", 18)
@@ -90,6 +93,12 @@ namespace DemoClasses
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime DateOfBirth { get; set; }
+
+        //public Person(string givenName, string surname, DateTime birthdate)
+        //{
+        //    FirstName = givenName;
+
+        //}
 
         // Override the default behaviour of .ToString()
         public override string ToString()

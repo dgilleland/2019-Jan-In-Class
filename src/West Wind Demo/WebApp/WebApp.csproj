@@ -388,6 +388,7 @@
     <Compile Include="Admin\ManageProductCatalog.aspx.designer.cs">
       <DependentUpon>ManageProductCatalog.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\Security\SecurityController.cs" />
     <Compile Include="Admin\Security\SecurityDbContextInitializer.cs" />
     <Compile Include="Admin\Security\Settings.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
